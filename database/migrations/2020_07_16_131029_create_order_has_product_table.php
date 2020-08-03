@@ -41,6 +41,6 @@ class CreateOrderHasProductTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_contents');
+        Schema::dropIfExists('order_has_product');
     }
 }
