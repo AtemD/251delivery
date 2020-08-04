@@ -29,6 +29,8 @@ class CreateProductHasDiscountTable extends Migration
                     ->onDelete('cascade');
 
             $table->timestamps();
+
+            $table->unique(['product_id', 'discount_id']);
         });
     }
 

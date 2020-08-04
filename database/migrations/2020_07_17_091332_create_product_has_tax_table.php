@@ -29,6 +29,8 @@ class CreateProductHasTaxTable extends Migration
                     ->onDelete('cascade');
 
             $table->timestamps();
+
+            $table->unique(['product_id', 'tax_id']);
         });
     }
 

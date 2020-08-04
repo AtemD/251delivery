@@ -31,6 +31,8 @@ class CreateOrderHasProductTable extends Migration
             $table->integer('amount')->unsigned();
             $table->string('special_request'); // special instructions to the shop or restaurant
             $table->timestamps();
+
+            $table->unique(['order_id', 'product_id']);
         });
     }
 
