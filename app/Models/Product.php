@@ -36,6 +36,12 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Discount', 'product_has_discount', 'product_id', 'discount_id');
     }
 
+    public function orders()
+    {
+        return $this->belongsToMany('App\Models\Order', 'order_has_product', 'product_id', 'order_id')
+            ->withPivot('quantity', 'amount', 'special_request')->withTimestamps();;
+    }
+
     public function getPriceAttribute() :float
     {
         return $this->base_price / 100;

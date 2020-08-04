@@ -11,10 +11,10 @@ $factory->define(Order::class, function (Faker $faker) {
         	return factory('App\User')->create()->id;
         },
         'order_type_id' => function() {
-        	return factory('App\OrderType')->create()->id;
+        	return factory('App\Models\OrderType')->create()->id;
         },
         'payment_method_id' => function() {
-        	return factory('App\PaymentMethod')->create()->id;
+        	return factory('App\Models\PaymentMethod')->create()->id;
         },
         'total_price' => $faker->randomElement([3000, 4500, 6500, 7500, 15000]),
         'delivery_address' => $faker->streetAddress,

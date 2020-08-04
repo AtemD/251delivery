@@ -14,13 +14,18 @@ class OrderHasProductTableSeeder extends Seeder
     public function run()
     {
         $orders = Order::all();
+        $shops = Shop::all();
 
-        
-        $orders->each(function($order) {
-            $shops = Shop::random();
+        $orders->each(function($order) use($shops){
+            $shop = $shops->random();
             $products = $shop->products()->get();
+            $random_products = $products->random(mt_rand(1, $products->count()));
 
-            $order->products()->attach($products->random(mt_rand(1, 8)));
+            $order->products()->attach($random_products, [
+                'quantity' => mt_rand(1, 4),
+                'amount' => 30000,
+                'special_request' => "this is my special request"
+            ]);
         });
 
     }

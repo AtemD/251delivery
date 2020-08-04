@@ -37,6 +37,7 @@ class Order extends Model
      */
     public function products()
     {
-        return $this->belongsToMany('App\Models\Product');
+        return $this->belongsToMany('App\Models\Product', 'order_has_product', 'order_id', 'product_id')
+            ->withPivot('quantity', 'amount', 'special_request')->withTimestamps();
     }
 }
