@@ -21,7 +21,7 @@ class Order extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     /**
@@ -29,7 +29,7 @@ class Order extends Model
      */
     public function orderType()
     {
-        return $this->belongsTo('App\OrderType');
+        return $this->belongsTo('App\Models\OrderType');
     }
 
     /**
@@ -37,6 +37,6 @@ class Order extends Model
      */
     public function products()
     {
-        return $this->belongsToMany('App\Product');
+        return $this->belongsToMany('App\Models\Product');
     }
 }

@@ -18,22 +18,22 @@ class Product extends Model
 
     public function shop()
     {
-        return $this->belongsTo('App\Shop');
+        return $this->belongsTo('App\Models\Shop');
     }
 
     public function section()
     {
-        return $this->belongsTo('App\Section');
+        return $this->belongsTo('App\Models\Section');
     }
 
     public function taxes()
     {
-        return $this->belongsToMany('App\Tax', 'product_has_tax', 'product_id', 'tax_id');
+        return $this->belongsToMany('App\Models\Tax', 'product_has_tax', 'product_id', 'tax_id');
     }
 
     public function discounts()
     {
-        return $this->belongsToMany('App\Discount', 'product_has_discount', 'product_id', 'discount_id');
+        return $this->belongsToMany('App\Models\Discount', 'product_has_discount', 'product_id', 'discount_id');
     }
 
     public function getPriceAttribute() :float

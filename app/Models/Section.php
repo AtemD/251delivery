@@ -8,11 +8,11 @@ class Section extends Model
 {
     public function products()
     {
-        return $this->hasMany('App\Product');
+        return $this->hasMany('App\Models\Product');
     }
 
     public function shop()
     {
-        return $this->belongsTo('App\Shop');
+        return $this->belongsTo('App\Models\Shop');
     }
 }

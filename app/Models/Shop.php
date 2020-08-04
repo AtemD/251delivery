@@ -45,42 +45,42 @@ class Shop extends Model
 
     public function cuisines()
     {
-        return $this->belongsToMany('App\Cuisine', 'shop_has_cuisine', 'shop_id', 'cuisine_id');
+        return $this->belongsToMany('App\Models\Cuisine', 'shop_has_cuisine', 'shop_id', 'cuisine_id');
     }
 
     public function products()
     {
-        return $this->hasMany('App\Product');
+        return $this->hasMany('App\Models\Product');
     }
 
     public function sections()
     {
-        return $this->hasMany('App\Section');
+        return $this->hasMany('App\Models\Section');
     }
 
     public function taxes()
     {
-        return $this->hasMany('App\Tax');
+        return $this->hasMany('App\Models\Tax');
     }
 
     public function discounts()
     {
-        return $this->hasMany('App\Discount');
+        return $this->hasMany('App\Models\Discount');
     }
 
     public function status()
     {
-        return $this->belongsTo('App\Status');
+        return $this->belongsTo('App\Models\Status');
     }
 
     public function shopType()
     {
-        return $this->belongsTo('App\ShopType');
+        return $this->belongsTo('App\Models\ShopType');
     }
 
     public function location()
     {
-        return $this->morphOne('App\Location', 'locationable');
+        return $this->morphOne('App\Models\Location', 'locationable');
     }
 
 }

@@ -11,7 +11,7 @@ class City extends Model
      */
     public function locations()
     {
-        return $this->hasMany('App\Location');
+        return $this->hasMany('App\Models\Location');
     }
 
     /**
@@ -19,6 +19,6 @@ class City extends Model
      */
     public function region()
     {
-        return $this->belongsTo('App\Region');
+        return $this->belongsTo('App\Models\Region');
     }
 }

@@ -8,6 +8,6 @@ class ShopType extends Model
 {
     public function shops()
     {
-        return $this->hasMany('App\Shop');
+        return $this->hasMany('App\Models\Shop');
     }
 }
