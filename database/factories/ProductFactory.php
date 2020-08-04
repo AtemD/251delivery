@@ -1,0 +1,34 @@
+<?php
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+use App\Models\Product;
+use Faker\Generator as Faker;
+
+$factory->define(Product::class, function (Faker $faker) {
+    return [
+        'name' => $faker->word,
+        'status'=> $faker->randomElement([Product::AVAILABLE_PRODUCT, Product::UNAVAILABLE_PRODUCT]),
+        'shop_id' => function() {
+        	return factory('App\Models\Shop')->create()->id;
+        },
+        'section_id' => function() {
+        	return factory('App\Models\Section')->create()->id;
+        },
+        'image' => $faker->randomElement([
+			'food_1.jpg',
+			'food_2.jpg',
+			'food_3.jpg',
+			'food_4.jpg',
+			'food_5.jpg',
+			'food_6.jpg',
+			'food_7.jpg',
+			'food_8.jpg',
+			'food_9.jpg',
+			'food_10.jpg',
+		]),
+        'description' => $faker->sentence,
+        'base_price' => $faker->randomElement([2000, 2500, 3000, 4000, 5500, 7000, 10000, 11000]),
+    ];
+});
+
