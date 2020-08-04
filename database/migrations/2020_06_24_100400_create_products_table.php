@@ -25,12 +25,6 @@ class CreateProductsTable extends Migration
                 ->on('shops')
                 ->onDelete('cascade');
 
-            $table->smallInteger('cuisine_id')->unsigned();
-                $table->foreign('cuisine_id')
-                    ->references('id')
-                    ->on('cuisines')
-                    ->onDelete('cascade');
-
             $table->integer('section_id')->unsigned();
                 $table->foreign('section_id')
                     ->references('id')
