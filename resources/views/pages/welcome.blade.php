@@ -21,8 +21,11 @@
                                             <label class="sr-only" for="city">Select your city</label>
                                             <select class="custom-select form-control mb-2 mr-sm-2" id="city" name="city_name" required>
                                                 <option value="" selected>Select your city...</option>
-                                                    <option value="Hawassa">Hawassa</option>
-                                                    <option value="Hawassa">Addis</option>
+                                                @forelse($cities as $city)
+                                                    <option value="{{$city->name}}">{{$city->name}}</option>
+                                                @empty
+                                                    <p>No cities yet</p>
+                                                @endforelse
                                             </select>
                 
                                             @if ($errors->has('city_name'))
