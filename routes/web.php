@@ -18,3 +18,7 @@ Route::get('/', 'PagesController@welcome')->name('pages.welcome');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Shops routes
+Route::get('/shops', 'ShopsController@index')
+    ->name('shops.index');

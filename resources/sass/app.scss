@@ -6,3 +6,25 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+a {
+    color: #565656;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #28a745;
+    text-decoration: none;
+}
+
+.shop-list .shop-item .card .card-body {
+    padding-top: 0.55rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+.shop-list .shop-item .shop-item-average-preparation-time, .shop-item-rating-number, .shop-item-shop-type {
+    background-color: $light-grey;
+}
