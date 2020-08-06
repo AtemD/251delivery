@@ -14,7 +14,7 @@
                 <div class="col-md-8 offset-md-2">
                     <div class="card">
                         <div class="card-body">
-                            <form class="form" role="form" method="GET" class="form-control" action="#">
+                            <form class="form" role="form" method="GET" class="form-control" action="{{ route('shops.index') }}">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group{{ $errors->has('city_name') ? ' has-error' : '' }}">
