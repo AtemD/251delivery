@@ -15,7 +15,6 @@ class ShopsController extends Controller
      */
     public function index(Request $request)
     {
-        // Validate the data
 		$this->validate($request, array(
 			'city_name' => 'required|exists:cities,name',
 		));
@@ -24,11 +23,11 @@ class ShopsController extends Controller
         $city_id = City::where('name', '=', $city_name)->pluck('id')->first();
 
         $shops = Shop::whereHas('location', function($query) use($city_id){
-                        $query->where('city_id', '=', $city_id);
-                    })->with([
-                        'cuisines',
-                        'shopType'
-                    ]);
+                    $query->where('city_id', '=', $city_id);
+                })->with([
+                    'cuisines',
+                    'shopType'
+                ]);
 
         $shops = $shops->paginate(15)->appends([
             'city_name' => $request->input('city_name'),
@@ -64,9 +63,18 @@ class ShopsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Shop $shop)
     {
-        //
+        $shop = $shop->load([
+            'shopType',
+            'location',
+            'cuisines',
+            'sections.products',
+            'location.city.region.country',
+        ]);
+
+        // dd($shop->toArray());
+        return view('shops.show', compact('shop'));
     }
 
     /**

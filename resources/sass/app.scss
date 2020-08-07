@@ -7,6 +7,10 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// FontAwesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
 a {
     color: #565656;
@@ -18,6 +22,21 @@ a:hover {
     text-decoration: none;
 }
 
+img {
+    width: 100%;
+}
+
+.list-group {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.list-group > li {
+    float: left;
+    margin-right: 5px;
+}
+
+// Shop List
 .shop-list .shop-item .card .card-body {
     padding-top: 0.55rem;
     padding-left: 0.25rem;
@@ -27,4 +46,34 @@ a:hover {
 
 .shop-list .shop-item .shop-item-average-preparation-time, .shop-item-rating-number, .shop-item-shop-type {
     background-color: $light-grey;
+}
+
+// Shop Details
+.shop-item-details .shop-item-header .shop-item-header-shop-type {
+    background-color: $light-grey;
+}
+
+
+/* Shop section */
+.shop-item-section .shop-item-product .shop-item-product-details{
+    padding-top: 0.25rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+.shop-item-section .shop-item-product .shop-item-product-details .shop-item-product-title {
+    margin-bottom: 1px;
+}
+
+.shop-item-section .shop-item-product .card {
+    height: 125px;
+}
+
+.shop-item-section .shop-item-product .shop-item-product-price {
+    background-color: #e7ebef;
+}
+
+.shop-item-product-status .shop-item-product-status-reason {
+    border: 1px solid #6c757d;
 }

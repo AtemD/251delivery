@@ -10,7 +10,7 @@
 				<div class="shop-item">
 					<a href="{{$shop->path()}}">
 						<div class="card mb-3">
-							<img src="/uploads/shops/banner_images/{{$shop->banner_image}}" height="180" width="40" class="card-img-top" alt="...">
+							<img src="{{$shop->image_path}}" height="180" width="40" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-title shop-item-title">
 									{!! mb_substr($shop->name, 0,35) !!}

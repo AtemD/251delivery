@@ -42,12 +42,12 @@ class Product extends Model
             ->withPivot('quantity', 'amount', 'special_request')->withTimestamps();;
     }
 
-    public function getPriceAttribute() :float
+    public function getPriceAttribute()
     {
         return $this->base_price / 100;
     }
 
-    public function getImagePathAttribute() :string
+    public function getImagePathAttribute()
     {
         return "/uploads/shops/products/{$this->image}";
     }

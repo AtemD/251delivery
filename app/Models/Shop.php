@@ -28,6 +28,16 @@ class Shop extends Model
         return "/shops/{$this->id}";
     }
 
+    /**
+     * Get a string path for the shop
+     * 
+     * @return string
+     */
+    public function getBannerImagePathAttribute()
+    {
+        return "/uploads/shops/banner_images/{$this->banner_image}";
+    }
+
     public function isVerified()
     {
         return $this->account_status == Shop::VERIFIED_SHOP;
