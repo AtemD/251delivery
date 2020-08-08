@@ -48,7 +48,7 @@
             </ul>
         </div>
 
-        @yield('nav-cart')
+        @yield('cart-nav')
 
     </div>
 </nav>

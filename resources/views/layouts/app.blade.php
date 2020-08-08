@@ -7,6 +7,7 @@
     <body>
         <div id="app">
             @include('includes.nav')
+            @yield('cart-bottom')
             <main class="pb-4">
                 @yield('content')
             </main>
