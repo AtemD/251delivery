@@ -2,7 +2,21 @@
     <div class="shop-item-section" id="{{$section->name}}">
         <h3 class="mt-4 mb-2">{{$section->name}}</h3>
         <div class="row">
-            @include('shops.includes.product')
+
+            @forelse($section->products as $product)
+
+                <product-component :cart="cart" :product="{{$product}}">
+                </product-component>
+
+            @empty 
+                <div class="alert alert-info" role="alert">
+                    No products to show for this section
+                </div>
+            @endforelse
+
+
+
+
         </div>
     </div>
 @empty

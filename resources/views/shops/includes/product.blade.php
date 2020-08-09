@@ -35,7 +35,6 @@
     <!-- /.col -->
 
     <!-- Modal -->
-    @include('shops.includes.product-modal')
 
 @empty 
     <div class="alert alert-info" role="alert">

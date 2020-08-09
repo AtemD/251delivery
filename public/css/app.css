@@ -17064,12 +17064,17 @@ img {
   margin-bottom: 1px;
 }
 
-.shop-item-section .shop-item-product .card {
-  height: 125px;
+.shop-item-product-add-to-cart .product-cart {
+  border-top: 1px solid #00000020;
+  border-left: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
 }
 
-.shop-item-section .shop-item-product .shop-item-product-price {
-  background-color: #e7ebef;
+.shop-item-section .shop-item-product .shop-item-product-add {
+  padding-top: 25px;
+  padding-bottom: 4px;
+  padding-right: 4px;
 }
 
 .shop-item-product-status .shop-item-product-status-reason {
