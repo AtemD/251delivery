@@ -28,12 +28,12 @@
         </div>
 
         
-
-        <div class="row">
+        
+        {{-- <div class="row">
             <div class="col-md-12">
                 @include('shops.includes.cart-details')
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 @endsection

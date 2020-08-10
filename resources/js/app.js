@@ -9,6 +9,10 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.bus = new Vue();
 
+
+import Swal from 'sweetalert2';
+window.swal = Swal;
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -24,6 +28,7 @@ window.bus = new Vue();
 Vue.component('product-modal-component', require('./components/ProductModalComponent.vue').default);
 Vue.component('cart-count-component', require('./components/CartCountComponent.vue').default);
 Vue.component('product-component', require('./components/ProductComponent.vue').default);
+Vue.component('cart-details-component', require('./components/CartDetailsComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -32,7 +37,8 @@ Vue.component('product-component', require('./components/ProductComponent.vue').
 const app = new Vue({
     el: '#app',
     data: {
-        cart: []
+        cart: [],
+        proceedWithAddToCart: false,
     },
     created(){
         this.getCart();
@@ -49,26 +55,77 @@ const app = new Vue({
     computed: {
         cartTotal(){
             return this.cart.reduce((total, product) => {
-                return total + product.quantity * product.price;
+                return total + product.qty * product.price;
             }, 0);
         },
         totalItems(){
             return this.cart.reduce((total, product) => {
-                return total + product.quantity;
+                return total + product.qty;
             }, 0);
         }
     },
     methods: {
         getCart () {
             this.cart=[];
-            // if (localStorage && localStorage.getItem('cart')) {
-            //     this.cart = JSON.parse(localStorage.getItem('cart'));
-
-            // } else {
-            //     this.cart = [];
-            // }
+            if (localStorage && localStorage.getItem('cart')) {
+                this.cart = JSON.parse(localStorage.getItem('cart'));
+                // window.localStorage.clear();
+            } else {
+                this.cart = [];
+            }
         },
         addToCart(product){
+
+            const hasSwitchedShop = this.userHasSwitchedShop(product);
+
+            if(hasSwitchedShop === true){
+                console.log('hit product not from the same shop');
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                      confirmButton: 'btn btn-success',
+                      cancelButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                  });
+                  
+                swalWithBootstrapButtons.fire({
+                    title: 'You Switched to Another Shop',
+                    text: "This action will create a new shopping cart and delete the current one!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'No, cancel!',
+                    cancelButtonText: 'Yes, create new cart!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+
+                        this.proceedWithAddToCart = false;
+
+                        swalWithBootstrapButtons.fire(
+                            'OK, first go to checkout',
+                            'Once you checkout, you can come back and order from here :)',
+                            'success'
+                        );
+
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        
+                        localStorage.clear();
+                        this.cart = [];
+                        this.proceedWithAddToCart = true;
+
+                        swalWithBootstrapButtons.fire(
+                            'Successfully Switched to Another Shop',
+                            'Your new cart has been created. You can now place a new order :)',
+                            'success'
+                        );
+                    }
+                });
+            } else {
+                this.proceedWithAddToCart = true;
+            }
+
+            if(this.proceedWithAddToCart === false) return;
+
             const matchingProductIndex = this.cart.findIndex((item) => {
                 return item.id === product.id;
             });
@@ -78,7 +135,6 @@ const app = new Vue({
             } else {
                 product.qty = 1;
                 this.cart.push(product);
-
             }
 
             localStorage.setItem('cart', JSON.stringify(this.cart));
@@ -86,7 +142,7 @@ const app = new Vue({
 
         removeFromCart(product){
             const matchingProductIndex = this.cart.findIndex((item) => {
-                return item.id == product.id;
+                return item.id === product.id;
             });
 
             if (this.cart[matchingProductIndex].qty <= 1) {
@@ -96,6 +152,16 @@ const app = new Vue({
             }
 
             localStorage.setItem('cart', JSON.stringify(this.cart));
+        },
+
+        userHasSwitchedShop(product){
+            if (this.cart.length) {
+                // cart is not empty
+                return product.shop_id != this.cart[0].shop_id;
+            } else {
+                // Cart is empty
+                return false;
+            }
         }
         
 

@@ -34,7 +34,7 @@
                                             
                                         <div class="d-flex justify-content-end">
                                             <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-outline-secondary mr-2" disabled>Add for {{productTotalPrice}}</button>
+                                                <button type="button" class="btn btn-outline-success mr-2" disabled>Added for {{productTotalPrice}}</button>
                                                 <button type="button" @click="removeFromCart" class="btn btn-outline-danger mr-2">-</button>
                                                 <button type="button" class="btn" disabled>{{productQuantity}}</button>
                                                 <button type="button" @click="addToCart" class="btn btn-outline-primary ml-2">+</button>
@@ -58,6 +58,7 @@
 
         mounted() {
             console.log('Component mounted.')
+            this.determineAddingToCartState();
         },
         data(){
             return {
@@ -74,19 +75,25 @@
                     bus.$emit('remove-from-cart',this.product);
                 } else {
                     bus.$emit('remove-from-cart',this.product);
-                    this.findProductQuantity();
+                    this.findProductQuantityInCart();
                 }
             },
             addToCart(){
                 bus.$emit('add-to-cart',this.product);
-                this.findProductQuantity();
-                this.addingToCart = true;
+                this.findProductQuantityInCart();
+
+                // If there is a matching product index in the cart,
+                // then the product was added, thus we can set addingToCart to true
+                const matchingProductIndex = this.findMatchingProductIndex();
+                
+                if(matchingProductIndex > -1){
+                    if (this.addingToCart === false) this.addingToCart = true;
+                }
+                
             },
 
-            findProductQuantity(){
-                const matchingProductIndex = this.cart.findIndex((item) => {
-                    return item.id === this.product.id;
-                });
+            findProductQuantityInCart(){
+                const matchingProductIndex = this.findMatchingProductIndex();
 
                 if (matchingProductIndex > -1) {
                     this.productQuantity = this.cart[matchingProductIndex].qty;
@@ -95,7 +102,26 @@
                     this.productQuantity = 1;
                     this.productTotalPrice = this.product.price;
                 }
+            },
+
+            findMatchingProductIndex(){
+                const matchingProductIndex = this.cart.findIndex((item) => {
+                    return item.id === this.product.id;
+                });
+
+                return matchingProductIndex;
+            },
+
+            determineAddingToCartState(){
+                const matchingProductIndex = this.findMatchingProductIndex();
+
+                if (matchingProductIndex > -1) {
+                    this.addingToCart = true;
+                } else {
+                    this.addingToCart = false;
+                }
             }
+
         }
     }
 </script>

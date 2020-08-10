@@ -2,7 +2,7 @@
     <div class="container">
         <b type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#cartDetail">
             <i class="nav-icon fas fa-2x fa-shopping-cart">
-                @include('shops.includes.cart-count')
+                <cart-count-component :cartcount="totalItems" ></cart-count-component>
             </i>
         </b>
     </div>

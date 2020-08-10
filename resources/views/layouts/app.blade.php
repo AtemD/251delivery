@@ -11,6 +11,9 @@
             <main class="pb-4">
                 @yield('content')
             </main>
+
+            <cart-details-component :cart="cart" :carttotal="cartTotal" :totalitems="totalItems"></cart-details-component>
+
             @include('includes.footer')
         </div>
     </body>
