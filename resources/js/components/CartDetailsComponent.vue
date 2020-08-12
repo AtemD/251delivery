@@ -35,7 +35,7 @@
                         <table v-else>
                             <thead>
                                 <tr>
-                                    <th>No Item In card, Please order an item in the shop</th>
+                                    <th>No Item In cart, Please order an item in the shop</th>
                                 </tr>
                             </thead>
                         </table>
