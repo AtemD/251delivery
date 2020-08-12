@@ -9,7 +9,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive table-bordered">
                         <table v-if="totalitems > 0" class="table table-hover">
                             <thead>
                                 <tr>

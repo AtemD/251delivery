@@ -41058,7 +41058,7 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
-            _c("div", { staticClass: "table-responsive" }, [
+            _c("div", { staticClass: "table-responsive table-bordered" }, [
               _vm.totalitems > 0
                 ? _c("table", { staticClass: "table table-hover" }, [
                     _vm._m(1),
