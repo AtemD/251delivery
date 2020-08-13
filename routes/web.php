@@ -19,8 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Shops routes
+// Shops Routes
 Route::get('/shops', 'ShopsController@index')
     ->name('shops.index');
 Route::get('/shops/{shop}', 'ShopsController@show')
     ->name('shops.show');
+
+// Company Admin Routes
+Route::get('/dashboard/company/home', 'CompanyController@index')
+    ->name('dashboard.company.home');
