@@ -14,6 +14,7 @@ class Order extends Model
     const READY_ORDER = 'ready';
     const DELIVERING_ORDER = 'delivering';
     const COMPLETED_ORDER = 'completed';
+    const REJECTED_ORDER = 'rejected';
     const CANCELLED_ORDER = 'cancelled';
 
     /**
