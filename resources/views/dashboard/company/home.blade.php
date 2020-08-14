@@ -30,7 +30,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>600000</h3>
+                <h3>{{$users_count}}</h3>
 
                 <p>Users</p>
               </div>
@@ -45,7 +45,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>18977</h3>
+                <h3>{{$shops_count}}</h3>
 
                 <p>Shops</p>
               </div>
@@ -75,7 +75,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>2374577574</h3>
+                <h3>{{$orders_count->total}}</h3>
 
                 <p>All Orders</p>
               </div>
@@ -90,15 +90,15 @@
         <!-- /.row -->
         <!-- Main row -->
 
-        <h5 class="mt-4 mb-2">Todays Order Statistics</h5>
+        <h5 class="mt-4 mb-2">All Order Statistics</h5>
         <div class="row">
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
               <span class="info-box-icon bg-info"><i class="fas fa-paper-plane"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">New</span>
-                <span class="info-box-number">855758</span>
+                <span class="info-box-text">Pending</span>
+                <span class="info-box-number">{{$orders_count->pending}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -110,8 +110,8 @@
               <span class="info-box-icon bg-success"><i class="fas fa-check-square"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Completed</span>
-                <span class="info-box-number">7474</span>
+                <span class="info-box-text">Approved</span>
+                <span class="info-box-number">{{$orders_count->approved}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -123,8 +123,21 @@
               <span class="info-box-icon bg-warning"><i class="fas fa-spinner"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">In Progress</span>
-                <span class="info-box-number">7587</span>
+                <span class="info-box-text">Ready</span>
+                <span class="info-box-number">{{$orders_count->ready}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-primary"><i class="fas fa-truck"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Delivering</span>
+                <span class="info-box-number">{{$orders_count->delivering}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -137,7 +150,20 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Cancelled</span>
-                <span class="info-box-number">3</span>
+                <span class="info-box-number">{{$orders_count->cancelled}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-success"><i class="fas fa-check-double"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Complete</span>
+                <span class="info-box-number">{{$orders_count->completed}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -148,7 +174,7 @@
         <!-- /.row (main row) -->
 
         <!-- Latest Orders --->
-        <h5 class="mt-4 mb-2">Latest Orders (total =  253 )</h5>
+        <h5 class="mt-4 mb-2">Latest Orders (total =  {{$todays_orders_count}} )</h5>
         <div class="row">
           <div class="col-md-12">
             <div class="card">
@@ -172,16 +198,35 @@
                     </tr>
                     </thead>
                     <tbody>
+                        @forelse($todays_orders as $order)
                         <tr>
-                          <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                          <td>Pasta betikl (X2), Coke(X1)</td>
-                          <td><span class="badge badge-success">Completed</span></td>
-                          <td>
-                            <button type="button" class="btn btn-sm btn-outline-info">
-                              <i class="fas fa-info"></i>
-                            </button>
-                          </td>
+                            <td><a href="pages/examples/invoice.html">{{$order->id}}</a></td>
+                            <td>
+                                @forelse($order->products as $product)
+                                    {{$product->name}} (x{{$product->pivot->quantity}}),
+                                    <br>
+                                @empty 
+                                No product ordered
+                                @endforelse
+                            </td>
+                            <td><span class="badge badge-success">{{$order->status}}</span></td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-info">
+                                    <i class="fas fa-info"></i>
+                                </button>
+                            </td>
                         </tr>
+                      @empty
+                        <div class="row my-2">
+                          <div class="col-md-10 offset-1">
+                            <div class="alert alert-info alert-dismissible">
+                              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                              <h5><i class="icon fas fa-info"></i> No Orders Yet For Today!</h5>
+                              <small>Orders may be coming in any moment from now</small>
+                            </div>
+                          </div>
+                        </div>
+                      @endforelse
 
                     </tbody>
                   </table>
@@ -191,7 +236,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                    llk
+                    {{ $todays_orders->links() }}
                 </ul>
               </div>
               <!-- /.card-footer -->
