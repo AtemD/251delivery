@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Company;
 
 use App\Models\Shop;
 use App\Models\ShopType;
+use App\Models\ShopAccountStatus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,15 +17,18 @@ class CompanyShopsController extends Controller
      */
     public function index()
     {
+        $shop_types = ShopType::all();
+        $shop_account_statuses = ShopAccountStatus::all();
+
         $shops = Shop::with([
             'shopType',
+            'shopAccountStatus',
         ])->paginate(15);
-
-        $shop_types = ShopType::paginate(10);
 
         return view('dashboard/company/shops/index', compact([
             'shops',
-            'shop_types'
+            'shop_types',
+            'shop_account_statuses'
         ]));
     }
 

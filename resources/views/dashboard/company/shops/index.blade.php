@@ -55,7 +55,7 @@
                                 <th>Contact</th>
                                 <th>Type</th>
                                 <th>Account Status</th>
-                                <th>Availablity Status</th>
+                                <th>Availablity</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -69,8 +69,8 @@
                                             {{$shop->email}}
                                         </td>
                                         <td>{{$shop->shopType->name}}</td>
-                                        <td><span class="badge badge-success">{{$shop->account_status}}</span></td>
-                                        <td><span class="badge badge-primary">{{$shop->availability_status}}</span></td>
+                                        <td><span class="badge badge-{{$shop->ShopAccountStatus->color}}">{{$shop->shopAccountStatus->name}}</span></td>
+                                        <td><span class="badge badge-{{$shop->is_available == 1 ? 'primary': 'secondary'}}">{{$shop->is_available == 1 ? 'Available': 'Unavailable'}}</span></td>
                                         <td class="project-actions">
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-shop-{{$shop->id}}">
                                                 <i class="fas fa-pencil-alt">
@@ -109,11 +109,17 @@
                                                     </div>
 
                                                     <div class="col-md-12">
+                                                        <!-- select -->
                                                         <div class="form-group">
-                                                            <label>Phone Number</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Phone Number">
+                                                            <label>Shop Account Status</label>
+                                                            <select class="form-control">
+                                                                @foreach($shop_account_statuses as $account_status)
+                                                                    <option>{{ $account_status->name }}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                     </div>
+
                                                 </div>
 
                                             </div>
