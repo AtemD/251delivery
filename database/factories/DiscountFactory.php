@@ -13,5 +13,6 @@ $factory->define(Discount::class, function (Faker $faker) {
         'shop_id' => function () {
             return factory('App\Models\Shop')->create()->id;
         },
+        'is_enabled' => rand(0,1) == 1
     ];
 });

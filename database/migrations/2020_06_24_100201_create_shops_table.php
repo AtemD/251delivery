@@ -31,8 +31,8 @@ class CreateShopsTable extends Migration
             $table->string('banner_image');
             $table->string('logo_image');
             $table->string('average_preparation_time');
+            $table->boolean('is_available')->default(0);
             $table->string('account_status')->default(Shop::UNVERIFIED_SHOP);
-            $table->string('availability_status')->default(Shop::UNAVAILABLE_SHOP);
 
             $table->timestamps();
         });

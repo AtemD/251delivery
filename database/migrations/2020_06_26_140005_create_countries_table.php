@@ -19,6 +19,7 @@ class CreateCountriesTable extends Migration
             $table->string('abbreviation');
             $table->string('currency_name');
             $table->string('currency_abbreviation');
+            $table->boolean('is_enabled')->default(0);
             $table->timestamps();
         });
     }

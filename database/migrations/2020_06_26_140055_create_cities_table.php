@@ -25,6 +25,7 @@ class CreateCitiesTable extends Migration
                 ->on('regions')
                 ->onDelete('cascade');
 
+            $table->boolean('is_enabled')->default(0);
             $table->timestamps();
         });
     }

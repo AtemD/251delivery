@@ -17,6 +17,7 @@ class CreateShopTypesTable extends Migration
             $table->tinyIncrements('id');
             $table->string('name');
             $table->string('description');
+            $table->boolean('is_enabled')->default(0);
             $table->timestamps();
         });
     }

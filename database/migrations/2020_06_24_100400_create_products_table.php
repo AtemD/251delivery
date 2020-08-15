@@ -34,6 +34,7 @@ class CreateProductsTable extends Migration
             $table->string('image');
             $table->text('description');
             $table->integer('base_price');
+            $table->boolean('is_available')->default(0);
 
             // $table->tinyInteger('available_quantity')->unsigned();
             

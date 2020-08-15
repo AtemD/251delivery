@@ -23,7 +23,8 @@ class CreateRegionsTable extends Migration
                 ->references('id')
                 ->on('countries')
                 ->onDelete('cascade');
-
+            
+            $table->boolean('is_enabled')->default(0);
             $table->timestamps();
         });
     }

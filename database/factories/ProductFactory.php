@@ -29,6 +29,7 @@ $factory->define(Product::class, function (Faker $faker) {
 		]),
         'description' => $faker->sentence,
         'base_price' => $faker->randomElement([2000, 2500, 3000, 4000, 5500, 7000, 10000, 11000]),
+        'is_available' => rand(0,1) == 1
     ];
 });
 

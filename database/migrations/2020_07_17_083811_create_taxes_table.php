@@ -24,7 +24,8 @@ class CreateTaxesTable extends Migration
                     ->references('id')
                     ->on('shops')
                     ->onDelete('cascade');
-                    
+              
+            $table->boolean('is_enabled')->default(0);      
             $table->timestamps();
         });
     }

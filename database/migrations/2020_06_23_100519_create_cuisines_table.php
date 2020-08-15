@@ -17,6 +17,7 @@ class CreateCuisinesTable extends Migration
             $table->smallIncrements('id');
             $table->string('name');
             $table->text('description');
+            $table->boolean('is_enabled')->default(0);
             $table->timestamps();
         });
     }

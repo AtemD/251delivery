@@ -11,5 +11,6 @@ $factory->define(Country::class, function (Faker $faker) {
         'abbreviation' => $faker->stateAbbr,
         'currency_name' => 'Ethiopian Birr',
         'currency_abbreviation' => 'ETB',
+        'is_enabled' => rand(0,1) == 1
     ];
 });
