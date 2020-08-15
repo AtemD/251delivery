@@ -17,6 +17,7 @@ class CreateShopAccountStatusesTable extends Migration
             $table->tinyIncrements('id');
             $table->string('name');
             $table->string('description');
+            $table->string('color');
             $table->timestamps();
         });
     }

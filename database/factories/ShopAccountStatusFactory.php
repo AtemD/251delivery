@@ -9,5 +9,6 @@ $factory->define(ShopAccountStatus::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->sentence,
+        'color' => $faker->word
     ];
 });
