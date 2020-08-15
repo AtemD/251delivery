@@ -9,5 +9,6 @@ $factory->define(Cuisine::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->sentence,
+        'is_enabled' => rand(0,1) == 1
     ];
 });

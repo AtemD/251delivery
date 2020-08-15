@@ -12,6 +12,7 @@ $factory->define(City::class, function (Faker $faker) {
         'description' => $faker->sentence,
         'region_id' => function() {
         	return factory('App\Models\Region')->create()->id;
-        }
+        },
+        'is_enabled' => rand(0,1) == 1
     ];
 });

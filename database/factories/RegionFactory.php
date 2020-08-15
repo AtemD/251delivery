@@ -11,6 +11,7 @@ $factory->define(Region::class, function (Faker $faker) {
         'abbreviation' => $faker->stateAbbr,
         'country_id' => function() {
         	return factory('App\Models\Country')->create()->id;
-        }
+        },
+        'is_enabled' => rand(0,1) == 1
     ];
 });

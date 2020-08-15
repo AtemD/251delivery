@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCountriesTable extends Migration
+class CreateShopAccountStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('countries', function (Blueprint $table) {
-            $table->smallIncrements('id');
+        Schema::create('shop_account_statuses', function (Blueprint $table) {
+            $table->tinyIncrements('id');
             $table->string('name');
-            $table->string('abbreviation');
-            $table->string('currency_name');
-            $table->string('currency_abbreviation');
-            $table->boolean('is_enabled')->default(0);
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('shop_account_statuses');
     }
 }

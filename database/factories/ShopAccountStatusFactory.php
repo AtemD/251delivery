@@ -2,13 +2,12 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\OrderType;
+use App\Models\ShopAccountStatus;
 use Faker\Generator as Faker;
 
-$factory->define(OrderType::class, function (Faker $faker) {
+$factory->define(ShopAccountStatus::class, function (Faker $faker) {
     return [
-        'name' => $faker->word, 
+        'name' => $faker->word,
         'description' => $faker->sentence,
-        'is_enabled' => rand(0,1) == 1
     ];
 });

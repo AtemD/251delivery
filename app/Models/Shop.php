@@ -78,14 +78,14 @@ class Shop extends Model
         return $this->hasMany('App\Models\Discount');
     }
 
-    public function status()
-    {
-        return $this->belongsTo('App\Models\Status');
-    }
-
     public function shopType()
     {
         return $this->belongsTo('App\Models\ShopType');
+    }
+
+    public function shopAccountStatus()
+    {
+        return $this->belongsTo('App\Models\ShopAccountStatus');
     }
 
     public function location()
