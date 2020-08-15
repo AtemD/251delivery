@@ -34,7 +34,9 @@ $factory->define(Shop::class, function (Faker $faker) {
 			'banner_image_13.jpg',
 		]),
 		'average_preparation_time' => $faker->randomElement(['15-20', '20-30', '30-40', '40-50']),
-		'account_status' => $faker->randomElement([Shop::VERIFIED_SHOP, Shop::UNVERIFIED_SHOP, Shop::DEACTIVATED_SHOP]),
+		'shop_account_status_id' => function() {
+    		return factory('App\Models\ShopAccountStatus')->create()->id;
+    	},
         'is_available' => rand(0,1) == 1
     ];
 });
