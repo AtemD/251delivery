@@ -4,6 +4,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-<title>EthioDelivery | Dashboard</title>
+<title>251Delivery | Dashboard</title>
 
 <link rel="stylesheet" href="/css/app.css">

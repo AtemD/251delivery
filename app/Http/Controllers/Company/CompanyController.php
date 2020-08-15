@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Company;
 
 use App\User;
 use App\Models\Shop;
 use App\Models\Order;
 use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,6 +19,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
+
         $shops_count = Shop::count();
         $users_count = User::count();
 

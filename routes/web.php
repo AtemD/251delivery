@@ -26,5 +26,8 @@ Route::get('/shops/{shop}', 'ShopsController@show')
     ->name('shops.show');
 
 // Company Admin Routes
-Route::get('/dashboard/company/home', 'CompanyController@index')
-    ->name('dashboard.company.home');
+Route::get('/dashboard/company/home', 'Company\CompanyController@index')
+    ->name('company.home');
+
+Route::get('/dashboard/company/shops', 'Company\CompanyShopsController@index')
+->name('company.shops.index');
