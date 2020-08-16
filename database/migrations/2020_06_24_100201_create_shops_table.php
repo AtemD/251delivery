@@ -33,12 +33,19 @@ class CreateShopsTable extends Migration
             $table->string('average_preparation_time');
             $table->boolean('is_available')->default(0);
 
-            $table->tinyInteger('shop_account_status_id')->unsigned();
+            $table->tinyInteger('shop_account_status_id')->nullable()->unsigned();
                 $table->foreign('shop_account_status_id')
                     ->references('id')
                     ->on('shop_account_statuses')
                     ->onDelete('cascade');
 
+            $table->bigInteger('status_by')->nullable()->unsigned();
+                $table->foreign('status_by')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('cascade');
+        
+            $table->timestamp('status_date')->nullable();
             $table->timestamps();
         });
     }
