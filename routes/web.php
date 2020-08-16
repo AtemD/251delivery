@@ -29,5 +29,10 @@ Route::get('/shops/{shop}', 'ShopsController@show')
 Route::get('/dashboard/company/home', 'Company\CompanyController@index')
     ->name('company.home');
 
+// Company Shops
 Route::get('/dashboard/company/shops', 'Company\CompanyShopsController@index')
 ->name('company.shops.index');
+
+// Company Users
+Route::get('/dashboard/company/users', 'Company\CompanyUsersController@index')
+->name('company.users.index');
