@@ -15,8 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            
-            // user_id can be NULL if the order was placed by a user that is not a registered user.
+
             $table->bigInteger('user_id')->nullable()->unsigned();
                 $table->foreign('user_id')
                     ->references('id')
@@ -29,20 +28,30 @@ class CreateOrdersTable extends Migration
                 ->on('order_types')
                 ->onDelete('cascade');
 
-            $table->integer('total_price');
             $table->string('delivery_address');
-            $table->string('special_requests');
+            $table->string('special_requests')->nullable();
             $table->timestamp('estimate_delivery_time')->nullable();
             $table->timestamp('actual_delivery_time')->nullable();
-
-            $table->string('status');
 
             $table->tinyInteger('payment_method_id')->unsigned();
                 $table->foreign('payment_method_id')
                     ->references('id')
                     ->on('payment_methods')
                     ->onDelete('cascade');
-
+                    
+            $table->tinyInteger('order_status_id')->nullable()->unsigned();
+                $table->foreign('order_status_id')
+                    ->references('id')
+                    ->on('order_statuses')
+                    ->onDelete('cascade');
+    
+            $table->bigInteger('status_by')->nullable()->unsigned();
+                $table->foreign('status_by')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('cascade');
+            
+            $table->timestamp('status_date')->nullable();
             $table->timestamps();
         });
     }

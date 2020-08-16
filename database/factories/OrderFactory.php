@@ -16,18 +16,16 @@ $factory->define(Order::class, function (Faker $faker) {
         'payment_method_id' => function() {
         	return factory('App\Models\PaymentMethod')->create()->id;
         },
-        'total_price' => $faker->randomElement([3000, 4500, 6500, 7500, 15000]),
         'delivery_address' => $faker->streetAddress,
         'special_requests' => $faker->sentence,
         'estimate_delivery_time' => $faker->dateTimeThisYear('now'),
         'actual_delivery_time' => $faker->dateTimeThisYear('now'),
-        'status' => $faker->randomElement([
-                Order::PENDING_ORDER, 
-                Order::APPROVED_ORDER,
-                Order::READY_ORDER,
-                Order::DELIVERING_ORDER,
-                Order::COMPLETED_ORDER,
-                Order::CANCELLED_ORDER,
-        ]),
+        'order_status_id' => function() {
+        	return factory('App\Models\OrderStatus')->create()->id;
+        },
+        'status_by' => function() {
+        	return factory('App\User')->create()->id;
+        },
+        'status_date' => now()
     ];
 });
