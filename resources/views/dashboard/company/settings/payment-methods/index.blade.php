@@ -7,13 +7,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Order Types</h1>
+                    <h1 class="m-0 text-dark">Payment Methods</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('company.home')}}">Home</a></li>
                     <li class="breadcrumb-item">Settings</li>
-                    <li class="breadcrumb-item active">Order Types</li>
+                    <li class="breadcrumb-item active">Payment Methods</li>
                     </ol>
                 </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -39,9 +39,9 @@
                             </div>
                         
                             <div class="card-tools">
-                                <button href="#add-order-type" class="btn btn-primary" data-toggle="modal" data-target="#add-order-type">
+                                <button href="#add-payment-method" class="btn btn-primary" data-toggle="modal" data-target="#add-payment-method">
                                     <i class="fas fa-plus xs"></i>
-                                    Add Order Type
+                                    Add Payment Method
                                 </button>
                             </div>
                         </div>
@@ -57,31 +57,31 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @forelse($order_types as $order_type)
+                                @forelse($payment_methods as $payment_method)
                                     <tr>
-                                        <td>{{$order_type->id}}</td>
-                                        <td>{{$order_type->name}}</td>
+                                        <td>{{$payment_method->id}}</td>
+                                        <td>{{$payment_method->name}}</td>
                                         <td>
-                                            {{$order_type->description}}
+                                            {{$payment_method->description}}
                                         </td>
-                                        <td><span class="badge badge-{{$order_type->is_enabled == 1 ? 'primary': 'warning'}}">{{$order_type->is_enabled === 1 ? 'enabled': 'disabled'}}</span></td>
+                                        <td><span class="badge badge-{{$payment_method->is_enabled == 1 ? 'primary': 'warning'}}">{{$payment_method->is_enabled === 1 ? 'enabled': 'disabled'}}</span></td>
                                         <td class="project-actions">
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-order-type-{{$order_type->id}}">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-payment-method-{{$payment_method->id}}">
                                                 <i class="fas fa-pencil-alt">
                                                 </i>
                                             </button>
-                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-order-type-{{$order_type->id}}">
+                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-payment-method-{{$payment_method->id}}">
                                                 <i class="fas fa-trash">
                                                 </i>
                                             </button>
                                         </td>
                                     </tr>
 
-                                    <div class="modal fade" id="edit-order-type-{{$order_type->id}}" style="display: none;" aria-hidden="true">
-                                        <div class="modal-dialog edit-order-type-{{$order_type->id}}">
+                                    <div class="modal fade" id="edit-payment-method-{{$payment_method->id}}" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog edit-payment-method-{{$payment_method->id}}">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Edit {{$order_type->name}}</h4>
+                                                <h4 class="modal-title">Edit {{$payment_method->name}}</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
@@ -94,8 +94,8 @@
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" id="order-type-switch-{{$order_type->id}}" value="{{$order_type->is_enabled}}" name="toggle-order-type-status" {{$order_type->is_enabled === 1 ? 'checked' : ''}}>
-                                                                <label class="custom-control-label" for="order-type-switch-{{$order_type->id}}">Order Type Status</label>
+                                                                <input type="checkbox" class="custom-control-input" id="payment-method-switch-{{$payment_method->id}}" value="{{$payment_method->is_enabled}}" name="toggle-payment-method-status" {{$payment_method->is_enabled === 1 ? 'checked' : ''}}>
+                                                                <label class="custom-control-label" for="payment-method-switch-{{$payment_method->id}}">Payment Method Status</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -113,11 +113,11 @@
                                         <!-- /.modal-dialog -->
                                     </div>
 
-                                    <div class="modal fade" id="delete-order-type-{{$order_type->id}}" style="display: none;" aria-hidden="true">
-                                        <div class="modal-dialog delete-order-type-{{$order_type->id}}">
+                                    <div class="modal fade" id="delete-payment-method-{{$payment_method->id}}" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog delete-payment-method-{{$payment_method->id}}">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                            <h4 class="modal-title">Delete {{$order_type->name}}</h4>
+                                            <h4 class="modal-title">Delete {{$payment_method->name}}</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">×</span>
                                             </button>
@@ -139,18 +139,18 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="alert alert-warning">
-                                                <h5><i class="icon fas fa-warning"></i> No Order Type Registered Yet!</h5>
-                                                register at least one order type.
+                                                <h5><i class="icon fas fa-warning"></i> No Payment Method Registered Yet!</h5>
+                                                register at least one Payment Method.
                                             </div>
                                         </div>
                                     </div>
                                 @endempty
 
-                                <div class="modal fade" id="add-order-type" style="display: none;" aria-hidden="true">
-                                    <div class="modal-dialog add-order-type">
+                                <div class="modal fade" id="add-payment-method" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog add-payment-method">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h4 class="modal-title">Add New order type</h4>
+                                        <h4 class="modal-title">Add New Payment Method</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -178,7 +178,7 @@
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
                             <ul class="pagination pagination-sm m-0 float-right">
-                                {{$order_types->links()}}
+                                {{$payment_methods->links()}}
                             </ul>
                         </div>
                         <!-- /.card-footer -->
