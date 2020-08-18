@@ -76,3 +76,7 @@ Route::get('/dashboard/company/settings/countries', 'Company\CompanyCountriesCon
 // Regions
 Route::get('/dashboard/company/settings/regions', 'Company\CompanyRegionsController@index')
 ->name('company.settings.regions.index');
+
+// Cities
+Route::get('/dashboard/company/settings/cities', 'Company\CompanyCitiesController@index')
+->name('company.settings.cities.index');
