@@ -52,3 +52,7 @@ Route::get('/dashboard/company/settings/payment-methods', 'Company\CompanyPaymen
 // Company Shop Types
 Route::get('/dashboard/company/settings/shop-types', 'Company\CompanyShopTypesController@index')
 ->name('company.settings.shop-types.index');
+
+// Company Cuisines
+Route::get('/dashboard/company/settings/cuisines', 'Company\CompanyCuisinesController@index')
+->name('company.settings.cuisines.index');
