@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Company;
 
+use App\Models\Country;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class OrderStatusesController extends Controller
+class CompanyCountriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,11 @@ class OrderStatusesController extends Controller
      */
     public function index()
     {
-        //
+        $countries = Country::paginate(3);
+
+        return view('dashboard/company/settings/countries/index', compact(
+            'countries'
+        ));
     }
 
     /**

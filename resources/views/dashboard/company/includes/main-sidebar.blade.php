@@ -89,12 +89,11 @@
                       <p>shop types</p>
                     </a>
                   </li>
-
                   <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-circle"></i>
                       <p>
-                        Statuses
+                        statuses
                         <i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
@@ -119,10 +118,35 @@
                       </li>
                     </ul>
                   </li>
-
-
-
-
+                  <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-circle"></i>
+                      <p>
+                        Locations
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: block;">
+                      <li class="nav-item">
+                        <a href="{{ route('company.settings.countries.index') }}" class="nav-link">
+                          <i class="fas fa-circle nav-icon"></i>
+                          <p>countries</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          <i class="fas fa-circle nav-icon"></i>
+                          <p>regions</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          <i class="fas fa-circle nav-icon"></i>
+                          <p>cities</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </li>
 
