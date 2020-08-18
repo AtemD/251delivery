@@ -72,3 +72,7 @@ Route::get('/dashboard/company/settings/user-account-statuses', 'Company\Company
 // Countries
 Route::get('/dashboard/company/settings/countries', 'Company\CompanyCountriesController@index')
 ->name('company.settings.countries.index');
+
+// Regions
+Route::get('/dashboard/company/settings/regions', 'Company\CompanyRegionsController@index')
+->name('company.settings.regions.index');
