@@ -60,3 +60,7 @@ Route::get('/dashboard/company/settings/cuisines', 'Company\CompanyCuisinesContr
 // Company Order Statuses
 Route::get('/dashboard/company/settings/order-statuses', 'Company\CompanyOrderStatusesController@index')
 ->name('company.settings.order-statuses.index');
+
+// Company Shop Account Statuses
+Route::get('/dashboard/company/settings/shop-account-statuses', 'Company\CompanyShopAccountStatusesController@index')
+->name('company.settings.shop-account-statuses.index');

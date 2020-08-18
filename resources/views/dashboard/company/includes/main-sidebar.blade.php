@@ -106,7 +106,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('company.settings.shop-account-statuses.index') }}" class="nav-link">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>Shop Account Statuses</p>
                         </a>
