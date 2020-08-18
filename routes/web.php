@@ -56,3 +56,7 @@ Route::get('/dashboard/company/settings/shop-types', 'Company\CompanyShopTypesCo
 // Company Cuisines
 Route::get('/dashboard/company/settings/cuisines', 'Company\CompanyCuisinesController@index')
 ->name('company.settings.cuisines.index');
+
+// Company Order Statuses
+Route::get('/dashboard/company/settings/order-statuses', 'Company\CompanyOrderStatusesController@index')
+->name('company.settings.order-statuses.index');

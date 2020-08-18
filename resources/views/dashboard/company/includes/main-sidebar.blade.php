@@ -56,7 +56,7 @@
                 </a>
               </li>
 
-              <li class="nav-item has-treeview">
+              <li class="nav-item has-treeview menu-open">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cog"></i>
                   <p>
@@ -89,6 +89,40 @@
                       <p>shop types</p>
                     </a>
                   </li>
+
+                  <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-circle"></i>
+                      <p>
+                        Statuses
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: block;">
+                      <li class="nav-item">
+                        <a href="{{ route('company.settings.order-statuses.index') }}" class="nav-link">
+                          <i class="fas fa-circle nav-icon"></i>
+                          <p>Order Statuses</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          <i class="fas fa-circle nav-icon"></i>
+                          <p>Shop Account Statuses</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          <i class="fas fa-circle nav-icon"></i>
+                          <p>User Account Statuses</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+
+
+
+
                 </ul>
               </li>
 
