@@ -77,6 +77,12 @@
                       <p>payment methods</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ route('company.settings.shop-types.index') }}" class="nav-link">
+                      <i class="fas fa-circle nav-icon"></i>
+                      <p>shop types</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
 

@@ -48,3 +48,7 @@ Route::get('/dashboard/company/settings/order-types', 'Company\CompanyOrderTypes
 // Company Payment Methods
 Route::get('/dashboard/company/settings/payment-methods', 'Company\CompanyPaymentMethodsController@index')
 ->name('company.settings.payment-methods.index');
+
+// Company Shop Types
+Route::get('/dashboard/company/settings/shop-types', 'Company\CompanyShopTypesController@index')
+->name('company.settings.shop-types.index');
