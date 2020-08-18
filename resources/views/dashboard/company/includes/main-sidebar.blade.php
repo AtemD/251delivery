@@ -112,7 +112,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('company.settings.user-account-statuses.index') }}" class="nav-link">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>User Account Statuses</p>
                         </a>

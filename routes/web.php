@@ -64,3 +64,7 @@ Route::get('/dashboard/company/settings/order-statuses', 'Company\CompanyOrderSt
 // Company Shop Account Statuses
 Route::get('/dashboard/company/settings/shop-account-statuses', 'Company\CompanyShopAccountStatusesController@index')
 ->name('company.settings.shop-account-statuses.index');
+
+// Company User Account Statuses
+Route::get('/dashboard/company/settings/user-account-statuses', 'Company\CompanyUserAccountStatusesController@index')
+->name('company.settings.user-account-statuses.index');
