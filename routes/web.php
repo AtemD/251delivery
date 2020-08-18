@@ -37,6 +37,10 @@ Route::get('/dashboard/company/shops', 'Company\CompanyShopsController@index')
 Route::get('/dashboard/company/users', 'Company\CompanyUsersController@index')
 ->name('company.users.index');
 
-// Company Users
+// Company Orders
 Route::get('/dashboard/company/orders', 'Company\CompanyOrdersController@index')
 ->name('company.orders.index');
+
+// Company OrderTypes
+Route::get('/dashboard/company/settings/order-types', 'Company\CompanyOrderTypesController@index')
+->name('company.settings.order-types.index');
