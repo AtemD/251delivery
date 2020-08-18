@@ -15,7 +15,7 @@ class CompanyRegionsController extends Controller
      */
     public function index()
     {
-        $regions = Region::paginate(30);
+        $regions = Region::with('country')->paginate(30);
 
         return view('dashboard/company/settings/regions/index', compact(
             'regions'

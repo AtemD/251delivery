@@ -52,7 +52,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Description</th>
+                                <th>Country</th>
                                 <th>Enabled Status</th>
                             </tr>
                             </thead>
@@ -62,7 +62,7 @@
                                         <td>{{$region->id}}</td>
                                         <td>{{$region->name}}</td>
                                         <td>
-                                            {{$region->description}}
+                                            {{$region->country->name}}
                                         </td>
                                         <td><span class="badge badge-{{$region->is_enabled == 1 ? 'primary': 'warning'}}">{{$region->is_enabled === 1 ? 'enabled': 'disabled'}}</span></td>
                                         <td class="project-actions">
