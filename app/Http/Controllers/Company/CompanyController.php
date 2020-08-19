@@ -23,8 +23,6 @@ class CompanyController extends Controller
         $shops_count = Shop::count();
         $users_count = User::count();
 
-        // pending, approved, ready, delivering, completed, cancelled
-
         $orders_count = DB::table('orders')
         ->selectRaw('count(*) as total')
         ->selectRaw("count(case when order_status_id = 1 then 1 end) as pending")
@@ -40,8 +38,6 @@ class CompanyController extends Controller
             ->paginate(30);
             
         $todays_orders_count = Order::whereRaw('date(created_at) = ?', [Carbon::today()])->count();
-
-            // dd($todays_orders->toArray());
 
         return view('dashboard/company/home', compact([
             'shops_count',
