@@ -9,6 +9,11 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
+    
+    // User account status
+    const VERIFIED_USER = 'verified';
+    const UNVERIFIED_USER = 'unverified';
+    const DEACTIVATED_USER = 'deactivated';
 
     /**
      * The attributes that are mass assignable.
