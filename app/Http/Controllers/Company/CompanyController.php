@@ -27,12 +27,12 @@ class CompanyController extends Controller
 
         $orders_count = DB::table('orders')
         ->selectRaw('count(*) as total')
-        ->selectRaw("count(case when status = 'pending' then 1 end) as pending")
-        ->selectRaw("count(case when status = 'approved' then 1 end) as approved")
-        ->selectRaw("count(case when status = 'ready' then 1 end) as ready")
-        ->selectRaw("count(case when status = 'delivering' then 1 end) as delivering")
-        ->selectRaw("count(case when status = 'completed' then 1 end) as completed")
-        ->selectRaw("count(case when status = 'cancelled' then 1 end) as cancelled")
+        ->selectRaw("count(case when order_status_id = 1 then 1 end) as pending")
+        ->selectRaw("count(case when order_status_id = 2 then 1 end) as approved")
+        ->selectRaw("count(case when order_status_id = 3 then 1 end) as ready")
+        ->selectRaw("count(case when order_status_id = 4 then 1 end) as delivering")
+        ->selectRaw("count(case when order_status_id = 5 then 1 end) as completed")
+        ->selectRaw("count(case when order_status_id = 6 then 1 end) as cancelled")
         ->first();
         
         $todays_orders = Order::whereRaw('date(created_at) = ?', [Carbon::today()])
