@@ -80,3 +80,8 @@ Route::get('/dashboard/company/settings/regions', 'Company\CompanyRegionsControl
 // Cities
 Route::get('/dashboard/company/settings/cities', 'Company\CompanyCitiesController@index')
 ->name('company.settings.cities.index');
+
+// RETAILER ROUTES
+
+Route::get('/dashboard/retailer/home', 'Retailer\RetailerHomeController@index')
+    ->name('retailer.home');
