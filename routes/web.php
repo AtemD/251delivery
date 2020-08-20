@@ -48,6 +48,8 @@ Route::post('/dashboard/company/settings/order-types', 'Company\CompanyOrderType
 ->name('company.settings.order-types.store');
 Route::put('/dashboard/company/settings/order-types/{order_type}', 'Company\CompanyOrderTypesController@update')
 ->name('company.settings.order-types.update');
+Route::delete('/dashboard/company/settings/order-types/{order_type}', 'Company\CompanyOrderTypesController@destroy')
+->name('company.settings.order-types.destroy');
 
 // Company Payment Methods
 Route::get('/dashboard/company/settings/payment-methods', 'Company\CompanyPaymentMethodsController@index')

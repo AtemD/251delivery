@@ -73,11 +73,12 @@ class CompanyOrderTypesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\OrderType  $order_type
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(OrderType $order_type)
     {
-        //
+        $order_type->delete();
+        return back();
     }
 }

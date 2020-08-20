@@ -123,18 +123,27 @@
                                         <div class="modal-dialog delete-order-type-{{$order_type->id}}">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                            <h4 class="modal-title">Delete {{$order_type->name}}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                                                <h4 class="modal-title">Delete {{$order_type->name}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
                                             </div>
-                                            <div class="modal-body">
-                                            <p>One fine body…</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
+                                            <form role="form" method="POST" action="{{ route('company.settings.order-types.destroy', ['order_type' => $order_type->id]) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                
+                                                <div class="modal-body">
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Are you sure you want to delete <b>{{$order_type->name}}</b> order type!
+                                                        <br>
+                                                        <small>This action is irreversible!</small>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- /.modal-content -->
                                         </div>
@@ -175,8 +184,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="new-cuisine-switch" name="status">
-                                                        <label class="custom-control-label" for="new-cuisine-switch">Status (Enable/Disable)</label>
+                                                        <input type="checkbox" class="custom-control-input" id="new-order-type-switch" name="status">
+                                                        <label class="custom-control-label" for="new-order-type-switch">Status (Enable/Disable)</label>
                                                     </div>
                                                 </div>
                                             </div>
