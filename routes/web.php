@@ -58,6 +58,8 @@ Route::get('/dashboard/company/settings/cuisines', 'Company\CompanyCuisinesContr
 ->name('company.settings.cuisines.index');
 Route::post('/dashboard/company/settings/cuisines', 'Company\CompanyCuisinesController@store')
 ->name('company.settings.cuisines.store');
+Route::put('/dashboard/company/settings/cuisines/{cuisine}', 'Company\CompanyCuisinesController@update')
+->name('company.settings.cuisines.update');
 
 // Company Order Statuses
 Route::get('/dashboard/company/settings/order-statuses', 'Company\CompanyOrderStatusesController@index')

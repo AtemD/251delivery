@@ -52,9 +52,21 @@ class CompanyCuisinesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cuisine $cuisine)
     {
-        
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'status' => 'nullable',
+        ]);
+  
+        $cuisine->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'is_enabled' => (bool)$request->status
+        ]);
+
+        return back();
     }
 
     /**
