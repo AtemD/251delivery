@@ -15,21 +15,11 @@ class CompanyCuisinesController extends Controller
      */
     public function index()
     {
-        $cuisines = Cuisine::paginate(3);
+        $cuisines = Cuisine::paginate(30);
 
         return view('dashboard/company/settings/cuisines/index', compact(
             'cuisines'
         ));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -40,29 +30,19 @@ class CompanyCuisinesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'status' => 'nullable',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        Cuisine::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'is_enabled' => (bool)$request->status,
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return back();
     }
 
     /**
@@ -74,7 +54,7 @@ class CompanyCuisinesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
