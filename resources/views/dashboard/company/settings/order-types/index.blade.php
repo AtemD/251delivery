@@ -66,7 +66,7 @@
                                         </td>
                                         <td><span class="badge badge-{{$order_type->is_enabled == 1 ? 'primary': 'warning'}}">{{$order_type->is_enabled === 1 ? 'enabled': 'disabled'}}</span></td>
                                         <td class="project-actions">
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-order-type-{{$order_type->id}}">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#update-order-type-{{$order_type->id}}">
                                                 <i class="fas fa-pencil-alt">
                                                 </i>
                                             </button>
@@ -87,7 +87,7 @@
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <form role="form" method="POST" action="#">
+                                            <form role="form" method="POST" action="{{ route('company.settings.order-types.update', ['order_type' => $order_type->id]) }}">
                                                 @method('PUT')
                                                 @csrf
 
