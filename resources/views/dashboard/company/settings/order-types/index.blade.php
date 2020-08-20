@@ -77,8 +77,9 @@
                                         </td>
                                     </tr>
 
-                                    <div class="modal fade" id="edit-order-type-{{$order_type->id}}" style="display: none;" aria-hidden="true">
-                                        <div class="modal-dialog edit-order-type-{{$order_type->id}}">
+                                    <!--Modal to UPDATE an order type-->
+                                    <div class="modal fade" id="update-order-type-{{$order_type->id}}" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog update-order-type-{{$order_type->id}}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Edit {{$order_type->name}}</h4>
@@ -86,27 +87,32 @@
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
+                                            <form role="form" method="POST" action="#">
+                                                @method('PUT')
+                                                @csrf
 
-                                                <div class="row">
-
-                                                    <div class="col-md-12">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" id="order-type-switch-{{$order_type->id}}" value="{{$order_type->is_enabled}}" name="toggle-order-type-status" {{$order_type->is_enabled === 1 ? 'checked' : ''}}>
-                                                                <label class="custom-control-label" for="order-type-switch-{{$order_type->id}}">Order Type Status</label>
-                                                            </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="name">Name</label>
+                                                        <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{ $order_type->name }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="description">Description</label>
+                                                        <textarea class="form-control" id="description" rows="3" name="description" required>{{ $order_type->description }}</textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="order-type-switch-{{$order_type->id}}" name="status" {{$order_type->is_enabled === 1 ? 'checked' : ''}}>
+                                                            <label class="custom-control-label" for="order-type-switch-{{$order_type->id}}">Status</label>
                                                         </div>
                                                     </div>
 
                                                 </div>
-
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- /.modal-content -->
                                         </div>
@@ -150,19 +156,33 @@
                                     <div class="modal-dialog add-order-type">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h4 class="modal-title">Add New order type</h4>
+                                        <h4 class="modal-title">Add New <b>Order Type</b></h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                         </div>
                                         
-                                        <form role="form">
+                                        <form role="form" method="POST" action="{{ route('company.settings.order-types.store') }}">
+                                            @csrf
                                             <div class="modal-body">
-                                                <p>One fine body…</p>
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" class="form-control" id="name" placeholder="name" name="name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description">Description</label>
+                                                    <textarea class="form-control" id="description" rows="3" name="description" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="new-cuisine-switch" name="status">
+                                                        <label class="custom-control-label" for="new-cuisine-switch">Status (Enable/Disable)</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Create</button>
                                             </div>
                                         </form>
 
