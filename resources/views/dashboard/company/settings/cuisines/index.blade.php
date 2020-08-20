@@ -127,13 +127,23 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <p>One fine body…</p>
-                                                </div>
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Delete</button>
-                                                </div>
+
+                                                <form role="form" method="POST" action="{{ route('company.settings.cuisines.destroy', ['cuisine' => $cuisine->id]) }}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <div class="alert alert-danger" role="alert">
+                                                            Are you sure you want to delete <b>{{$cuisine->name}}</b> cuisine!
+                                                            <br>
+                                                            <small>This action is irreversible!</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </div>
+                                                </form>
+
                                             </div>
                                             <!-- /.modal-content -->
                                         </div>

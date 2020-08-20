@@ -60,6 +60,8 @@ Route::post('/dashboard/company/settings/cuisines', 'Company\CompanyCuisinesCont
 ->name('company.settings.cuisines.store');
 Route::put('/dashboard/company/settings/cuisines/{cuisine}', 'Company\CompanyCuisinesController@update')
 ->name('company.settings.cuisines.update');
+Route::delete('/dashboard/company/settings/cuisines/{cuisine}', 'Company\CompanyCuisinesController@destroy')
+->name('company.settings.cuisines.destroy');
 
 // Company Order Statuses
 Route::get('/dashboard/company/settings/order-statuses', 'Company\CompanyOrderStatusesController@index')

@@ -49,7 +49,7 @@ class CompanyCuisinesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Cuisine  $cuisine
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Cuisine $cuisine)
@@ -72,11 +72,12 @@ class CompanyCuisinesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Cuisine  $cuisine
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cuisine $cuisine)
     {
-        //
+        $cuisine->delete();
+        return back();
     }
 }
