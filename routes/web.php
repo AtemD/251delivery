@@ -104,6 +104,12 @@ Route::delete('/dashboard/company/settings/shop-account-statuses/{shop_account_s
 // Company User Account Statuses
 Route::get('/dashboard/company/settings/user-account-statuses', 'Company\CompanyUserAccountStatusesController@index')
 ->name('company.settings.user-account-statuses.index');
+Route::post('/dashboard/company/settings/user-account-statuses', 'Company\CompanyUserAccountStatusesController@store')
+->name('company.settings.user-account-statuses.store');
+Route::put('/dashboard/company/settings/user-account-statuses/{user_account_status}', 'Company\CompanyUserAccountStatusesController@update')
+->name('company.settings.user-account-statuses.update');
+Route::delete('/dashboard/company/settings/user-account-statuses/{user_account_status}', 'Company\CompanyUserAccountStatusesController@destroy')
+->name('company.settings.user-account-statuses.destroy');
 
 // Countries
 Route::get('/dashboard/company/settings/countries', 'Company\CompanyCountriesController@index')
