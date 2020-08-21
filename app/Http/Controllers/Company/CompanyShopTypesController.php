@@ -70,11 +70,12 @@ class CompanyShopTypesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\ShopType  $shop_type
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ShopType  $shop_type)
     {
-        //
+        $shop_type->delete();
+        return back();
     }
 }

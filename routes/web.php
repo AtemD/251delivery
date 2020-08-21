@@ -68,6 +68,8 @@ Route::post('/dashboard/company/settings/shop-types', 'Company\CompanyShopTypesC
 ->name('company.settings.shop-types.store');
 Route::put('/dashboard/company/settings/shop-types/{shop_type}', 'Company\CompanyShopTypesController@update')
 ->name('company.settings.shop-types.update');
+Route::delete('/dashboard/company/settings/shop-types/{shop_type}', 'Company\CompanyShopTypesController@destroy')
+->name('company.settings.shop-types.destroy');
 
 // Company Cuisines
 Route::get('/dashboard/company/settings/cuisines', 'Company\CompanyCuisinesController@index')

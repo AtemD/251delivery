@@ -126,18 +126,26 @@
                                         <div class="modal-dialog delete-shop-type-{{$shop_type->id}}">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                            <h4 class="modal-title">Delete {{$shop_type->name}}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                                                <h4 class="modal-title">Delete {{$shop_type->name}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
                                             </div>
-                                            <div class="modal-body">
-                                            <p>One fine body…</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
+                                            <form role="form" method="POST" action="{{ route('company.settings.shop-types.destroy', ['shop_type' => $shop_type->id]) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Are you sure you want to delete <b>{{$shop_type->name}}</b> Shop Type!
+                                                        <br>
+                                                        <small>This action is irreversible!</small>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- /.modal-content -->
                                         </div>
