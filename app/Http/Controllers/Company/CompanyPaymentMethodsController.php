@@ -72,11 +72,12 @@ class CompanyPaymentMethodsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\PaymentMethod  $payment_method
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PaymentMethod $payment_method)
     {
-        //
+        $payment_method->delete();
+        return back();
     }
 }

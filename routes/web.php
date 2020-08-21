@@ -58,6 +58,8 @@ Route::post('/dashboard/company/settings/payment-methods', 'Company\CompanyPayme
 ->name('company.settings.payment-methods.store');
 Route::put('/dashboard/company/settings/payment-methods/{payment_method}', 'Company\CompanyPaymentMethodsController@update')
 ->name('company.settings.payment-methods.update');
+Route::delete('/dashboard/company/settings/payment-methods/{payment_method}', 'Company\CompanyPaymentMethodsController@destroy')
+->name('company.settings.payment-methods.destroy');
 
 // Company Shop Types
 Route::get('/dashboard/company/settings/shop-types', 'Company\CompanyShopTypesController@index')

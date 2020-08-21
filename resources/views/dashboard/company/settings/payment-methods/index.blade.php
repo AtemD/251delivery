@@ -124,22 +124,32 @@
 
                                     <div class="modal fade" id="delete-payment-method-{{$payment_method->id}}" style="display: none;" aria-hidden="true">
                                         <div class="modal-dialog delete-payment-method-{{$payment_method->id}}">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h4 class="modal-title">Delete {{$payment_method->name}}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Delete {{$payment_method->name}}</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+
+                                                <form role="form" method="POST" action="{{ route('company.settings.payment-methods.destroy', ['payment_method' => $payment_method->id]) }}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <div class="alert alert-danger" role="alert">
+                                                            Are you sure you want to delete <b>{{$payment_method->name}}</b> payment method!
+                                                            <br>
+                                                            <small>This action is irreversible!</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </div>
+                                                </form>
+
                                             </div>
-                                            <div class="modal-body">
-                                            <p>One fine body…</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                        <!-- /.modal-content -->
+                                            <!-- /.modal-content -->
                                         </div>
                                         <!-- /.modal-dialog -->
                                     </div>
@@ -149,7 +159,7 @@
                                         <div class="col-md-12">
                                             <div class="alert alert-warning">
                                                 <h5><i class="icon fas fa-warning"></i> No Payment Method Registered Yet!</h5>
-                                                register at least one Payment Method.
+                                                Register at least one Payment Method.
                                             </div>
                                         </div>
                                     </div>
