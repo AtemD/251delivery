@@ -53,6 +53,7 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Description</th>
+                                <th>Color</th>
                                 <th>Enabled Status</th>
                             </tr>
                             </thead>
@@ -61,9 +62,8 @@
                                     <tr>
                                         <td>{{$order_status->id}}</td>
                                         <td>{{$order_status->name}}</td>
-                                        <td>
-                                            {{$order_status->description}}
-                                        </td>
+                                        <td>{{$order_status->description}}</td>
+                                        <td>{{$order_status->color}}</td>
                                         <td class="project-actions">
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-order-status-{{$order_status->id}}">
                                                 <i class="fas fa-pencil-alt">
@@ -157,13 +157,25 @@
                                         </button>
                                         </div>
                                         
-                                        <form role="form">
+                                        <form role="form" method="POST" action="{{ route('company.settings.order-statuses.store') }}">
+                                            @csrf
                                             <div class="modal-body">
-                                                <p>One fine body…</p>
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" class="form-control" id="name" placeholder="order status name" name="name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description">Description</label>
+                                                    <textarea class="form-control" id="description" rows="3" name="description" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="color">Color</label>
+                                                    <input type="text" class="form-control" id="color" placeholder="e.g primary, secondary, etc" name="color" required>
+                                                </div>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Create</button>
                                             </div>
                                         </form>
 

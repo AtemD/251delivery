@@ -84,6 +84,8 @@ Route::delete('/dashboard/company/settings/cuisines/{cuisine}', 'Company\Company
 // Company Order Statuses
 Route::get('/dashboard/company/settings/order-statuses', 'Company\CompanyOrderStatusesController@index')
 ->name('company.settings.order-statuses.index');
+Route::post('/dashboard/company/settings/order-statuses', 'Company\CompanyOrderStatusesController@store')
+->name('company.settings.order-statuses.store');
 
 // Company Shop Account Statuses
 Route::get('/dashboard/company/settings/shop-account-statuses', 'Company\CompanyShopAccountStatusesController@index')
