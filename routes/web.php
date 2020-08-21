@@ -56,6 +56,8 @@ Route::get('/dashboard/company/settings/payment-methods', 'Company\CompanyPaymen
 ->name('company.settings.payment-methods.index');
 Route::post('/dashboard/company/settings/payment-methods', 'Company\CompanyPaymentMethodsController@store')
 ->name('company.settings.payment-methods.store');
+Route::put('/dashboard/company/settings/payment-methods/{payment_method}', 'Company\CompanyPaymentMethodsController@update')
+->name('company.settings.payment-methods.update');
 
 // Company Shop Types
 Route::get('/dashboard/company/settings/shop-types', 'Company\CompanyShopTypesController@index')

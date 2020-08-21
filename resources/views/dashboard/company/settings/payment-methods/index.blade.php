@@ -66,7 +66,7 @@
                                         </td>
                                         <td><span class="badge badge-{{$payment_method->is_enabled == 1 ? 'primary': 'warning'}}">{{$payment_method->is_enabled === 1 ? 'enabled': 'disabled'}}</span></td>
                                         <td class="project-actions">
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-payment-method-{{$payment_method->id}}">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#update-payment-method-{{$payment_method->id}}">
                                                 <i class="fas fa-pencil-alt">
                                                 </i>
                                             </button>
@@ -77,8 +77,8 @@
                                         </td>
                                     </tr>
 
-                                    <div class="modal fade" id="edit-payment-method-{{$payment_method->id}}" style="display: none;" aria-hidden="true">
-                                        <div class="modal-dialog edit-payment-method-{{$payment_method->id}}">
+                                    <div class="modal fade" id="update-payment-method-{{$payment_method->id}}" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog update-payment-method-{{$payment_method->id}}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Edit {{$payment_method->name}}</h4>
@@ -88,24 +88,33 @@
                                             </div>
                                             <div class="modal-body">
 
-                                                <div class="row">
-
-                                                    <div class="col-md-12">
-                                                        <!-- select -->
+                                                <form role="form" method="POST" action="{{ route('company.settings.payment-methods.update', ['payment_method' => $payment_method->id]) }}">
+                                                    @method('PUT')
+                                                    @csrf
+    
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="name">Name</label>
+                                                            <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{ $payment_method->name }}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="description">Description</label>
+                                                            <textarea class="form-control" id="description" rows="3" name="description" required>{{ $payment_method->description }}</textarea>
+                                                        </div>
                                                         <div class="form-group">
                                                             <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" id="payment-method-switch-{{$payment_method->id}}" value="{{$payment_method->is_enabled}}" name="toggle-payment-method-status" {{$payment_method->is_enabled === 1 ? 'checked' : ''}}>
-                                                                <label class="custom-control-label" for="payment-method-switch-{{$payment_method->id}}">Payment Method Status</label>
+                                                                <input type="checkbox" class="custom-control-input" id="payment-method-switch-{{$payment_method->id}}" name="status" {{$payment_method->is_enabled === 1 ? 'checked' : ''}}>
+                                                                <label class="custom-control-label" for="payment-method-switch-{{$payment_method->id}}">Status</label>
                                                             </div>
                                                         </div>
+    
                                                     </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </form>
 
-                                                </div>
-
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
                                             </div>
                                         </div>
                                         <!-- /.modal-content -->

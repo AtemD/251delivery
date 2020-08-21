@@ -49,12 +49,24 @@ class CompanyPaymentMethodsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\PaymentMethod  $payment_method
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, PaymentMethod $payment_method)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'status' => 'nullable',
+        ]);
+  
+        $payment_method->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'is_enabled' => (bool)$request->status
+        ]);
+
+        return back();
     }
 
     /**
