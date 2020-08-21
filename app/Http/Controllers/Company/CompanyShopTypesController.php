@@ -47,12 +47,24 @@ class CompanyShopTypesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\ShopType  $shop_type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ShopType $shop_type)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'status' => 'nullable',
+        ]);
+  
+        $shop_type->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'is_enabled' => (bool)$request->status
+        ]);
+
+        return back();
     }
 
     /**

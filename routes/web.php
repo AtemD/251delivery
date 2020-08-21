@@ -66,6 +66,8 @@ Route::get('/dashboard/company/settings/shop-types', 'Company\CompanyShopTypesCo
 ->name('company.settings.shop-types.index');
 Route::post('/dashboard/company/settings/shop-types', 'Company\CompanyShopTypesController@store')
 ->name('company.settings.shop-types.store');
+Route::put('/dashboard/company/settings/shop-types/{shop_type}', 'Company\CompanyShopTypesController@update')
+->name('company.settings.shop-types.update');
 
 // Company Cuisines
 Route::get('/dashboard/company/settings/cuisines', 'Company\CompanyCuisinesController@index')

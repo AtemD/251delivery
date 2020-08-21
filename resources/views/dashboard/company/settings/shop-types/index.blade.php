@@ -66,7 +66,7 @@
                                         </td>
                                         <td><span class="badge badge-{{$shop_type->is_enabled == 1 ? 'primary': 'warning'}}">{{$shop_type->is_enabled === 1 ? 'enabled': 'disabled'}}</span></td>
                                         <td class="project-actions">
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-shop-type-{{$shop_type->id}}">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#update-shop-type-{{$shop_type->id}}">
                                                 <i class="fas fa-pencil-alt">
                                                 </i>
                                             </button>
@@ -77,8 +77,8 @@
                                         </td>
                                     </tr>
 
-                                    <div class="modal fade" id="edit-shop-type-{{$shop_type->id}}" style="display: none;" aria-hidden="true">
-                                        <div class="modal-dialog edit-shop-type-{{$shop_type->id}}">
+                                    <div class="modal fade" id="update-shop-type-{{$shop_type->id}}" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog update-shop-type-{{$shop_type->id}}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Edit {{$shop_type->name}}</h4>
@@ -88,24 +88,33 @@
                                             </div>
                                             <div class="modal-body">
 
-                                                <div class="row">
-
-                                                    <div class="col-md-12">
-                                                        <!-- select -->
+                                                <form role="form" method="POST" action="{{ route('company.settings.shop-types.update', ['shop_type' => $shop_type->id]) }}">
+                                                    @method('PUT')
+                                                    @csrf
+    
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="name">Name</label>
+                                                            <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{ $shop_type->name }}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="description">Description</label>
+                                                            <textarea class="form-control" id="description" rows="3" name="description" required>{{ $shop_type->description }}</textarea>
+                                                        </div>
                                                         <div class="form-group">
                                                             <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" id="payment-method-switch-{{$shop_type->id}}" value="{{$shop_type->is_enabled}}" name="toggle-shop-type-status" {{$shop_type->is_enabled === 1 ? 'checked' : ''}}>
-                                                                <label class="custom-control-label" for="payment-method-switch-{{$shop_type->id}}">Shop Type Status</label>
+                                                                <input type="checkbox" class="custom-control-input" id="order-type-switch-{{$shop_type->id}}" name="status" {{$shop_type->is_enabled === 1 ? 'checked' : ''}}>
+                                                                <label class="custom-control-label" for="order-type-switch-{{$shop_type->id}}">Shop Type Status</label>
                                                             </div>
                                                         </div>
+    
                                                     </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </form>
 
-                                                </div>
-
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
                                             </div>
                                         </div>
                                         <!-- /.modal-content -->
