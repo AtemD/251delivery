@@ -114,6 +114,12 @@ Route::delete('/dashboard/company/settings/user-account-statuses/{user_account_s
 // Countries
 Route::get('/dashboard/company/settings/countries', 'Company\CompanyCountriesController@index')
 ->name('company.settings.countries.index');
+Route::post('/dashboard/company/settings/countries', 'Company\CompanyCountriesController@store')
+->name('company.settings.countries.store');
+Route::put('/dashboard/company/settings/countries/{country}', 'Company\CompanyCountriesController@update')
+->name('company.settings.countries.update');
+Route::delete('/dashboard/company/settings/countries/{country}', 'Company\CompanyCountriesController@destroy')
+->name('company.settings.countries.destroy');
 
 // Regions
 Route::get('/dashboard/company/settings/regions', 'Company\CompanyRegionsController@index')
