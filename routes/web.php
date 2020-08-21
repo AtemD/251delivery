@@ -86,6 +86,10 @@ Route::get('/dashboard/company/settings/order-statuses', 'Company\CompanyOrderSt
 ->name('company.settings.order-statuses.index');
 Route::post('/dashboard/company/settings/order-statuses', 'Company\CompanyOrderStatusesController@store')
 ->name('company.settings.order-statuses.store');
+Route::put('/dashboard/company/settings/order-statuses/{order_status}', 'Company\CompanyOrderStatusesController@update')
+->name('company.settings.order-statuses.update');
+Route::delete('/dashboard/company/settings/order-statuses/{order_status}', 'Company\CompanyOrderStatusesController@destroy')
+->name('company.settings.order-statuses.destroy');
 
 // Company Shop Account Statuses
 Route::get('/dashboard/company/settings/shop-account-statuses', 'Company\CompanyShopAccountStatusesController@index')

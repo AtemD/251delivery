@@ -49,22 +49,35 @@ class CompanyOrderStatusesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\OrderStatus $order_status
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, OrderStatus $order_status)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'color' => 'required|max:255',
+        ]);
+
+        $order_status->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'color' => $request->color,
+        ]);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\OrderStatus $order_status
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(OrderStatus $order_status)
     {
-        //
+        $order_status->delete();
+        return back();
     }
 }
