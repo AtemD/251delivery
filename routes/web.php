@@ -64,6 +64,8 @@ Route::delete('/dashboard/company/settings/payment-methods/{payment_method}', 'C
 // Company Shop Types
 Route::get('/dashboard/company/settings/shop-types', 'Company\CompanyShopTypesController@index')
 ->name('company.settings.shop-types.index');
+Route::post('/dashboard/company/settings/shop-types', 'Company\CompanyShopTypesController@store')
+->name('company.settings.shop-types.store');
 
 // Company Cuisines
 Route::get('/dashboard/company/settings/cuisines', 'Company\CompanyCuisinesController@index')

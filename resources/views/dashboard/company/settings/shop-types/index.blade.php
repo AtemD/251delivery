@@ -150,19 +150,33 @@
                                     <div class="modal-dialog add-shop-type">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h4 class="modal-title">Add New Shop Type</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
+                                            <h4 class="modal-title">Add New Shop Type</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
                                         </div>
                                         
-                                        <form role="form">
+                                        <form role="form" method="POST" action="{{ route('company.settings.shop-types.store') }}">
+                                            @csrf
                                             <div class="modal-body">
-                                                <p>One fine body…</p>
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" class="form-control" id="name" placeholder="name" name="name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description">Description</label>
+                                                    <textarea class="form-control" id="description" rows="3" name="description" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="new-shop-type-switch" name="status">
+                                                        <label class="custom-control-label" for="new-shop-type-switch">Status (Enable/Disable)</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Create</button>
                                             </div>
                                         </form>
 
