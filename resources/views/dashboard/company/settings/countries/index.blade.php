@@ -111,8 +111,8 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input" id="order-type-switch-{{$country->id}}" name="status" {{$country->is_enabled === 1 ? 'checked' : ''}}>
-                                                            <label class="custom-control-label" for="order-type-switch-{{$country->id}}">Country Status</label>
+                                                            <input type="checkbox" class="custom-control-input" id="country-switch-{{$country->id}}" name="status" {{$country->is_enabled === 1 ? 'checked' : ''}}>
+                                                            <label class="custom-control-label" for="country-switch-{{$country->id}}">Country Status</label>
                                                         </div>
                                                     </div>
 

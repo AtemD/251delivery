@@ -124,6 +124,12 @@ Route::delete('/dashboard/company/settings/countries/{country}', 'Company\Compan
 // Regions
 Route::get('/dashboard/company/settings/regions', 'Company\CompanyRegionsController@index')
 ->name('company.settings.regions.index');
+Route::post('/dashboard/company/settings/regions', 'Company\CompanyRegionsController@store')
+->name('company.settings.regions.store');
+Route::put('/dashboard/company/settings/regions/{region}', 'Company\CompanyRegionsController@update')
+->name('company.settings.regions.update');
+Route::delete('/dashboard/company/settings/regions/{region}', 'Company\CompanyRegionsController@destroy')
+->name('company.settings.regions.destroy');
 
 // Cities
 Route::get('/dashboard/company/settings/cities', 'Company\CompanyCitiesController@index')

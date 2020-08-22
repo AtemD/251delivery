@@ -52,8 +52,9 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Abbr.</th>
                                 <th>Country</th>
-                                <th>Enabled Status</th>
+                                <th>Status</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -61,9 +62,8 @@
                                     <tr>
                                         <td>{{$region->id}}</td>
                                         <td>{{$region->name}}</td>
-                                        <td>
-                                            {{$region->country->name}}
-                                        </td>
+                                        <td>{{$region->abbreviation}}</td>
+                                        <td>{{$region->country->name}}</td>
                                         <td><span class="badge badge-{{$region->is_enabled == 1 ? 'primary': 'warning'}}">{{$region->is_enabled === 1 ? 'enabled': 'disabled'}}</span></td>
                                         <td class="project-actions">
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-region-{{$region->id}}">
@@ -86,27 +86,44 @@
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
+                                            <form role="form" method="POST" action="{{ route('company.settings.regions.update', ['region' => $region->id]) }}">
+                                                @method('PUT')
+                                                @csrf
 
-                                                <div class="row">
-
-                                                    <div class="col-md-12">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" id="order-type-switch-{{$region->id}}" value="{{$region->is_enabled}}" name="toggle-region-status" {{$region->is_enabled === 1 ? 'checked' : ''}}>
-                                                                <label class="custom-control-label" for="order-type-switch-{{$region->id}}">Region Status</label>
-                                                            </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="name">Name</label>
+                                                        <input type="text" class="form-control" id="name" name="name" value="{{ $region->name }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="abbreviation">Abbr.</label>
+                                                        <input type="text" class="form-control" id="abbreviation" name="abbreviation" value="{{ $region->abbreviation }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="country_id">Country</label>
+                                                        <select class="form-control" id="country_id" name="country_id" value="{{ old('country_id') }}" required>
+                                                            <option value="">Choose Country</option>
+                                                            @foreach($countries as $country)
+                                                              <option value="{{ $country->id }}" 
+                                                                  {{ ($region->country->id == $country->id) ? 'selected' : ''}}>
+                                                                {{ $country->name }}
+                                                              </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="region-switch-{{$region->id}}" name="status" {{$region->is_enabled === 1 ? 'checked' : ''}}>
+                                                            <label class="custom-control-label" for="region-switch-{{$region->id}}">Region Status</label>
                                                         </div>
                                                     </div>
 
                                                 </div>
-
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- /.modal-content -->
                                         </div>
@@ -117,18 +134,26 @@
                                         <div class="modal-dialog delete-region-{{$region->id}}">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                            <h4 class="modal-title">Delete {{$region->name}}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                                                <h4 class="modal-title">Delete {{$region->name}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
                                             </div>
-                                            <div class="modal-body">
-                                            <p>One fine body…</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
+                                            <form role="form" method="POST" action="{{ route('company.settings.regions.destroy', ['region' => $region->id]) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Are you sure you want to delete <b>{{$region->name}}</b> Region!
+                                                        <br>
+                                                        <small>This action is irreversible!</small>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- /.modal-content -->
                                         </div>
@@ -150,19 +175,46 @@
                                     <div class="modal-dialog add-region">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h4 class="modal-title">Add New Region</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
+                                            <h4 class="modal-title">Add New Region</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
                                         </div>
                                         
-                                        <form role="form">
+                                        <form role="form" method="POST" action="{{ route('company.settings.regions.store') }}">
+                                            @csrf
+
                                             <div class="modal-body">
-                                                <p>One fine body…</p>
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" class="form-control" id="name" placeholder="name" name="name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="abbreviation">Abbr.</label>
+                                                    <input type="text" class="form-control" id="abbreviation" placeholder="abbreviation" name="abbreviation" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="country_id">Country</label>
+                                                    <select class="form-control" id="country_id" name="country_id" value="{{ old('country_id') }}" required>
+                                                        <option value="">Choose Country</option>
+                                                        @foreach($countries as $country)
+                                                          <option value="{{ $country->id }}">
+                                                            {{ $country->name }}
+                                                          </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="new-region-switch" name="status">
+                                                        <label class="custom-control-label" for="new-region-switch">Status (Enable/Disable)</label>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Create</button>
                                             </div>
                                         </form>
 

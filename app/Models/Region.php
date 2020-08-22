@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Region extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'abbreviation', 'country_id', 'is_enabled'
+    ];
+
     // Region status
     const ACTIVATED_REGION = 'activated';
     const DEACTIVATED_REGION = 'deactivated';
