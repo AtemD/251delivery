@@ -36,6 +36,12 @@ Route::get('/dashboard/company/shops', 'Company\CompanyShopsController@index')
 // Company Users
 Route::get('/dashboard/company/users', 'Company\CompanyUsersController@index')
 ->name('company.users.index');
+Route::post('/dashboard/company/users', 'Company\CompanyUsersController@store')
+->name('company.users.store');
+Route::put('/dashboard/company/users/{user}', 'Company\CompanyUsersController@update')
+->name('company.users.update');
+Route::delete('/dashboard/company/users/{user}', 'Company\CompanyUsersController@destroy')
+->name('company.users.destroy');
 
 // Company Orders
 Route::get('/dashboard/company/orders', 'Company\CompanyOrdersController@index')
