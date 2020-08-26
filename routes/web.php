@@ -17,7 +17,7 @@ Route::get('/', 'PagesController@welcome')->name('pages.welcome');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 // Shops Routes
 Route::get('/shops', 'ShopsController@index')
@@ -25,7 +25,13 @@ Route::get('/shops', 'ShopsController@index')
 Route::get('/shops/{shop}', 'ShopsController@show')
     ->name('shops.show');
 
-// Company Admin Routes
+// BUYER ROUTES
+
+Route::get('dashboard/buyers/home', 'Buyer\BuyersController@index')
+    ->name('buyers.home');
+
+// COMPANY ADMIN ROUTES
+
 Route::get('/dashboard/company/home', 'Company\CompanyController@index')
     ->name('company.home');
 
