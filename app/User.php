@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
+    protected $table = 'users';
     
     // User account status
     const VERIFIED_USER = 'verified';
