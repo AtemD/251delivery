@@ -156,17 +156,14 @@ Route::delete('/dashboard/company/settings/regions/{region}', 'Company\CompanyRe
 // Cities
 Route::get('/dashboard/company/settings/cities', 'Company\CompanyCitiesController@index')
 ->name('company.settings.cities.index');
-<<<<<<< HEAD
-
-// RETAILER ROUTES
-
-Route::get('/dashboard/retailer/home', 'Retailer\RetailerHomeController@index')
-    ->name('retailer.home');
-=======
 Route::post('/dashboard/company/settings/cities', 'Company\CompanyCitiesController@store')
 ->name('company.settings.cities.store');
 Route::put('/dashboard/company/settings/cities/{city}', 'Company\CompanyCitiesController@update')
 ->name('company.settings.cities.update');
 Route::delete('/dashboard/company/settings/cities/{city}', 'Company\CompanyCitiesController@destroy')
 ->name('company.settings.cities.destroy');
->>>>>>> buyer
+
+// RETAILER ROUTES
+
+Route::get('/dashboard/retailer/home', 'Retailer\RetailerHomeController@index')
+    ->name('retailer.home');
