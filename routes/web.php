@@ -36,6 +36,10 @@ Route::get('dashboard/buyers/settings/account', 'Buyer\BuyerAccountsController@i
 Route::put('dashboard/buyers/settings/account/{buyer}', 'Buyer\BuyerAccountsController@update')
 ->name('buyers.settings.accounts.update');
 
+// Buyer Orders
+Route::get('dashboard/buyers/orders/{buyer}', 'Buyer\BuyerOrdersController@index')
+->name('buyers.orders.index');
+
 // COMPANY ADMIN ROUTES
 
 Route::get('/dashboard/company/home', 'Company\CompanyController@index')

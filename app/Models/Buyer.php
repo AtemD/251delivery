@@ -8,6 +8,6 @@ class Buyer extends User
 {
     public function orders()
     {
-        return $this->hasMany('App\Models\Order');
+        return $this->hasMany('App\Models\Order', 'user_id');
     }
 }

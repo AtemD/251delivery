@@ -32,7 +32,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('buyers.orders.index', ['buyer' => Auth::user()->id])}}" class="nav-link">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
                     Order History

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Buyer;
 
-use App\Http\Controllers\Controller;
+use App\Models\Buyer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
-class BuyersController extends Controller
+class BuyerOrdersController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -22,9 +24,19 @@ class BuyersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Buyer $buyer)
     {
-        return view('dashboard/buyer/home');
+        $orders = $buyer->orders()->latest()->with([
+            'products',
+            'orderStatus',
+            'paymentMethod',
+            'orderType'
+        ])->paginate(30);
+
+        // dd($orders->toArray());
+        return view('dashboard/buyer/orders/index', compact(
+            'orders'
+        ));
     }
 
     /**
