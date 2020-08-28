@@ -52,8 +52,10 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Description</th>
-                                <th>Enabled Status</th>
+                                <th>Abbr.</th>
+                                <th>Currency Name</th>
+                                <th>Currency Abbr.</th>
+                                <th>Status</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -61,9 +63,9 @@
                                     <tr>
                                         <td>{{$country->id}}</td>
                                         <td>{{$country->name}}</td>
-                                        <td>
-                                            {{$country->description}}
-                                        </td>
+                                        <td>{{$country->abbreviation}}</td>
+                                        <td>{{$country->currency_name}}</td>
+                                        <td>{{$country->currency_abbreviation}}</td>
                                         <td><span class="badge badge-{{$country->is_enabled == 1 ? 'primary': 'warning'}}">{{$country->is_enabled === 1 ? 'enabled': 'disabled'}}</span></td>
                                         <td class="project-actions">
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-country-{{$country->id}}">
@@ -86,27 +88,40 @@
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
+                                            <form role="form" method="POST" action="{{ route('company.settings.countries.update', ['country' => $country->id]) }}">
+                                                @method('PUT')
+                                                @csrf
 
-                                                <div class="row">
-
-                                                    <div class="col-md-12">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" id="order-type-switch-{{$country->id}}" value="{{$country->is_enabled}}" name="toggle-country-status" {{$country->is_enabled === 1 ? 'checked' : ''}}>
-                                                                <label class="custom-control-label" for="order-type-switch-{{$country->id}}">country Status</label>
-                                                            </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="name">Name</label>
+                                                        <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{ $country->name }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="abbreviation">Abbr.</label>
+                                                        <input type="text" class="form-control" id="abbreviation" placeholder="abbreviation" name="abbreviation" value="{{ $country->abbreviation }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="currency_name">Currency Name</label>
+                                                        <input type="text" class="form-control" id="name" placeholder="currency abbreviation" name="currency_name" value="{{ $country->currency_name }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="currency_abbreviation">Currency Abbr.</label>
+                                                        <input type="text" class="form-control" id="name" placeholder="currency name" name="currency_abbreviation" value="{{ $country->currency_abbreviation }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="country-switch-{{$country->id}}" name="status" {{$country->is_enabled === 1 ? 'checked' : ''}}>
+                                                            <label class="custom-control-label" for="country-switch-{{$country->id}}">Country Status</label>
                                                         </div>
                                                     </div>
 
                                                 </div>
-
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- /.modal-content -->
                                         </div>
@@ -117,18 +132,26 @@
                                         <div class="modal-dialog delete-country-{{$country->id}}">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                            <h4 class="modal-title">Delete {{$country->name}}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                                                <h4 class="modal-title">Delete {{$country->name}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
                                             </div>
-                                            <div class="modal-body">
-                                            <p>One fine body…</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
+                                            <form role="form" method="POST" action="{{ route('company.settings.countries.destroy', ['country' => $country->id]) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Are you sure you want to delete <b>{{$country->name}}</b> Country!
+                                                        <br>
+                                                        <small>This action is irreversible!</small>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- /.modal-content -->
                                         </div>
@@ -156,13 +179,37 @@
                                         </button>
                                         </div>
                                         
-                                        <form role="form">
+                                        <form role="form" method="POST" action="{{ route('company.settings.countries.store') }}">
+                                            @csrf
+
                                             <div class="modal-body">
-                                                <p>One fine body…</p>
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" class="form-control" id="name" placeholder="name" name="name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="abbreviation">Abbr.</label>
+                                                    <input type="text" class="form-control" id="abbreviation" placeholder="abbreviation" name="abbreviation" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="currency_name">Currency Name</label>
+                                                    <input type="text" class="form-control" id="name" placeholder="currency abbreviation" name="currency_name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="currency_abbreviation">Currency Abbr.</label>
+                                                    <input type="text" class="form-control" id="name" placeholder="currency name" name="currency_abbreviation" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="new-country-switch" name="status">
+                                                        <label class="custom-control-label" for="new-country-switch">Status (Enable/Disable)</label>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Create</button>
                                             </div>
                                         </form>
 

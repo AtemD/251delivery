@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
+    protected $table = 'users';
     
     // User account status
     const VERIFIED_USER = 'verified';
@@ -21,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'phone_number', 'email', 'password', 'user_account_status_id', 'status_by'
+        'first_name', 'last_name', 'phone_number', 'email', 'password', 'user_account_status_id'
     ];
 
     /**

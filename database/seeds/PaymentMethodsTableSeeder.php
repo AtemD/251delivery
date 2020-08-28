@@ -12,6 +12,19 @@ class PaymentMethodsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(PaymentMethod::class, 4)->create();
+        factory(PaymentMethod::class)->create([
+            'name' => 'Hello Cash',
+            'description' => 'Ethiopian mobile money company',
+        ]);
+
+        factory(PaymentMethod::class)->create([
+            'name' => 'M-Birr',
+            'description' => 'Ethiopian mobile money company',
+        ]);
+
+        factory(PaymentMethod::class)->create([
+            'name' => 'CBE-Birr',
+            'description' => 'Commercial Bank of Ethiopia mobile money',
+        ]);
     }
 }

@@ -23,16 +23,6 @@ class CompanyUserAccountStatusesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -40,41 +30,43 @@ class CompanyUserAccountStatusesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'color' => 'required|max:255',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        UserAccountStatus::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'color' => $request->color,
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return back();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\UserAccountStatus $user_account_status
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, UserAccountStatus $user_account_status)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'color' => 'required|max:255',
+        ]);
+
+        $user_account_status->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'color' => $request->color,
+        ]);
+
+        return back();
     }
 
     /**
@@ -83,8 +75,9 @@ class CompanyUserAccountStatusesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(UserAccountStatus $user_account_status)
     {
-        //
+        $user_account_status->delete();
+        return back();
     }
 }

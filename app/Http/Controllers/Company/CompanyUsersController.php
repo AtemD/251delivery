@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Company;
 
 use App\User;
 use App\Models\UserAccountStatus;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -21,19 +24,8 @@ class CompanyUsersController extends Controller
         ])->paginate(20);
 
         $user_account_statuses = UserAccountStatus::all();
-        // dd($user_account_statuses->toArray());
-        // dd($users->toArray());
-        return view('dashboard/company/users/index', compact('users', 'user_account_statuses'));
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('dashboard/company/users/index', compact('users', 'user_account_statuses'));
     }
 
     /**
@@ -44,51 +36,66 @@ class CompanyUsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone_number' => 'required|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'user_account_status_id' => 'nullable|integer|exists:user_account_statuses,id',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        User::create([
+            'first_name' => $validatedData['first_name'],
+            'last_name' => $validatedData['last_name'],
+            'phone_number' => $validatedData['phone_number'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'user_account_status_id' => $validatedData['user_account_status_id'],
+            'status_by' => 1, // Auth::user()->id,
+            'status_date' => now(),
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return back();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone_number' => 'required|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'. $user->id,
+            'user_account_status_id' => 'nullable|integer|exists:user_account_statuses,id',
+        ]);
+
+        $user->update([
+            'first_name' => $validatedData['first_name'],
+            'last_name' => $validatedData['last_name'],
+            'phone_number' => $validatedData['phone_number'],
+            'email' => $validatedData['email'],
+            'user_account_status_id' => $validatedData['user_account_status_id'],
+        ]);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return back();
     }
 }

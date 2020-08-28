@@ -23,16 +23,6 @@ class CompanyPaymentMethodsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -40,51 +30,54 @@ class CompanyPaymentMethodsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'status' => 'nullable',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        PaymentMethod::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'is_enabled' => (bool)$request->status,
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return back();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\PaymentMethod  $payment_method
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, PaymentMethod $payment_method)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'status' => 'nullable',
+        ]);
+  
+        $payment_method->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'is_enabled' => (bool)$request->status
+        ]);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\PaymentMethod  $payment_method
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PaymentMethod $payment_method)
     {
-        //
+        $payment_method->delete();
+        return back();
     }
 }

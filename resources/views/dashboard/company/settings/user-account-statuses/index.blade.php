@@ -53,6 +53,7 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Description</th>
+                                <th>Color</th>
                                 <th>Enabled Status</th>
                             </tr>
                             </thead>
@@ -61,9 +62,8 @@
                                     <tr>
                                         <td>{{$user_account_status->id}}</td>
                                         <td>{{$user_account_status->name}}</td>
-                                        <td>
-                                            {{$user_account_status->description}}
-                                        </td>
+                                        <td>{{$user_account_status->description}}</td>
+                                        <td>{{$user_account_status->color}}</td>
                                         <td class="project-actions">
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-user-account-status-{{$user_account_status->id}}">
                                                 <i class="fas fa-pencil-alt">
@@ -85,29 +85,29 @@
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
+                                            <form role="form" method="POST" action="{{ route('company.settings.user-account-statuses.update', ['user_account_status' => $user_account_status->id]) }}">
+                                                @method('PUT')
+                                                @csrf
 
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group{{ $errors->has('shop-account-status') ? ' has-error' : '' }}">
-                                                            <label for="shop-account-status">Status Name</label>
-                              
-                                                            <input id="shop-account-status" type="text" class="form-control" name="shop-account-status" value="{{ $user_account_status->name }}" required>
-                              
-                                                            @if ($errors->has('shop-account-status'))
-                                                                <span class="help-block">
-                                                                    <strong>*{{ $errors->first('shop-account-status') }}</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="name">Name</label>
+                                                        <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{ $user_account_status->name }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="description">Description</label>
+                                                        <textarea class="form-control" id="description" rows="3" name="description" required>{{ $user_account_status->description }}</textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="color">Color</label>
+                                                        <input type="text" class="form-control" id="color" placeholder="color to be used" name="color" value="{{ $user_account_status->color }}" required>
                                                     </div>
                                                 </div>
-
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- /.modal-content -->
                                         </div>
@@ -118,18 +118,26 @@
                                         <div class="modal-dialog delete-user-account-status-{{$user_account_status->id}}">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                            <h4 class="modal-title">Delete {{$user_account_status->name}}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                                                <h4 class="modal-title">Delete {{$user_account_status->name}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
                                             </div>
-                                            <div class="modal-body">
-                                            <p>One fine body…</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
+                                            <form role="form" method="POST" action="{{ route('company.settings.user-account-statuses.destroy', ['user_account_status' => $user_account_status->id]) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Are you sure you want to delete <b>{{$user_account_status->name}}</b> User Account Status!
+                                                        <br>
+                                                        <small>This action is irreversible!</small>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- /.modal-content -->
                                         </div>
@@ -151,19 +159,31 @@
                                     <div class="modal-dialog add-user-account-status">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h4 class="modal-title">Add New User Account Status</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
+                                            <h4 class="modal-title">Add New User Account Status</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
                                         </div>
                                         
-                                        <form role="form">
+                                        <form role="form" method="POST" action="{{ route('company.settings.user-account-statuses.store') }}">
+                                            @csrf
                                             <div class="modal-body">
-                                                <p>One fine body…</p>
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" class="form-control" id="name" placeholder="user account status name" name="name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description">Description</label>
+                                                    <textarea class="form-control" id="description" rows="3" name="description" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="color">Color</label>
+                                                    <input type="text" class="form-control" id="color" placeholder="e.g primary, secondary, etc" name="color" required>
+                                                </div>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Create</button>
                                             </div>
                                         </form>
 

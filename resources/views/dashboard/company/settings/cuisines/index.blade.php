@@ -66,7 +66,7 @@
                                         </td>
                                         <td><span class="badge badge-{{$cuisine->is_enabled == 1 ? 'primary': 'warning'}}">{{$cuisine->is_enabled === 1 ? 'enabled': 'disabled'}}</span></td>
                                         <td class="project-actions">
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-cuisine-{{$cuisine->id}}">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#update-cuisine-{{$cuisine->id}}">
                                                 <i class="fas fa-pencil-alt">
                                                 </i>
                                             </button>
@@ -77,36 +77,41 @@
                                         </td>
                                     </tr>
 
-                                    <div class="modal fade" id="edit-cuisine-{{$cuisine->id}}" style="display: none;" aria-hidden="true">
-                                        <div class="modal-dialog edit-cuisine-{{$cuisine->id}}">
+                                    <div class="modal fade" id="update-cuisine-{{$cuisine->id}}" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog update-cuisine-{{$cuisine->id}}">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Edit {{$cuisine->name}}</h4>
+                                                <h4 class="modal-title">Update {{$cuisine->name}}</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
+                                            <form role="form" method="POST" action="{{ route('company.settings.cuisines.update', ['cuisine' => $cuisine->id]) }}">
+                                                @method('PUT')
+                                                @csrf
 
-                                                <div class="row">
-
-                                                    <div class="col-md-12">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" id="order-type-switch-{{$cuisine->id}}" value="{{$cuisine->is_enabled}}" name="toggle-cuisine-status" {{$cuisine->is_enabled === 1 ? 'checked' : ''}}>
-                                                                <label class="custom-control-label" for="order-type-switch-{{$cuisine->id}}">Cuisine Status</label>
-                                                            </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="name">Name</label>
+                                                        <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{ $cuisine->name }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="description">Description</label>
+                                                        <textarea class="form-control" id="description" rows="3" name="description" required>{{ $cuisine->description }}</textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="order-type-switch-{{$cuisine->id}}" name="status" {{$cuisine->is_enabled === 1 ? 'checked' : ''}}>
+                                                            <label class="custom-control-label" for="order-type-switch-{{$cuisine->id}}">Cuisine Status</label>
                                                         </div>
                                                     </div>
 
                                                 </div>
-
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- /.modal-content -->
                                         </div>
@@ -115,22 +120,32 @@
 
                                     <div class="modal fade" id="delete-cuisine-{{$cuisine->id}}" style="display: none;" aria-hidden="true">
                                         <div class="modal-dialog delete-cuisine-{{$cuisine->id}}">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h4 class="modal-title">Delete {{$cuisine->name}}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Delete {{$cuisine->name}}</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+
+                                                <form role="form" method="POST" action="{{ route('company.settings.cuisines.destroy', ['cuisine' => $cuisine->id]) }}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <div class="alert alert-danger" role="alert">
+                                                            Are you sure you want to delete <b>{{$cuisine->name}}</b> cuisine!
+                                                            <br>
+                                                            <small>This action is irreversible!</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </div>
+                                                </form>
+
                                             </div>
-                                            <div class="modal-body">
-                                            <p>One fine body…</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                        <!-- /.modal-content -->
+                                            <!-- /.modal-content -->
                                         </div>
                                         <!-- /.modal-dialog -->
                                     </div>
@@ -146,28 +161,42 @@
                                     </div>
                                 @endempty
 
+                                <!--Modal to create a new cuisine  -->
                                 <div class="modal fade" id="add-cuisine" style="display: none;" aria-hidden="true">
                                     <div class="modal-dialog add-cuisine">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h4 class="modal-title">Add New Cuisine</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Add New Cuisine</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            
+                                            <form role="form" method="POST" action="{{ route('company.settings.cuisines.store') }}">
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="name">Name</label>
+                                                        <input type="text" class="form-control" id="name" placeholder="name" name="name" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="description">Description</label>
+                                                        <textarea class="form-control" id="description" rows="3" name="description" required></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="new-cuisine-switch" name="status">
+                                                            <label class="custom-control-label" for="new-cuisine-switch">Status (Enable/Disable)</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Create</button>
+                                                </div>
+                                            </form>
                                         </div>
-                                        
-                                        <form role="form">
-                                            <div class="modal-body">
-                                                <p>One fine body…</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                    <!-- /.modal-content -->
+                                        <!-- /.modal-content -->
                                     </div>
                                     <!-- /.modal-dialog -->
                                 </div>

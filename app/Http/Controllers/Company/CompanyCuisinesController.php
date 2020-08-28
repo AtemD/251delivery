@@ -15,21 +15,11 @@ class CompanyCuisinesController extends Controller
      */
     public function index()
     {
-        $cuisines = Cuisine::paginate(3);
+        $cuisines = Cuisine::paginate(30);
 
         return view('dashboard/company/settings/cuisines/index', compact(
             'cuisines'
         ));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -40,51 +30,54 @@ class CompanyCuisinesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'status' => 'nullable',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        Cuisine::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'is_enabled' => (bool)$request->status,
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return back();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Cuisine  $cuisine
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cuisine $cuisine)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'status' => 'nullable',
+        ]);
+  
+        $cuisine->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'is_enabled' => (bool)$request->status
+        ]);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Cuisine  $cuisine
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cuisine $cuisine)
     {
-        //
+        $cuisine->delete();
+        return back();
     }
 }

@@ -12,6 +12,14 @@ class OrderTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(OrderType::class, 4)->create();
+        factory(OrderType::class)->create([
+            'name' => 'delivery',
+            'description' => 'users order is delivered to their location',
+        ]);
+
+        factory(OrderType::class)->create([
+            'name' => 'pickup',
+            'description' => 'user picks up their order at the shop',
+        ]);
     }
 }
