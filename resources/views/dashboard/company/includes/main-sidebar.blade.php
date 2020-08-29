@@ -104,6 +104,12 @@
                           <p>Roles</p>
                         </a>
                       </li>
+                      <li class="nav-item">
+                        <a href="{{ route('company.settings.permissions.index') }}" class="nav-link">
+                          <i class="fas fa-circle nav-icon"></i>
+                          <p>Permissions</p>
+                        </a>
+                      </li>
                     </ul>
                   </li>
                   <li class="nav-item has-treeview menu-open">

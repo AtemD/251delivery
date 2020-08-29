@@ -173,6 +173,16 @@ Route::put('/dashboard/company/settings/roles/{role}', 'Company\CompanyRolesCont
 Route::delete('/dashboard/company/settings/roles/{role}', 'Company\CompanyRolesController@destroy')
 ->name('company.settings.roles.destroy');
 
+// Permissions
+Route::get('/dashboard/company/settings/permissions', 'Company\CompanyPermissionsController@index')
+->name('company.settings.permissions.index');
+Route::post('/dashboard/company/settings/permissions', 'Company\CompanyPermissionsController@store')
+->name('company.settings.permissions.store');
+Route::put('/dashboard/company/settings/permissions/{permission}', 'Company\CompanyPermissionsController@update')
+->name('company.settings.permissions.update');
+Route::delete('/dashboard/company/settings/permissions/{permission}', 'Company\CompanyPermissionsController@destroy')
+->name('company.settings.permissions.destroy');
+
 // RETAILER ROUTES
 
 Route::get('/dashboard/retailer/home', 'Retailer\RetailerHomeController@index')
