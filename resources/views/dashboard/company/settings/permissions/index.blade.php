@@ -53,6 +53,7 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Guard Name</th>
+                                <th>Roles Associated</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -61,6 +62,15 @@
                                         <td>{{$permission->id}}</td>
                                         <td>{{$permission->name}}</td>
                                         <td>{{$permission->guard_name}}</td>
+                                        <td>
+                                            @forelse($permission->roles as $role)
+                                                <span class="badge badge-primary">{{$role->name}}</span>
+                                            @empty 
+                                                <div class="alert alert-warning" role="alert">
+                                                    No roles assigned to this permission
+                                                </div>
+                                            @endforelse
+                                        </td>
                                         <td class="project-actions">
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-permission-{{$permission->id}}">
                                                 <i class="fas fa-pencil-alt">
@@ -95,7 +105,24 @@
                                                         <label for="guard_name">Guard Name</label>
                                                         <input type="text" class="form-control" id="name" placeholder="guard name" name="guard_name" value="{{ $permission->guard_name }}" required>
                                                     </div>
-
+                                                    <div class="form-group">
+                                                        <label for="roles">Roles</label>
+                                                        <div class="row">
+                                                            @forelse($roles as $role)
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group form-check">
+                                                                        <input type="checkbox" name="roles[]" value="{{$role->id}}" class="form-check-input" id="update-role-{{$role->id}}"
+                                                                        {{$permission->roles->contains($role->id) ? 'checked' : ''}}>
+                                                                        <label class="form-check-label" for="update-role-{{$role->id}}">{{$role->name}}</label>
+                                                                    </div>
+                                                                </div>
+                                                            @empty 
+                                                                <div class="alert alert-warning" role="alert">
+                                                                    No roles to show
+                                                                </div>
+                                                            @endforelse
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -170,6 +197,23 @@
                                                 <div class="form-group">
                                                     <label for="guard_name">Guard Name</label>
                                                     <input type="text" class="form-control" id="name" placeholder="guard name" name="guard_name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="roles">Roles</label>
+                                                    <div class="row">
+                                                        @forelse($roles as $role)
+                                                            <div class="col-md-4">
+                                                                <div class="form-group form-check">
+                                                                    <input type="checkbox" name="roles[]" value="{{$role->id}}" class="form-check-input" id="add-role-{{$role->id}}">
+                                                                    <label class="form-check-label" for="add-role-{{$role->id}}">{{$role->name}}</label>
+                                                                </div>
+                                                            </div>
+                                                        @empty 
+                                                            <div class="alert alert-warning" role="alert">
+                                                                No roles to show
+                                                            </div>
+                                                        @endforelse
+                                                    </div>
                                                 </div>
 
                                             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 
@@ -15,10 +16,17 @@ class CompanyPermissionsController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::paginate(30);
+        $permissions = Permission::with([
+            'roles' => function ($query) {
+                $query->orderBy('name', 'asc');
+            }
+        ])->orderBy('name', 'asc')->paginate(30);
+
+        $roles = Role::all();
 
         return view('dashboard/company/settings/permissions/index', compact(
-            'permissions'
+            'permissions',
+            'roles'
         ));
     }
 
@@ -32,13 +40,16 @@ class CompanyPermissionsController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'guard_name' => 'required|max:255'
+            'guard_name' => 'required|max:255',
+            'roles' => 'nullable'
         ]);
 
-        Permission::create([
+        $permission = Permission::create([
             'name' => $request->name,
             'guard_name' => $request->guard_name,
         ]);
+
+        $permission->syncRoles($request->roles);
 
         return back();
     }
@@ -54,13 +65,16 @@ class CompanyPermissionsController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'guard_name' => 'required|max:255'
+            'guard_name' => 'required|max:255',
+            'roles' => 'nullable'
         ]);
 
         $permission->update([
             'name' => $request->name,
             'guard_name' => $request->guard_name,
         ]);
+        
+        $permission->syncRoles($request->roles);
 
         return back();
     }

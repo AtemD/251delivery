@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Company;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
 class CompanyRolesController extends Controller
 {
@@ -15,10 +16,17 @@ class CompanyRolesController extends Controller
      */
     public function index()
     {
-        $roles = Role::paginate(3);
-
+        $roles = Role::with([
+            'permissions' => function ($query) {
+                $query->orderBy('name', 'asc');
+            }
+        ])->orderBy('name', 'asc')->paginate(10);
+        
+        $permissions = Permission::orderBy('name', 'asc')->get();
+        
         return view('dashboard/company/settings/roles/index', compact(
-            'roles'
+            'roles',
+            'permissions'
         ));
     }
 
@@ -30,15 +38,20 @@ class CompanyRolesController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->toArray());
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'guard_name' => 'required|max:255'
+            'guard_name' => 'required|max:255',
+            'permissions' => 'nullable'
         ]);
 
-        Role::create([
+        $role = Role::create([
             'name' => $request->name,
             'guard_name' => $request->guard_name,
         ]);
+
+        $role->syncPermissions($request->permissions);
 
         return back();
     }
@@ -54,13 +67,16 @@ class CompanyRolesController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'guard_name' => 'required|max:255'
+            'guard_name' => 'required|max:255',
+            'permissions' => 'nullable'
         ]);
 
         $role->update([
             'name' => $request->name,
             'guard_name' => $request->guard_name,
         ]);
+
+        $role->syncPermissions($request->permissions);
 
         return back();
     }
