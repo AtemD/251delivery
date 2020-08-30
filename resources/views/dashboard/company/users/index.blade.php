@@ -65,7 +65,7 @@
                                         <td>{{$user->phone_number}}</td>
                                         <td>{{$user->email}}</td>
                                         
-                                        @if(!empty($user->userAccountStatus->name)))
+                                        @if(!empty($user->userAccountStatus->name))
                                             <td><span class="badge badge-{{$user->userAccountStatus->color}}">{{$user->userAccountStatus->name}}</span></td>
                                         @else 
                                             <td><span class="badge badge-warning">Null</span></td>
