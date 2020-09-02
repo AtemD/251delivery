@@ -54,6 +54,7 @@
                                 <th>Phone</th>
                                 <th>Email</th>
                                 <th>Status</th>
+                                <th>Roles</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -70,6 +71,14 @@
                                         @else 
                                             <td><span class="badge badge-warning">Null</span></td>
                                         @endif
+
+                                        <td>
+                                            @forelse($user->roles as $role)
+                                                <span class="badge badge-primary">{{$role->name}}</span>
+                                            @empty 
+                                                <span class="badge badge-warning">No Role Assigned</span>
+                                            @endforelse
+                                        </td>
 
                                         <td class="project-actions">
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-user-{{$user->id}}">
@@ -178,7 +187,7 @@
                                 @endempty
 
                                 <div class="modal fade" id="add-user" style="display: none;" aria-hidden="true">
-                                    <div class="modal-dialog add-user">
+                                    <div class="modal-dialog add-user modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="modal-title">Add New user</h4>

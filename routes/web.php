@@ -59,6 +59,26 @@ Route::put('/dashboard/company/users/{user}', 'Company\CompanyUsersController@up
 Route::delete('/dashboard/company/users/{user}', 'Company\CompanyUsersController@destroy')
 ->name('company.users.destroy');
 
+// Company Retailers
+Route::get('/dashboard/company/retailers', 'Company\CompanyRetailersController@index')
+->name('company.retailers.index');
+Route::post('/dashboard/company/retailers', 'Company\CompanyRetailersController@store')
+->name('company.retailers.store');
+Route::put('/dashboard/company/retailers/{retailer}', 'Company\CompanyRetailersController@update')
+->name('company.retailers.update');
+Route::delete('/dashboard/company/retailers/{retailer}', 'Company\CompanyRetailersController@destroy')
+->name('company.retailers.destroy');
+
+// Company Buyers
+Route::get('/dashboard/company/buyers', 'Company\CompanyBuyersController@index')
+->name('company.buyers.index');
+// Route::post('/dashboard/company/buyers', 'Company\CompanyBuyersController@store')
+// ->name('company.buyers.store');
+// Route::put('/dashboard/company/buyers/{buyer}', 'Company\CompanyBuyersController@update')
+// ->name('company.buyers.update');
+// Route::delete('/dashboard/company/buyers/{buyer}', 'Company\CompanyBuyersController@destroy')
+// ->name('company.buyers.destroy');
+
 // Company Orders
 Route::get('/dashboard/company/orders', 'Company\CompanyOrdersController@index')
 ->name('company.orders.index');

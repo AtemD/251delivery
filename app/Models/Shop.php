@@ -93,4 +93,9 @@ class Shop extends Model
         return $this->morphOne('App\Models\Location', 'locationable');
     }
 
+    public function retailers()
+    {
+        return $this->belongsToMany('App\Models\Retailer', 'shop_has_users', 'shop_id', 'user_id');
+    }
+
 }

@@ -40,14 +40,6 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('company.users.index') }}" class="nav-link">
-                  <i class="nav-icon fas fa-users"></i>
-                  <p>
-                    Users
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="{{ route('company.orders.index') }}" class="nav-link">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
@@ -55,7 +47,41 @@
                   </p>
                 </a>
               </li>
-
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+                    Users
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview" style="display: block;">
+                  <li class="nav-item">
+                    <a href="{{ route('company.users.index') }}" class="nav-link">
+                      <i class="fas fa-circle nav-icon"></i>
+                      <p>All Users</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('company.buyers.index') }}" class="nav-link">
+                      <i class="fas fa-circle nav-icon"></i>
+                      <p>Buyers</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('company.retailers.index') }}" class="nav-link">
+                      <i class="fas fa-circle nav-icon"></i>
+                      <p>Retailers</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="fas fa-circle nav-icon"></i>
+                      <p>Administrators</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
               <li class="nav-item has-treeview menu-open">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cog"></i>

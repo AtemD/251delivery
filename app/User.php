@@ -11,6 +11,7 @@ class User extends Authenticatable
 {
     use Notifiable, HasRoles;
 
+    protected $guard_name = 'web';
     protected $table = 'users';
     
     // User account status
@@ -24,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'phone_number', 'email', 'password', 'user_account_status_id'
+        'first_name', 'last_name', 'phone_number', 'email', 'password', 'user_account_status_id', 'status_by', 'status_date',
     ];
 
     /**
