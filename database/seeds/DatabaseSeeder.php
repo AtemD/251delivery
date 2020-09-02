@@ -13,18 +13,20 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersTableSeeder::class);
 
-        $this->call(RolesTableSeeder::class);
-        // $this->call(PermissionsTableSeeder::class);
-        // $this->call(RoleHasPermissionsTableSeeder::class);
-        // $this->call(ModelHasRolesTableSeeder::class);
-        // $this->call(ModelHasPermissionsTableSeeder::class);
-
+        
         $this->call(ShopAccountStatusesTableSeeder::class);
         $this->call(OrderStatusesTableSeeder::class);
         $this->call(UserAccountStatusesTableSeeder::class);
         $this->call(OrderTypesTableSeeder::class);
         $this->call(PaymentMethodsTableSeeder::class);
         $this->call(ShopTypesTableSeeder::class);
+        
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(RoleHasPermissionsTableSeeder::class);
+        $this->call(ModelHasRolesTableSeeder::class);
+        $this->call(ModelHasPermissionsTableSeeder::class);
+
         $this->call(ShopsTableSeeder::class);
 
         $this->call(CountriesTableSeeder::class);
@@ -34,6 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CuisinesTableSeeder::class);
 
         $this->call(ShopHasCuisineTableSeeder::class);
+        $this->call(ShopHasUsersTableSeeder::class);
         
         $this->call(SectionsTableSeeder::class);
         $this->call(TaxesTableSeeder::class);

@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 
 class ModelHasPermissionsTableSeeder extends Seeder
@@ -11,6 +12,8 @@ class ModelHasPermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $random_user = User::doesntHave('roles')->get();
+
+        $random_user->random()->givePermissionTo('view products');
     }
 }
