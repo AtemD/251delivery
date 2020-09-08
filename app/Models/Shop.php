@@ -2,12 +2,25 @@
 
 namespace App\Models;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 
 class Shop extends Model
 {
+    use HasSlug;
 
-    protected $guarded = [];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'slug', 'description', 'email', 'phone_number', 
+        'shop_type_id', 'banner_image', 'logo_image', 'average_preparation_time',
+    ];
+
+    // protected $guarded = [];
 
     // Account Statuses
     const VERIFIED_SHOP = 'verified';
@@ -17,6 +30,27 @@ class Shop extends Model
     // Availability Statuses
     const AVAILABLE_SHOP = 'available';
     const UNAVAILABLE_SHOP = 'unavailable';
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnUpdate();
+    }
+    
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     /**
      * Get a string path for the shop
