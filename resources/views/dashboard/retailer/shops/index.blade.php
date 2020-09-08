@@ -19,7 +19,7 @@
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content-header -->
-    
+
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -57,29 +57,36 @@
                                 <tbody>
                                     @forelse($shops as $shop)
                                         <tr>
-                                            <td>{{$shop->name}}</td>
-                                            <td>{!! mb_substr($shop->description, 0,35) !!}...</td>
-                                            <td>
-                                                {{$shop->phone_number}} <br>
-                                                {{$shop->email}}
-                                            </td>
-                                            <td>{{$shop->shopType->name}}</td>
-                                            <td>
-                                                <span class="badge badge-{{!empty($shop->shopAccountStatus) ? $shop->shopAccountStatus->color: 'secondary'}}">
-                                                    {{!empty($shop->shopAccountStatus) ? $shop->shopAccountStatus->name: 'Unverified'}}
-                                                </span>
-                                            </td>
+                                            @can('view', $shop)
+                                                <td>{{$shop->name}}</td>
+                                                <td>{!! mb_substr($shop->description, 0,35) !!}...</td>
+                                                <td>
+                                                    {{$shop->phone_number}} <br>
+                                                    {{$shop->email}}
+                                                </td>
+                                                <td>{{$shop->shopType->name}}</td>
+                                                <td>
+                                                    <span class="badge badge-{{!empty($shop->shopAccountStatus) ? $shop->shopAccountStatus->color: 'secondary'}}">
+                                                        {{!empty($shop->shopAccountStatus) ? $shop->shopAccountStatus->name: 'Unverified'}}
+                                                    </span>
+                                                </td>
 
-                                            <td><span class="badge badge-{{$shop->is_available == 1 ? 'primary': 'warning'}}">{{$shop->is_available === 1 ? 'online': 'offline'}}</span></td>
-                                            <td class="project-actions">
-                                                <div>
-                                                    <retailer-edit-shop-component :shop="{{$shop}}" :shoptypes="{{$shop_types}}"></retailer-edit-shop-component>
-                                                    <retailer-delete-shop-component :shop="{{$shop}}"></retailer-delete-shop-component>
-                                                </div>
-                                                
-                                            </td>
+                                                <td><span class="badge badge-{{$shop->is_available == 1 ? 'primary': 'warning'}}">{{$shop->is_available === 1 ? 'online': 'offline'}}</span></td>
+                                                <td class="project-actions">
+                                                    <div>
+                                                        <retailer-edit-shop-component :shop="{{$shop}}" :shoptypes="{{$shop_types}}"></retailer-edit-shop-component>
+                                                        <retailer-delete-shop-component :shop="{{$shop}}"></retailer-delete-shop-component>
+                                                    </div>
+                                                    
+                                                </td>
+                                            @else
+                                                <td>
+                                                    <div class="alert alert-info" role="alert">
+                                                        You dont have permission to view this shop <br>({{$shop->name}})
+                                                    </div>
+                                                </td>
+                                            @endcan
                                         </tr>
-
                                     @empty
                                         <div class="row">
                                             <div class="col-md-12">
