@@ -10,7 +10,7 @@ $factory->define(Shop::class, function (Faker $faker) {
 
     return [
 		'name' => $name,
-		'slug' => Str::slug($name, '-'),
+		// 'slug' => Str::slug($name, '-'),
         'shop_type_id' => function() {
     		return factory('App\Models\ShopType')->create()->id;
     	},
