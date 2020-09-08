@@ -1,5 +1,5 @@
 <template>
-        <div v-if="$can('edit shops')">
+        <div v-if="$can('update shops')">
             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" :data-target="'#edit-shop'+ shopToUpdate.id">
                 <i class="fas fa-pencil-alt">
                 </i>
