@@ -1,6 +1,7 @@
 <?php
 
 use App\User;
+use App\Models\Role;
 use App\Models\Shop;
 use Illuminate\Database\Seeder;
 
@@ -14,11 +15,11 @@ class ShopHasUsersTableSeeder extends Seeder
     public function run()
     {
         $shops = Shop::all();
-        $retailers = User::role('retailer')->get();
+        $retailers = User::role(Role::RETAILER)->get();
 
         $shops->each(function($shop) use($retailers){
             $retailers = $retailers->random(mt_rand(1, 4));
-            $shop->retailers()->attach($retailers);
+            $shop->users()->attach($retailers);
         });
     }
 }
