@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
 
 class PermissionsTableSeeder extends Seeder
 {
@@ -20,25 +20,32 @@ class PermissionsTableSeeder extends Seeder
         DB::table('permissions')->truncate();
         
         // Retailer Permissions
-        Permission::create(['name' => 'create products']);
-        Permission::create(['name' => 'edit products']);
-        Permission::create(['name' => 'delete products']);
-        Permission::create(['name' => 'view products']);
+        Permission::create(['name' => Permission::CREATE_PRODUCTS]);
+        Permission::create(['name' => Permission::UPDATE_PRODUCTS]);
+        Permission::create(['name' => Permission::DELETE_PRODUCTS]);
+        Permission::create(['name' => Permission::VIEW_PRODUCTS]);
 
-        Permission::create(['name' => 'create shops']);
-        Permission::create(['name' => 'edit shops']);
-        Permission::create(['name' => 'delete shops']);
-        Permission::create(['name' => 'view shops']);
+        Permission::create(['name' => Permission::CREATE_SHOPS]);
+        Permission::create(['name' => Permission::UPDATE_SHOPS]);
+        Permission::create(['name' => Permission::DELETE_SHOPS]);
+        Permission::create(['name' => Permission::VIEW_SHOPS]);
 
-        Permission::create(['name' => 'access retailer dashboard']);
+        Permission::create(['name' => Permission::CREATE_SECTIONS]);
+        Permission::create(['name' => Permission::UPDATE_SECTIONS]);
+        Permission::create(['name' => Permission::DELETE_SECTIONS]);
+        Permission::create(['name' => Permission::VIEW_SECTIONS]);
+
+        Permission::create(['name' => Permission::ACCESS_RETAILER_DASHBOARD]);
 
 
         // Admin permissions
-        $admin_permissions = Permission::create(['name' => 'create roles']);
-        $admin_permissions = Permission::create(['name' => 'edit roles']);
-        $admin_permissions = Permission::create(['name' => 'delete roles']);
-        $admin_permissions = Permission::create(['name' => 'view roles']);
-        $admin_permissions = Permission::create(['name' => 'access administrator dashboard']);
+        Permission::create(['name' => Permission::CREATE_ROLES]);
+        Permission::create(['name' => Permission::UPDATE_ROLES]);
+        Permission::create(['name' => Permission::DELETE_ROLES]);
+        Permission::create(['name' => Permission::VIEW_ROLES]);
+
+
+        Permission::create(['name' => Permission::ACCESS_ADMINISTRATOR_DASHBOARD]);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

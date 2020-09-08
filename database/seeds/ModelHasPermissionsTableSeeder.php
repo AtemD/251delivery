@@ -2,6 +2,7 @@
 
 use App\User;
 use App\Models\Shop;
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
 class ModelHasPermissionsTableSeeder extends Seeder
@@ -17,8 +18,8 @@ class ModelHasPermissionsTableSeeder extends Seeder
 
         $random_user = $users->random();
 
-        $random_user->givePermissionTo('access retailer dashboard');
-        $random_user->givePermissionTo('view products');
+        $random_user->givePermissionTo(Permission::ACCESS_RETAILER_DASHBOARD);
+        $random_user->givePermissionTo(Permission::VIEW_PRODUCTS);
 
         $shop = Shop::first();
         $random_user->shops()->sync($shop);

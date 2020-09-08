@@ -1,6 +1,7 @@
 <?php
 
 use App\User;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 use App\Models\UserAccountStatus;
 
@@ -21,7 +22,7 @@ class ModelHasRolesTableSeeder extends Seeder
             $retailer->update([
                 'user_account_status_id' => $verified_status->id,
             ]);
-            $retailer->assignRole('retailer'); 
+            $retailer->assignRole(Role::RETAILER); 
         });
 
         $administrators = User::limit(7)->get();
@@ -30,7 +31,7 @@ class ModelHasRolesTableSeeder extends Seeder
             $admin->update([
                 'user_account_status_id' => $verified_status->id,
             ]);
-            $admin->assignRole('administrator');
+            $admin->assignRole(Role::ADMINISTRATOR);
         });
     }
 }
