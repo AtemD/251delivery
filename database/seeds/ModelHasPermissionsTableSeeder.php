@@ -1,6 +1,7 @@
 <?php
 
 use App\User;
+use App\Models\Shop;
 use Illuminate\Database\Seeder;
 
 class ModelHasPermissionsTableSeeder extends Seeder
@@ -12,8 +13,15 @@ class ModelHasPermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $random_user = User::doesntHave('roles')->get();
+        $users = User::doesntHave('roles')->get();
 
-        $random_user->random()->givePermissionTo('view products');
+        $random_user = $users->random();
+
+        $random_user->givePermissionTo('access retailer dashboard');
+        $random_user->givePermissionTo('view products');
+
+        $shop = Shop::first();
+        $random_user->shops()->sync($shop);
+        
     }
 }

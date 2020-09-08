@@ -1,11 +1,8 @@
 <?php
 
-use App\Models\Retailer;
-use App\Models\Administrator;
-use App\Scopes\RetailerScope;
+use App\User;
 use Illuminate\Database\Seeder;
 use App\Models\UserAccountStatus;
-use App\Scopes\AdministratorScope;
 
 class ModelHasRolesTableSeeder extends Seeder
 {
@@ -16,7 +13,7 @@ class ModelHasRolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $retailers = Retailer::withoutGlobalScope(RetailerScope::class)->limit(45)->get();
+        $retailers = User::limit(45)->get();
 
         $verified_status = UserAccountStatus::where('name', 'verified')->first();
 
@@ -27,7 +24,7 @@ class ModelHasRolesTableSeeder extends Seeder
             $retailer->assignRole('retailer'); 
         });
 
-        $administrators = Administrator::withoutGlobalScope(AdministratorScope::class)->limit(7)->get();
+        $administrators = User::limit(7)->get();
 
         $administrators->each(function($admin) use($verified_status){
             $admin->update([

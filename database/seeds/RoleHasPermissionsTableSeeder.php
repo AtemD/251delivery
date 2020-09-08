@@ -17,7 +17,14 @@ class RoleHasPermissionsTableSeeder extends Seeder
         $admin_role = Role::where('name', 'administrator')->first();
         $permissions = Permission::all();
 
-        $retailer_role->syncPermissions(['create products', 'edit products', 'delete products', 'view products']);
+        $retailer_role->syncPermissions([
+            'access retailer dashboard',
+            'create products', 
+            'edit products', 
+            'delete products', 
+            'view products'
+        ]);
+        
         $admin_role->syncPermissions($permissions);
     }
 }
