@@ -28,11 +28,16 @@ class RetailerShopsController extends Controller
      */
     public function index()
     {
+        // $this->authorize('view', Shop::class);
+
+        
         $user = Auth::user();
+
+        if(!$user->shops()->exists()) return;
 
         $shop_types = ShopType::all();
 
-        $shops = $user->shops()->with('shopAccountStatus')->orderBy('name', 'asc')->paginate(10);
+        $shops = $user->shops()->with(['shopAccountStatus', 'shopType'])->orderBy('name', 'asc')->paginate(10);
 
         return view('dashboard/retailer/shops/index', compact([
             'shops',
@@ -48,6 +53,8 @@ class RetailerShopsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Shop::class);
+
         $this->validate($request,[
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
@@ -94,6 +101,8 @@ class RetailerShopsController extends Controller
      */
     public function update(Request $request, Shop $shop)
     {
+        $this->authorize('update', $shop);
+
         $this->validate($request,[
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
