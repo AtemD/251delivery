@@ -43567,7 +43567,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.$can("edit shops")
+  return _vm.$can("update shops")
     ? _c("div", [
         _c(
           "button",
