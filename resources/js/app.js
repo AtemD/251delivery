@@ -7,11 +7,35 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+
 window.bus = new Vue();
 
+// Importing the mixins to be used globally
+import Permissions from './mixins/Permissions';
+Vue.mixin(Permissions);
 
+// Sweet alert
 import Swal from 'sweetalert2';
-window.swal = Swal;
+window.Swal = Swal;
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+});
+window.Toast = Toast;
+// Vform
+import { Form, HasError, AlertError } from 'vform';
+window.Form = Form;
+
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 
 /**
  * The following block of code may be used to automatically register your
@@ -29,141 +53,160 @@ Vue.component('product-modal-component', require('./components/ProductModalCompo
 Vue.component('cart-count-component', require('./components/CartCountComponent.vue').default);
 Vue.component('product-component', require('./components/ProductComponent.vue').default);
 Vue.component('cart-details-component', require('./components/CartDetailsComponent.vue').default);
+
+// retailer components
+Vue.component('retailer-add-shop-component', require('./components/RetailerAddShopComponent.vue').default);
+Vue.component('retailer-delete-shop-component', require('./components/RetailerDeleteShopComponent.vue').default);
+Vue.component('retailer-edit-shop-component', require('./components/RetailerEditShopComponent.vue').default);
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-const app = new Vue({
-    el: '#app',
-    data: {
-        cart: [],
-        proceedWithAddToCart: false,
-    },
-    created(){
-        this.getCart();
-
-        bus.$on('add-to-cart', (product) => {
-            this.addToCart(product);
-        });
-
-        bus.$on('remove-from-cart', (product) => {
-            this.removeFromCart(product);
-        });
-
-    },
-    computed: {
-        cartTotal(){
-            return this.cart.reduce((total, product) => {
-                return total + product.qty * product.price;
-            }, 0);
+if(document.querySelector('#app')) {
+    const app = new Vue({
+        el: '#app',
+        data: {
+            cart: [],
+            proceedWithAddToCart: false,
         },
-        totalItems(){
-            return this.cart.reduce((total, product) => {
-                return total + product.qty;
-            }, 0);
-        }
-    },
-    methods: {
-        getCart () {
-            this.cart=[];
-            if (localStorage && localStorage.getItem('cart')) {
-                this.cart = JSON.parse(localStorage.getItem('cart'));
-                // window.localStorage.clear();
-            } else {
-                this.cart = [];
+        created(){
+            this.getCart();
+
+            bus.$on('add-to-cart', (product) => {
+                this.addToCart(product);
+            });
+
+            bus.$on('remove-from-cart', (product) => {
+                this.removeFromCart(product);
+            });
+
+        },
+        computed: {
+            cartTotal(){
+                return this.cart.reduce((total, product) => {
+                    return total + product.qty * product.price;
+                }, 0);
+            },
+            totalItems(){
+                return this.cart.reduce((total, product) => {
+                    return total + product.qty;
+                }, 0);
             }
         },
-        addToCart(product){
+        methods: {
+            getCart () {
+                this.cart=[];
+                if (localStorage && localStorage.getItem('cart')) {
+                    this.cart = JSON.parse(localStorage.getItem('cart'));
+                    // window.localStorage.clear();
+                } else {
+                    this.cart = [];
+                }
+            },
+            addToCart(product){
 
-            const hasSwitchedShop = this.userHasSwitchedShop(product);
+                const hasSwitchedShop = this.userHasSwitchedShop(product);
 
-            if(hasSwitchedShop === true){
-                console.log('hit product not from the same shop');
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                      confirmButton: 'btn btn-success',
-                      cancelButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
-                  });
-                  
-                swalWithBootstrapButtons.fire({
-                    title: 'You Switched to Another Shop',
-                    text: "This action will create a new shopping cart and delete the current one!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'No, cancel!',
-                    cancelButtonText: 'Yes, create new cart!',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
+                if(hasSwitchedShop === true){
+                    console.log('hit product not from the same shop');
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: false
+                    });
+                    
+                    swalWithBootstrapButtons.fire({
+                        title: 'You Switched to Another Shop',
+                        text: "This action will create a new shopping cart and delete the current one!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'No, cancel!',
+                        cancelButtonText: 'Yes, create new cart!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
 
-                        this.proceedWithAddToCart = false;
+                            this.proceedWithAddToCart = false;
 
-                        swalWithBootstrapButtons.fire(
-                            'OK, first go to checkout',
-                            'Once you checkout, you can come back and order from here :)',
-                            'success'
-                        );
+                            swalWithBootstrapButtons.fire(
+                                'OK, first go to checkout',
+                                'Once you checkout, you can come back and order from here :)',
+                                'success'
+                            );
 
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        
-                        localStorage.clear();
-                        this.cart = [];
-                        this.proceedWithAddToCart = true;
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            
+                            localStorage.clear();
+                            this.cart = [];
+                            this.proceedWithAddToCart = true;
 
-                        swalWithBootstrapButtons.fire(
-                            'Successfully Switched to Another Shop',
-                            'Your new cart has been created. You can now place a new order :)',
-                            'success'
-                        );
-                    }
+                            swalWithBootstrapButtons.fire(
+                                'Successfully Switched to Another Shop',
+                                'Your new cart has been created. You can now place a new order :)',
+                                'success'
+                            );
+                        }
+                    });
+                } else {
+                    this.proceedWithAddToCart = true;
+                }
+
+                if(this.proceedWithAddToCart === false) return;
+
+                const matchingProductIndex = this.cart.findIndex((item) => {
+                    return item.id === product.id;
                 });
-            } else {
-                this.proceedWithAddToCart = true;
+
+                if (matchingProductIndex > -1) {
+                    this.cart[matchingProductIndex].qty++;
+                } else {
+                    product.qty = 1;
+                    this.cart.push(product);
+                }
+
+                localStorage.setItem('cart', JSON.stringify(this.cart));
+            },
+
+            removeFromCart(product){
+                const matchingProductIndex = this.cart.findIndex((item) => {
+                    return item.id === product.id;
+                });
+
+                if (this.cart[matchingProductIndex].qty <= 1) {
+                    this.cart.splice(matchingProductIndex, 1);
+                } else {
+                    this.cart[matchingProductIndex].qty--;
+                }
+
+                localStorage.setItem('cart', JSON.stringify(this.cart));
+            },
+
+            userHasSwitchedShop(product){
+                if (this.cart.length) {
+                    // cart is not empty
+                    return product.shop_id != this.cart[0].shop_id;
+                } else {
+                    // Cart is empty
+                    return false;
+                }
             }
+            
 
-            if(this.proceedWithAddToCart === false) return;
-
-            const matchingProductIndex = this.cart.findIndex((item) => {
-                return item.id === product.id;
-            });
-
-            if (matchingProductIndex > -1) {
-                this.cart[matchingProductIndex].qty++;
-            } else {
-                product.qty = 1;
-                this.cart.push(product);
-            }
-
-            localStorage.setItem('cart', JSON.stringify(this.cart));
-        },
-
-        removeFromCart(product){
-            const matchingProductIndex = this.cart.findIndex((item) => {
-                return item.id === product.id;
-            });
-
-            if (this.cart[matchingProductIndex].qty <= 1) {
-                this.cart.splice(matchingProductIndex, 1);
-            } else {
-                this.cart[matchingProductIndex].qty--;
-            }
-
-            localStorage.setItem('cart', JSON.stringify(this.cart));
-        },
-
-        userHasSwitchedShop(product){
-            if (this.cart.length) {
-                // cart is not empty
-                return product.shop_id != this.cart[0].shop_id;
-            } else {
-                // Cart is empty
-                return false;
-            }
         }
-        
+    });
+}
 
-    }
-});
+if(document.querySelector('#retailerapp')) {
+    // A fresh vue application instance of the retailer part of the app
+    const retailerapp = new Vue({
+        el: '#retailerapp',
+        created(){
+            console.log('retailer app created');
+        },
+    });
+}

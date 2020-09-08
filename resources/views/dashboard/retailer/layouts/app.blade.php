@@ -5,22 +5,35 @@
     </head>
 
     <body class="hold-transition sidebar-mini">
-        <div class="wrapper">
-            <!-- Navbar -->
-            @include('dashboard.retailer.includes.navbar')
-
-            <!-- Main Sidebar Container -->
-            @include('dashboard.retailer.includes.main-sidebar')
-
-            <!-- Content Wrapper. Contains page content -->
-            @yield('content')
-
-            <!-- Control Sidebar -->
-            @include('dashboard.retailer.includes.control-sidebar')
-
-            <!-- Main Footer -->
-            @include('dashboard.retailer.includes.footer')
+        <div id="retailerapp">
+            <div class="wrapper">
+                <!-- Navbar -->
+                @include('dashboard.retailer.includes.navbar')
+    
+                <!-- Main Sidebar Container -->
+                @include('dashboard.retailer.includes.main-sidebar')
+    
+                <!-- Content Wrapper. Contains page content -->
+                @yield('content')
+    
+                <!-- Control Sidebar -->
+                @include('dashboard.retailer.includes.control-sidebar')
+    
+                <!-- Main Footer -->
+                @include('dashboard.retailer.includes.footer')
+            </div>
         </div>
+
+        @guest
+            <script>
+                window.Permissions = [];
+            </script>
+        @else
+            <script>
+                window.Permissions = @json(auth()->user()->allPermissions);
+            </script>
+        @endguest
+
         <!-- REQUIRED SCRIPTS -->
         <script src="/js/app.js"></script>
     </body>

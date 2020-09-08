@@ -207,3 +207,23 @@ Route::delete('/dashboard/company/settings/permissions/{permission}', 'Company\C
 
 Route::get('/dashboard/retailer/home', 'Retailer\RetailerHomeController@index')
     ->name('retailer.home');
+
+// Retailer products    
+Route::get('/dashboard/retailer/products', 'Retailer\RetailerProductsController@index')
+->name('retailer.products.index');
+Route::post('/dashboard/retailer/products', 'Retailer\RetailerProductsController@store')
+->name('retailer.products.store');
+Route::put('/dashboard/retailer/products/{product}', 'Retailer\RetailerProductsController@update')
+->name('retailer.products.update');
+Route::delete('/dashboard/retailer/products/{product}', 'Retailer\RetailerProductsController@destroy')
+->name('retailer.products.destroy');
+
+// Retailer shops    
+Route::get('/dashboard/retailer/shops', 'Retailer\RetailerShopsController@index')
+->name('retailer.shops.index');
+Route::post('/dashboard/retailer/shops', 'Retailer\RetailerShopsController@store')
+->name('retailer.shops.store');
+Route::put('/dashboard/retailer/shops/{shop}', 'Retailer\RetailerShopsController@update')
+->name('retailer.shops.update');
+Route::delete('/dashboard/retailer/shops/{shop}', 'Retailer\RetailerShopsController@destroy')
+->name('retailer.shops.destroy');
