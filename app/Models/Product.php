@@ -14,7 +14,7 @@ class Product extends Model
     const AVAILABLE_PRODUCT = 'available';
     const UNAVAILABLE_PRODUCT = 'unavailable';
 
-    protected $appends = ['price', 'image_path'];
+    protected $appends = ['price', 'image_path', 'short_description'];
 
     public function shop()
     {
@@ -50,5 +50,10 @@ class Product extends Model
     public function getImagePathAttribute()
     {
         return "/uploads/shops/products/{$this->image}";
+    }
+
+    public function getShortDescriptionAttribute()
+    {
+        return mb_substr($this->description, 0,35);
     }
 }

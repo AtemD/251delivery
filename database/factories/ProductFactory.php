@@ -8,7 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Product::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
-        'status'=> $faker->randomElement([Product::AVAILABLE_PRODUCT, Product::UNAVAILABLE_PRODUCT]),
         'shop_id' => function() {
         	return factory('App\Models\Shop')->create()->id;
         },

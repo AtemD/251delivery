@@ -205,25 +205,29 @@ Route::delete('/dashboard/company/settings/permissions/{permission}', 'Company\C
 
 // RETAILER ROUTES
 
-Route::get('/dashboard/retailer/home', 'Retailer\RetailerHomeController@index')
-    ->name('retailer.home');
+Route::get('/dashboard/retailer/shops', 'Retailer\RetailerHomeController@index')
+->name('retailer.shops');
 
-// Retailer products    
-Route::get('/dashboard/retailer/products', 'Retailer\RetailerProductsController@index')
-->name('retailer.products.index');
-Route::post('/dashboard/retailer/products', 'Retailer\RetailerProductsController@store')
-->name('retailer.products.store');
-Route::put('/dashboard/retailer/products/{product}', 'Retailer\RetailerProductsController@update')
-->name('retailer.products.update');
-Route::delete('/dashboard/retailer/products/{product}', 'Retailer\RetailerProductsController@destroy')
-->name('retailer.products.destroy');
+// Route::get('/dashboard/retailer/{shop}/home', 'Retailer\RetailerHomeController@index')
+// ->name('retailer.home');
 
 // Retailer shops    
-Route::get('/dashboard/retailer/shops', 'Retailer\RetailerShopsController@index')
+Route::get('/dashboard/retailer/shops/{shop}', 'Retailer\RetailerShopsController@index')
 ->name('retailer.shops.index');
 Route::post('/dashboard/retailer/shops', 'Retailer\RetailerShopsController@store')
 ->name('retailer.shops.store');
 Route::put('/dashboard/retailer/shops/{shop}', 'Retailer\RetailerShopsController@update')
 ->name('retailer.shops.update');
 Route::delete('/dashboard/retailer/shops/{shop}', 'Retailer\RetailerShopsController@destroy')
-->name('retailer.shops.destroy');
+->name('retailer.shops.destroy');  
+
+// Retailer products
+Route::get('/dashboard/retailer/shops/{shop}/products', 'Retailer\RetailerProductsController@index')
+->name('retailer.products.index');
+Route::post('/dashboard/retailer/shops/{shop}/products/{product}', 'Retailer\RetailerProductsController@store')
+->name('retailer.products.store');
+Route::put('/dashboard/retailer/shops/{shop}/products/{product}', 'Retailer\RetailerProductsController@update')
+->name('retailer.products.update');
+Route::delete('/dashboard/retailer/shops/{shop}/products/{product}', 'Retailer\RetailerProductsController@destroy')
+->name('retailer.products.destroy');
+

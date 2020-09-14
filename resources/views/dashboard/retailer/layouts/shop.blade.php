@@ -10,9 +10,9 @@
                 <!-- Navbar -->
                 @include('dashboard.retailer.includes.navbar')
     
-                <!-- Main Sidebar Container -->
-                @include('dashboard.retailer.includes.main-sidebar')
-    
+                <!-- Seoondary Sidebar Container -->
+                @include('dashboard.retailer.includes.switch-shop-sidebar')
+
                 <!-- Content Wrapper. Contains page content -->
                 @yield('content')
     

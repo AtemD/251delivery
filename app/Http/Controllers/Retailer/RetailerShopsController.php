@@ -26,22 +26,23 @@ class RetailerShopsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Shop $shop)
     {
         // $this->authorize('view', Shop::class);
 
+        // dd('hit');
         
-        $user = Auth::user();
+        // $user = Auth::user();
 
-        if(!$user->shops()->exists()) return;
+        // if(!$user->shops()->exists()) return;
 
-        $shop_types = ShopType::all();
+        // $shop_types = ShopType::all();
 
-        $shops = $user->shops()->with(['shopAccountStatus', 'shopType'])->orderBy('name', 'asc')->paginate(10);
+        // $shops = $user->shops()->with(['shopAccountStatus', 'shopType'])->orderBy('name', 'asc')->paginate(10);
+        $shop = $shop->load(['shopType', 'shopAccountStatus']);
 
         return view('dashboard/retailer/shops/index', compact([
-            'shops',
-            'shop_types'
+            'shop'
         ]));
     }
 

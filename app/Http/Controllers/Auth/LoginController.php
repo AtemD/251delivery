@@ -49,7 +49,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if($user->hasPermissionTo('access retailer dashboard')){
-            return redirect()->route('retailer.home');
+            return redirect()->route('retailer.shops');
         } else if($user->hasPermissionTo('access administrator dashboard')){
             return redirect()->route('company.home');
         } else {

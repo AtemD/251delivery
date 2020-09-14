@@ -2,11 +2,23 @@
 
 namespace App\Http\Controllers\Retailer;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class RetailerHomeController extends Controller
 {
+   
+   /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,16 @@ class RetailerHomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard/retailer/home');
+        $shops = Auth::user()->shops()->paginate(25);
+
+        if($shops->count() > 1){
+            return view('dashboard/retailer/switch-shops', compact('shops'));
+        }
+
+        // redirect to that specific shops route
+        $my_shop = $shops->first();
+        return redirect()->route('retailer.shops.index', ['shop' => $my_shop->slug]);
+
     }
 
     /**

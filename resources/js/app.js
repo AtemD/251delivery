@@ -59,6 +59,8 @@ Vue.component('retailer-add-shop-component', require('./components/RetailerAddSh
 Vue.component('retailer-delete-shop-component', require('./components/RetailerDeleteShopComponent.vue').default);
 Vue.component('retailer-edit-shop-component', require('./components/RetailerEditShopComponent.vue').default);
 
+Vue.component('retailer-product-component', require('./components/RetailerProductComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
