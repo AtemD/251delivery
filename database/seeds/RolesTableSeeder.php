@@ -22,6 +22,7 @@ class RolesTableSeeder extends Seeder
 
         $retailer_role = Role::create(['name' => Role::RETAILER]);
         $admin_role = Role::create(['name' => Role::ADMINISTRATOR]);
+        $rider_role = Role::create(['name' => Role::RIDER]);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
