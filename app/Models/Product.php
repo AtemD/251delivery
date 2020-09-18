@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'name', 'status', 'shop_id', 'section_id', 'image', 'description', 'base_price'
+        'name', 'shop_id', 'section_id', 'image', 'description', 'base_price', 'is_available'
     ];
 
     // Account Statuses
     const AVAILABLE_PRODUCT = 'available';
     const UNAVAILABLE_PRODUCT = 'unavailable';
+
+    const PRODUCT_DEFAULT_IMAGE = 'product_default.jpg';
 
     protected $appends = ['price', 'image_path', 'short_description'];
 
@@ -42,14 +44,30 @@ class Product extends Model
             ->withPivot('quantity', 'amount', 'special_request')->withTimestamps();;
     }
 
+    /**
+     * Get the base price.
+     *
+     * @return string
+     */
     public function getPriceAttribute()
     {
         return $this->base_price / 100;
     }
 
+    /**
+     * Set the products base price.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setBasePriceAttribute($value)
+    {
+        $this->attributes['base_price'] = $value * 100;
+    }
+
     public function getImagePathAttribute()
     {
-        return "/uploads/shops/products/{$this->image}";
+        return "/uploads/shops/products/thumbs/{$this->image}";
     }
 
     public function getShortDescriptionAttribute()

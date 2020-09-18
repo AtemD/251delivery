@@ -32,11 +32,6 @@ class ProductPolicy
      */
     public function view(User $user, Product $product)
     {
-        // Determine if the user is assigned this shop
-        // if(!$user->shops->contains($shop->id)) return false;
-
-        if(!$user->shops->contains($product->shop->id)) return false;
-
         return $user->can(Permission::VIEW_PRODUCTS);
     }
 

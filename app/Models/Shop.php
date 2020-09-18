@@ -59,7 +59,7 @@ class Shop extends Model
      */
     public function path()
     {
-        return "/shops/{$this->id}";
+        return "/shops/{$this->slug}";
     }
 
     /**

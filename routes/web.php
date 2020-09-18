@@ -224,7 +224,7 @@ Route::delete('/dashboard/retailer/shops/{shop}', 'Retailer\RetailerShopsControl
 // Retailer products
 Route::get('/dashboard/retailer/shops/{shop}/products', 'Retailer\RetailerProductsController@index')
 ->name('retailer.products.index');
-Route::post('/dashboard/retailer/shops/{shop}/products/{product}', 'Retailer\RetailerProductsController@store')
+Route::post('/dashboard/retailer/shops/{shop}/products', 'Retailer\RetailerProductsController@store')
 ->name('retailer.products.store');
 Route::put('/dashboard/retailer/shops/{shop}/products/{product}', 'Retailer\RetailerProductsController@update')
 ->name('retailer.products.update');

@@ -30,12 +30,27 @@ const Toast = Swal.mixin({
     }
 });
 window.Toast = Toast;
-// Vform
+
+const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+})
+window.swalWithBootstrapButtons = swalWithBootstrapButtons;
+
+// Vform package import
 import { Form, HasError, AlertError } from 'vform';
 window.Form = Form;
 
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
+
+// JavaScript function that serializes Objects to FormData instances.
+// This will make it possible for Vform package to be able to upload image files
+import objectToFormData from "./objectToFormData"; 
+window.objectToFormData = objectToFormData;
 
 /**
  * The following block of code may be used to automatically register your
@@ -59,7 +74,10 @@ Vue.component('retailer-add-shop-component', require('./components/RetailerAddSh
 Vue.component('retailer-delete-shop-component', require('./components/RetailerDeleteShopComponent.vue').default);
 Vue.component('retailer-edit-shop-component', require('./components/RetailerEditShopComponent.vue').default);
 
-Vue.component('retailer-product-component', require('./components/RetailerProductComponent.vue').default);
+// Retailer products
+Vue.component('retailer-product-add', require('./components/RetailerProductAdd.vue').default);
+Vue.component('retailer-product-edit', require('./components/RetailerProductEdit.vue').default);
+Vue.component('retailer-product-delete', require('./components/RetailerProductDelete.vue').default);
 
 
 /**

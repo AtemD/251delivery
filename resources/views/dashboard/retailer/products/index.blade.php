@@ -29,19 +29,16 @@
                         <div class="card-header">
                             <div class="card-tools float-left">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-            
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                </div>
+                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         
                             <div class="card-tools">
-                                <button href="#add-shop" class="btn btn-primary" data-toggle="modal" data-target="#add-shop">
-                                    <i class="fas fa-plus xs"></i>
-                                    Add Product
-                                </button>
+                                <retailer-product-add :shop="{{$shop}}" :sections="{{$sections}}"></retailer-product-add>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -74,14 +71,8 @@
 
                                             <td><span class="badge badge-{{$product->is_available == 1 ? 'primary': 'warning'}}">{{$product->is_available === 1 ? 'available': 'unavailable'}}</span></td>
                                             <td class="project-actions">
-                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="'#edit-product">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                </button>
-                                                <button type="button" class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-trash">
-                                                    </i>
-                                                </button>
+                                                <retailer-product-edit :shop="{{$shop}}" :sections="{{$sections}}" :product="{{$product}}"></retailer-product-edit>
+                                                <retailer-product-delete :shop="{{$shop}}" :product="{{$product}}"></retailer-product-delete>
                                             </td>
                                         </tr>
                                     @empty
