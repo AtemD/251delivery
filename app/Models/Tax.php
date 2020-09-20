@@ -10,15 +10,6 @@ class Tax extends Model
         'name', 'rate', 'rate_type', 'shop_id', 'is_enabled'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'base_price' => 'integer',
-    ];
-
     protected $appends = ['tax_rate'];
 
     // Rate types
