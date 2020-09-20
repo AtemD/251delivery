@@ -79,6 +79,11 @@ Vue.component('retailer-product-add', require('./components/RetailerProductAdd.v
 Vue.component('retailer-product-edit', require('./components/RetailerProductEdit.vue').default);
 Vue.component('retailer-product-delete', require('./components/RetailerProductDelete.vue').default);
 
+// Retailer Taxes
+Vue.component('retailer-tax-add', require('./components/RetailerTaxAdd.vue').default);
+Vue.component('retailer-tax-edit', require('./components/RetailerTaxEdit.vue').default);
+Vue.component('retailer-tax-delete', require('./components/RetailerTaxDelete.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

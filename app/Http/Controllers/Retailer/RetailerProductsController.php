@@ -71,7 +71,7 @@ class RetailerProductsController extends Controller
             'section' => 'required|integer|in:' . implode(',', $shop_sections),
             'image' => 'sometimes|nullable|image|mimes:jpeg,bmp|max:2048',
             'description' => 'required|string|max:255',
-            'base_price' => 'required|integer',
+            'base_price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'availability' => 'required|integer',
         ]);
 

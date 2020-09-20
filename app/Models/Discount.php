@@ -8,7 +8,7 @@ class Discount extends Model
 {
     // Rate types
     const PERCENTAGE_DISCOUNT = 'percentage';
-    const CURRENCY_DISCOUNT = 'currency';
+    const CURRENCY_DISCOUNT = 'currency'; // or money rate type
 
     // Discount Statuses
     const ENABLED_DISCOUNT = 'enabled';
