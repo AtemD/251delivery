@@ -241,3 +241,13 @@ Route::put('/dashboard/retailer/shops/{shop}/settings/taxes/{tax}', 'Retailer\Re
 Route::delete('/dashboard/retailer/shops/{shop}/settings/taxes/{tax}', 'Retailer\RetailerTaxesController@destroy')
 ->name('retailer.taxes.destroy');
 
+// Retailer discounts
+Route::get('/dashboard/retailer/shops/{shop}/settings/discounts', 'Retailer\RetailerDiscountsController@index')
+->name('retailer.discounts.index');
+Route::post('/dashboard/retailer/shops/{shop}/settings/discounts', 'Retailer\RetailerDiscountsController@store')
+->name('retailer.discounts.store');
+Route::put('/dashboard/retailer/shops/{shop}/settings/discounts/{discount}', 'Retailer\RetailerDiscountsController@update')
+->name('retailer.discounts.update');
+Route::delete('/dashboard/retailer/shops/{shop}/settings/discounts/{discount}', 'Retailer\RetailerDiscountsController@destroy')
+->name('retailer.discounts.destroy');
+

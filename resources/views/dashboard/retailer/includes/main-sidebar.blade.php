@@ -63,6 +63,12 @@
                       <p>Taxes</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ route('retailer.discounts.index', ['shop' => $shop]) }}" class="nav-link">
+                      <i class="fas fa-circle nav-icon"></i>
+                      <p>Discount</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
 
