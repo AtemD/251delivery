@@ -236,6 +236,8 @@ Route::get('/dashboard/retailer/shops/{shop}/settings/taxes', 'Retailer\Retailer
 ->name('retailer.taxes.index');
 Route::post('/dashboard/retailer/shops/{shop}/settings/taxes', 'Retailer\RetailerTaxesController@store')
 ->name('retailer.taxes.store');
+Route::get('/dashboard/retailer/shops/{shop}/settings/taxes/{tax}/edit', 'Retailer\RetailerTaxesController@edit')
+->name('retailer.taxes.edit');
 Route::put('/dashboard/retailer/shops/{shop}/settings/taxes/{tax}', 'Retailer\RetailerTaxesController@update')
 ->name('retailer.taxes.update');
 Route::delete('/dashboard/retailer/shops/{shop}/settings/taxes/{tax}', 'Retailer\RetailerTaxesController@destroy')

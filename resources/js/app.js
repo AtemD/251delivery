@@ -236,6 +236,33 @@ if(document.querySelector('#retailerapp')) {
         el: '#retailerapp',
         created(){
             console.log('retailer app created');
+
+            bus.$on('show-success-toast', () => {
+                this.showSuccessToast();
+            });
+
+            bus.$on('show-error-alert', () => {
+                this.showErrorAlert();
+            });
         },
+        methods: {
+            showSuccessToast() {
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Item Created Successfully'
+                })
+
+                setTimeout(()=>{ 
+                    window.location.reload();
+                },1000);
+            },
+            showErrorAlert(){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong! Try checking your inputs values or reload the page and try again'
+                })
+            }
+        }
     });
 }

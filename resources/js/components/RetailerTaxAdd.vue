@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <label>Shop</label>
                                     <select class="form-control" name="shop" v-model="form.shop" :class="{ 'is-invalid': form.errors.has('shop') }" required>
-                                        <option :value="currentShop.id">
+                                        <option :value="currentShop.id" selected>
                                             {{ currentShop.name }}
                                         </option>
                                     </select>
@@ -110,22 +110,11 @@
 
                     $('#add-tax').modal('hide');
 
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Tax Created Successfully'
-                    })
-
-                    setTimeout(()=>{ 
-                        window.location.reload();
-                    },1000);
+                    bus.$emit('show-success-toast');
 
                 })
                 .catch(()=>{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong! Check your inputs values and try again'
-                    })
+                    bus.$emit('show-error-alert');
                 })
             }
         }

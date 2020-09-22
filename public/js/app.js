@@ -3480,19 +3480,9 @@ __webpack_require__.r(__webpack_exports__);
     createTax: function createTax() {
       this.form.post('/dashboard/retailer/shops/' + this.currentShop.slug + '/settings/taxes').then(function () {
         $('#add-tax').modal('hide');
-        Toast.fire({
-          icon: 'success',
-          title: 'Tax Created Successfully'
-        });
-        setTimeout(function () {
-          window.location.reload();
-        }, 1000);
+        bus.$emit('show-success-toast');
       })["catch"](function () {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong! Check your inputs values and try again'
-        });
+        bus.$emit('show-error-alert');
       });
     }
   }
@@ -47491,7 +47481,10 @@ var render = function() {
                                 [
                                   _c(
                                     "option",
-                                    { domProps: { value: _vm.currentShop.id } },
+                                    {
+                                      attrs: { selected: "" },
+                                      domProps: { value: _vm.currentShop.id }
+                                    },
                                     [
                                       _vm._v(
                                         "\n                                        " +
@@ -60525,7 +60518,33 @@ if (document.querySelector('#retailerapp')) {
   var retailerapp = new Vue({
     el: '#retailerapp',
     created: function created() {
+      var _this3 = this;
+
       console.log('retailer app created');
+      bus.$on('show-success-toast', function () {
+        _this3.showSuccessToast();
+      });
+      bus.$on('show-error-alert', function () {
+        _this3.showErrorAlert();
+      });
+    },
+    methods: {
+      showSuccessToast: function showSuccessToast() {
+        Toast.fire({
+          icon: 'success',
+          title: 'Item Created Successfully'
+        });
+        setTimeout(function () {
+          window.location.reload();
+        }, 1000);
+      },
+      showErrorAlert: function showErrorAlert() {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong! Try checking your inputs values or reload the page and try again'
+        });
+      }
     }
   });
 }

@@ -82,6 +82,21 @@ class RetailerTaxesController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Shop $shop
+     * @param  \App\Models\Tax $tax
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Shop $shop, Tax $tax)
+    {
+        return view('dashboard/retailer/settings/taxes/edit', compact(
+            'shop',
+            'tax'
+        ));
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -94,19 +109,19 @@ class RetailerTaxesController extends Controller
         // Authorize that the user can create taxes
         $this->authorize('update', Tax::class);
 
-        // Retrieve the shop to determine if it exists
-        $shop = Shop::findOrFail($request->shop);
-
         // Authorize if the user can view the shop
         $this->authorize('view', $shop);
 
-        // name, rate, rate_type, shop_id, is_enabled, 
+        // Determine that the user sent the right shop
+        // Do the security check here
+
+        // Validate the data
         $this->validate($request,[
             'name' => 'required|string|max:255',
             'rate' => 'required|regex:/^\d+(?:\.\d{0,2})?$/',
             'rate_type' => 'required|string|in:' . Tax::PERCENTAGE_TAX,
-            'shop' => 'required|integer',
-            'status' => 'required|integer',
+            'shop' => 'required|string',
+            'status' => 'nullable',
         ]);
 
         $tax->update([
@@ -116,14 +131,8 @@ class RetailerTaxesController extends Controller
             'shop_id' => $shop->id,
             'is_enabled' => (bool) $request->status,
         ]);
-
-        if (request()->expectsJson()) {
-            return response([
-                'code' => 200,
-                'status' => 'Tax Updated Successfully']);
-        }
         
-        return back();
+        return redirect()->route('retailer.taxes.index', ['shop' => $shop, 'tax' => $tax])->with('success', 'Tax Updated Successfully');
     }
 
     /**
@@ -149,6 +158,6 @@ class RetailerTaxesController extends Controller
                 'status' => 'Tax Deleted Successfully']);
         }
 
-        return back();
+        return back()->with('success', 'Tax Deleted Successfully');;;
     }
 }

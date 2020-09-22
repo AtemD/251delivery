@@ -34,9 +34,9 @@ class Tax extends Model
      *
      * @return string
      */
-    public function getTaxRateAttribute()
+    public function getRateAttribute($value)
     {
-        return $this->rate / 100;
+        return $value / 100;
     }
 
     /**
