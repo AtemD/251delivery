@@ -30,7 +30,7 @@ class CreateProductsTable extends Migration
                     ->on('sections')
                     ->onDelete('cascade');
 
-            $table->string('image');
+            $table->string('image'); //->nullable() , to make image upload optional
             $table->text('description');
             $table->integer('base_price');
             $table->boolean('is_available')->default(0);

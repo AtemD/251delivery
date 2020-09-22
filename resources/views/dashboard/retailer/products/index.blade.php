@@ -64,14 +64,52 @@
                                                 </div>
                                             </div>     
                                         </td>
-                                        <td>{{$product->price}} ETB</td>
+                                        <td>{{$product->base_price}} ETB</td>
                                         <td>{{$product->shortDescription }}...</td>
                                         <td>{{$product->section->name}}</td>
 
                                         <td><span class="badge badge-{{$product->is_available == 1 ? 'primary': 'warning'}}">{{$product->is_available === 1 ? 'available': 'unavailable'}}</span></td>
                                         <td class="project-actions">
-                                            <retailer-product-edit :shop="{{$shop}}" :sections="{{$sections}}" :product="{{$product}}"></retailer-product-edit>
-                                            <retailer-product-delete :shop="{{$shop}}" :product="{{$product}}"></retailer-product-delete>
+                                            <a class="btn btn-info btn-sm" href="{{ route('retailer.products.edit', ['shop'=> $shop, 'product' => $product->id]) }}" role="button">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                            </a>
+                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-product-{{$product->id}}">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                            </button>
+
+                                            <div class="modal fade" id="delete-product-{{$product->id}}" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title text-danger">Delete {{$product->name}}</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <form role="form" method="POST" action="{{ route('retailer.products.destroy', ['shop' => $shop, 'product' => $product->id]) }}">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="alert alert-danger alert-dismissible">
+                                                                <h5><i class="icon fas fa-ban"></i> Warning!</h5>
+                                                                Are you sure you want to delete the product: 
+                                                                <br><strong>{{$product->name}}</strong>?
+                                                                <br><p>This action is irreversible!</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">No Close</button>
+                                                            <button type="submit" class="btn btn-danger" id="button">Yes Delete</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
+
                                         </td>
                                     </tr>
                                 @empty

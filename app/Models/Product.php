@@ -16,7 +16,7 @@ class Product extends Model
 
     const PRODUCT_DEFAULT_IMAGE = 'product_default.jpg';
 
-    protected $appends = ['price', 'image_path', 'short_description'];
+    protected $appends = ['base_price', 'image_path', 'short_description'];
 
     public function shop()
     {
@@ -49,9 +49,9 @@ class Product extends Model
      *
      * @return string
      */
-    public function getPriceAttribute()
+    public function getBasePriceAttribute($value)
     {
-        return $this->base_price / 100;
+        return $value / 100;
     }
 
     /**

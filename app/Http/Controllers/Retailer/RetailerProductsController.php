@@ -7,7 +7,6 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Image;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class RetailerProductsController extends Controller
 {
@@ -72,7 +71,7 @@ class RetailerProductsController extends Controller
             'image' => 'sometimes|nullable|image|mimes:jpeg,bmp|max:2048',
             'description' => 'required|string|max:255',
             'base_price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'availability' => 'required|integer',
+            'status' => 'required|integer',
         ]);
 
         // handle the image upload
@@ -102,7 +101,7 @@ class RetailerProductsController extends Controller
             'image' => $filename,
             'description' => $request->description,
             'base_price' => $request->base_price,
-            'is_available' => (bool)$request->availability,
+            'is_available' => (bool)$request->status,
         ]);
 
         if (request()->expectsJson()) {
@@ -115,6 +114,30 @@ class RetailerProductsController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Shop $shop
+     * @param  \App\Models\Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Shop $shop, Product $product)
+    {
+        // Authorize that the user can update products
+        $this->authorize('update', $product);
+
+        // Authorize if the user can view the shop
+        $this->authorize('view', $shop);
+
+        $shop = $shop->load('sections', 'taxes', 'discounts');
+        $product = $product->load('taxes', 'discounts');
+
+        return view('dashboard/retailer/products/edit', compact(
+            'shop',
+            'product'
+        ));
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -124,11 +147,12 @@ class RetailerProductsController extends Controller
      */
     public function update(Request $request, Shop $shop, Product $product)
     {
+        // dd($request->toArray());
         // Authorize that the user can update products
         $this->authorize('update', $product);
 
         // Retrieve the shop to determine if it exists
-        $shop = Shop::findOrFail($request->shop);
+        // $shop = Shop::findOrFail($request->shop);
 
         // Authorize if the user can view the shop
         $this->authorize('view', $shop);
@@ -144,50 +168,57 @@ class RetailerProductsController extends Controller
          */
         $this->validate($request,[
             'name' => 'required|string|max:255',
-            'shop' => 'required|integer',
+            'shop' => 'required|string',
             'section' => 'required|integer|in:' . implode(',', $shop_sections),
-            'image' => 'sometimes|nullable|image|mimes:jpeg,bmp|max:2048',
+            'taxes' => 'nullable',
+            'discounts' =>'nullable',
+            'image' => 'sometimes|image|mimes:jpeg,png,bmp|max:2048',
             'description' => 'required|string|max:255',
             'base_price' => 'required|regex:/^\d+(\.\d{1,2})?$/', // allows: 12, 12.5, 12.05, 1 or 2 decimal places; dissalows: .22 
-            'availability' => 'required|integer',
+            'status' => 'nullable',
         ]);
 
         // handle the image upload
 		// getClientOriginalExtension - gives us the original extension: eg. png, jpg etc...
 		if ($request->hasFile('image')) {
 
-            $image = $request->file('image');
+            if($request->file('image')->isValid()){
+                $image = $request->file('image');
 
-            $filename = time(). '_' . mt_rand(1, 50) . '.' . $image->getClientOriginalExtension();
-            
-            // define path for the thumbnail image.
-            $thumb_path = public_path('/uploads/shops/products/thumbs');
-            
-            // open an image file.
-            $img = Image::make($image);
-            
-            // resize, then save to respective path.
-            $img->resize(86, 64)->save($thumb_path . '/' . $filename);
+                $filename = time(). '_' . mt_rand(1, 50) . '.' . $image->getClientOriginalExtension();
+                
+                // define path for the thumbnail image.
+                $thumb_path = public_path('/uploads/shops/products/thumbs');
+                
+                // open an image file.
+                $img = Image::make($image);
+                
+                // resize, then save to respective path.
+                $img->resize(86, 64)->save($thumb_path . '/' . $filename);
 
-            // Get the path where the previous image was stored and delete it. 
-            $old_image_path = public_path($product->image_path);
-            if(\file_exists($old_image_path)){
-                \unlink($old_image_path);
+                // Get the path where the previous image was stored and delete it. 
+                $old_image_path = public_path($product->image_path);
+                if(\file_exists($old_image_path)){
+                    \unlink($old_image_path);
+                }
             }
-            
+
 		} else {
             $filename = $product->image;
         }
 
         $product->update([
             'name' => $request->name,
-            'shop_id' => $request->shop,
+            'shop_id' => $shop->id,
             'section_id' => $request->section,
             'image' => $filename,
             'description' => $request->description,
             'base_price' => $request->base_price,
-            'is_available' => (bool)$request->availability,
+            'is_available' => (bool)$request->status,
         ]);
+
+        $product->taxes()->syncWithoutDetaching($request->taxes);
+        $product->discounts()->syncWithoutDetaching($request->discounts);
 
         if (request()->expectsJson()) {
             return response([
@@ -195,7 +226,7 @@ class RetailerProductsController extends Controller
                 'status' => 'Product Updated']);
         }
         
-        return back();
+        return redirect()->route('retailer.products.index', ['shop' => $shop, 'product' => $product])->with('success', 'Product Updated Successfully');
     }
 
     /**
