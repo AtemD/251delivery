@@ -13,8 +13,11 @@
                 <!-- Seoondary Sidebar Container -->
                 @include('dashboard.retailer.includes.switch-shop-sidebar')
 
-                <!-- Content Wrapper. Contains page content -->
-                @yield('content')
+                <div class="content-wrapper">
+                    @include('dashboard.retailer.includes.messages')
+                    <!-- Content Wrapper. Contains page content -->
+                    @yield('content')
+                </div>
     
                 <!-- Main Footer -->
                 @include('dashboard.retailer.includes.footer')

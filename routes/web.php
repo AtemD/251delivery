@@ -226,6 +226,8 @@ Route::get('/dashboard/retailer/shops/{shop}/products', 'Retailer\RetailerProduc
 ->name('retailer.products.index');
 Route::post('/dashboard/retailer/shops/{shop}/products', 'Retailer\RetailerProductsController@store')
 ->name('retailer.products.store');
+Route::get('/dashboard/retailer/shops/{shop}/products/{product}/edit', 'Retailer\RetailerProductsController@edit')
+->name('retailer.products.edit');
 Route::put('/dashboard/retailer/shops/{shop}/products/{product}', 'Retailer\RetailerProductsController@update')
 ->name('retailer.products.update');
 Route::delete('/dashboard/retailer/shops/{shop}/products/{product}', 'Retailer\RetailerProductsController@destroy')
@@ -254,4 +256,17 @@ Route::put('/dashboard/retailer/shops/{shop}/settings/discounts/{discount}', 'Re
 ->name('retailer.discounts.update');
 Route::delete('/dashboard/retailer/shops/{shop}/settings/discounts/{discount}', 'Retailer\RetailerDiscountsController@destroy')
 ->name('retailer.discounts.destroy');
+
+
+// Retailer Shop Cuisines
+Route::get('/dashboard/retailer/shops/{shop}/settings/cuisines', 'Retailer\RetailerCuisinesController@index')
+->name('retailer.cuisines.index');
+// Route::post('/dashboard/retailer/shops/{shop}/settings/cuisines', 'Retailer\RetailerCuisinesController@store')
+// ->name('retailer.cuisines.store');
+Route::get('/dashboard/retailer/shops/{shop}/settings/cuisines/edit', 'Retailer\RetailerCuisinesController@edit')
+->name('retailer.cuisines.edit');
+Route::put('/dashboard/retailer/shops/{shop}/settings/cuisines', 'Retailer\RetailerCuisinesController@update')
+->name('retailer.cuisines.update');
+// Route::delete('/dashboard/retailer/shops/{shop}/settings/cuisines', 'Retailer\RetailerCuisinesController@destroy')
+// ->name('retailer.cuisines.destroy');
 

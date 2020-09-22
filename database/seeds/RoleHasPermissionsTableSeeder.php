@@ -53,7 +53,7 @@ class RoleHasPermissionsTableSeeder extends Seeder
            Permission::VIEW_DISCOUNTS,
 
         //    Permission::CREATE_CUISINES,
-        //    Permission::UPDATE_CUISINES,
+           Permission::UPDATE_CUISINES,
         //    Permission::DELETE_CUISINES,
            Permission::VIEW_CUISINES,
 
