@@ -10,7 +10,7 @@ class Tax extends Model
         'name', 'rate', 'rate_type', 'shop_id', 'is_enabled'
     ];
 
-    protected $appends = ['tax_rate'];
+    protected $appends = ['rate'];
 
     // Rate types
     const PERCENTAGE_TAX = 'percentage';

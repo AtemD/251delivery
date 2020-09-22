@@ -260,7 +260,7 @@ if(document.querySelector('#retailerapp')) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Something went wrong! Try checking your inputs values or reload the page and try again'
+                    text: 'Something went wrong! checking your inputs values / reload the page / try again'
                 })
             }
         }

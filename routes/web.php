@@ -248,6 +248,8 @@ Route::get('/dashboard/retailer/shops/{shop}/settings/discounts', 'Retailer\Reta
 ->name('retailer.discounts.index');
 Route::post('/dashboard/retailer/shops/{shop}/settings/discounts', 'Retailer\RetailerDiscountsController@store')
 ->name('retailer.discounts.store');
+Route::get('/dashboard/retailer/shops/{shop}/settings/discounts/{discount}/edit', 'Retailer\RetailerDiscountsController@edit')
+->name('retailer.discounts.edit');
 Route::put('/dashboard/retailer/shops/{shop}/settings/discounts/{discount}', 'Retailer\RetailerDiscountsController@update')
 ->name('retailer.discounts.update');
 Route::delete('/dashboard/retailer/shops/{shop}/settings/discounts/{discount}', 'Retailer\RetailerDiscountsController@destroy')

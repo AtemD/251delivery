@@ -158,6 +158,6 @@ class RetailerTaxesController extends Controller
                 'status' => 'Tax Deleted Successfully']);
         }
 
-        return back()->with('success', 'Tax Deleted Successfully');;;
+        return back()->with('success', 'Tax Deleted Successfully');
     }
 }

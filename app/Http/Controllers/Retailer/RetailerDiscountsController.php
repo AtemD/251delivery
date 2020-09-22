@@ -82,6 +82,21 @@ class RetailerDiscountsController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Shop $shop
+     * @param  \App\Models\Discount $discount
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Shop $shop, Discount $discount)
+    {
+        return view('dashboard/retailer/settings/discounts/edit', compact(
+            'shop',
+            'discount'
+        ));
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -95,7 +110,7 @@ class RetailerDiscountsController extends Controller
         $this->authorize('update', Discount::class);
 
         // Retrieve the shop to determine if it exists
-        $shop = Shop::findOrFail($request->shop);
+        // $shop = Shop::findOrFail($request->shop);
 
         // Authorize if the user can view the shop
         $this->authorize('view', $shop);
@@ -105,8 +120,8 @@ class RetailerDiscountsController extends Controller
             'name' => 'required|string|max:255',
             'rate' => 'required|regex:/^\d+(?:\.\d{0,2})?$/',
             'rate_type' => 'required|string|in:' . Discount::PERCENTAGE_DISCOUNT . ',' . Discount::CURRENCY_DISCOUNT,
-            'shop' => 'required|integer',
-            'status' => 'required|integer',
+            'shop' => 'required|string',
+            'status' => 'nullable',
         ]);
 
         $discount->update([
@@ -122,8 +137,8 @@ class RetailerDiscountsController extends Controller
                 'code' => 200,
                 'status' => 'Discount Updated Successfully']);
         }
-        
-        return back();
+
+        return redirect()->route('retailer.discounts.index', ['shop' => $shop, 'discount' => $discount])->with('success', 'Discount Updated Successfully');
     }
 
     /**
@@ -149,6 +164,6 @@ class RetailerDiscountsController extends Controller
                 'status' => 'Discount Deleted Successfully']);
         }
 
-        return back();
+        return back()->with('success', 'Discount Deleted Successfully');
     }
 }

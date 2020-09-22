@@ -74,7 +74,7 @@
                                             </button>
 
                                             <div class="modal fade" id="delete-tax-{{$tax->id}}" style="display: none;" aria-hidden="true">
-                                                <div class="modal-dialog delete-tax-{{$tax->id}}">
+                                                <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title text-danger">Delete {{$tax->name}}</h4>

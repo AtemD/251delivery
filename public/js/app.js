@@ -60542,7 +60542,7 @@ if (document.querySelector('#retailerapp')) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Something went wrong! Try checking your inputs values or reload the page and try again'
+          text: 'Something went wrong! checking your inputs values / reload the page / try again'
         });
       }
     }

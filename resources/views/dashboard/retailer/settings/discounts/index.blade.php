@@ -57,14 +57,51 @@
                                     <tr>
                                         <td>{{$discount->name}}</td>
                                         <td>
-                                            {{$discount->discount_rate}}    
+                                            {{$discount->rate}}    
                                         </td>
                                         <td>{{$discount->rate_type}}</td>
                                         <td>{{$shop->name }}</td>
                                         <td><span class="badge badge-{{$discount->is_enabled === 1 ? 'primary': 'warning'}}">{{$discount->is_enabled === 1 ? 'enabled': 'disabled'}}</span></td>
                                         <td class="project-actions">
-                                            <retailer-discount-edit :shop="{{$shop}}" :discount="{{$discount}}"></retailer-discount-edit>
-                                            <retailer-discount-delete :shop="{{$shop}}" :discount="{{$discount}}"></retailer-discount-delete>
+                                            <a class="btn btn-info btn-sm" href="{{ route('retailer.discounts.edit', ['shop'=> $shop, 'discount' => $discount->id]) }}" role="button">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                            </a>
+                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-discount-{{$discount->id}}">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                            </button>
+
+                                            <div class="modal fade" id="delete-discount-{{$discount->id}}" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title text-danger">Delete {{$discount->name}}</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <form role="form" method="POST" action="{{ route('retailer.discounts.destroy', ['shop' => $shop, 'discount' => $discount->id]) }}">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="alert alert-danger alert-dismissible">
+                                                                <h5><i class="icon fas fa-ban"></i> Warning!</h5>
+                                                                Are you sure you want to delete the discount: 
+                                                                <br><strong>{{$discount->name}}</strong>?
+                                                                <br><p>This action is irreversible!</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">No Close</button>
+                                                            <button type="submit" class="btn btn-danger" id="button">Yes Delete</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
@@ -72,7 +109,7 @@
                                         <div class="col-md-12">
                                             <div class="alert alert-warning">
                                                 <h5><i class="icon fas fa-warning"></i> No discounts registered Yet!</h5>
-                                                Click the add button to add a product tax.
+                                                Click the add button to add a product discount.
                                             </div>
                                         </div>
                                     </div>
