@@ -127,4 +127,10 @@ class Permission extends SpatiePermission
     const DELETE_PAYMENT_METHODS = 'delete payment methods';
     const VIEW_PAYMENT_METHODS = 'view payment methods';
 
+    // Shop Locations
+    const CREATE_SHOP_LOCATIONS = 'create shop locations';
+    const UPDATE_SHOP_LOCATIONS = 'update shop locations';
+    const DELETE_SHOP_LOCATIONS = 'delete shop locations';
+    const VIEW_SHOP_LOCATIONS = 'view shop locations';
+
 }

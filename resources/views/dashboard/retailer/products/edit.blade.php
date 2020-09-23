@@ -85,7 +85,7 @@
                                         <select name="section" class="form-control @error('section') is-invalid @enderror" id="section"
                                             required>
                                             @forelse($shop->sections as $section)
-                                                <option value="{{$section->id}}">
+                                                <option value="{{$section->id}}" {{ $product->section->id == $section->id ? 'selected' : '' }}>
                                                     {{ $section->name }}
                                                 </option>
                                             @empty 

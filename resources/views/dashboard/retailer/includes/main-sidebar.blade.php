@@ -58,21 +58,27 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('retailer.taxes.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->segment(6) == 'taxes') ? 'active' : '' }}">
+                    <a href="{{ route('retailer.taxes.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.taxes.*')) ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>Taxes</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('retailer.discounts.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->segment(6) == 'discounts') ? 'active' : '' }}">
+                    <a href="{{ route('retailer.discounts.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.discounts.*')) ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>Discounts</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('retailer.cuisines.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->segment(6) == 'cuisines') ? 'active' : '' }}">
+                    <a href="{{ route('retailer.cuisines.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.cuisines.*')) ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>Cuisines</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('retailer.locations.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.locations.*')) ? 'active' : '' }}">
+                      <i class="fas fa-circle nav-icon"></i>
+                      <p>Location</p>
                     </a>
                   </li>
                 </ul>

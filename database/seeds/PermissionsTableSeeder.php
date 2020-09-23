@@ -120,6 +120,11 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => Permission::DELETE_ROLES]);
         Permission::create(['name' => Permission::VIEW_ROLES]);
 
+        Permission::create(['name' => Permission::CREATE_SHOP_LOCATIONS]);
+        Permission::create(['name' => Permission::UPDATE_SHOP_LOCATIONS]);
+        Permission::create(['name' => Permission::DELETE_SHOP_LOCATIONS]);
+        Permission::create(['name' => Permission::VIEW_SHOP_LOCATIONS]);
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

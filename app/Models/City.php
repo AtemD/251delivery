@@ -18,9 +18,9 @@ class City extends Model
     /**
      * Get the locations for the city
      */
-    public function locations()
+    public function shopLocations()
     {
-        return $this->hasMany('App\Models\Location');
+        return $this->hasMany('App\Models\ShopLocation');
     }
 
     /**
