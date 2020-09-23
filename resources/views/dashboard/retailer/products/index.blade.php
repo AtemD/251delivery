@@ -70,7 +70,7 @@
                                             @forelse($product->taxes as $tax)
                                                 <li>{{$tax->name}}</li>
                                             @empty
-                                                <div class="alert alert-info" role="alert">
+                                                <div class="alert alert-info text-wrap" role="alert">
                                                     No Taxes Assigned
                                                 </div>
                                             @endforelse
@@ -79,7 +79,7 @@
                                             @forelse($product->discounts as $discount)
                                                 <li>{{$discount->name}}</li>
                                             @empty
-                                            <div class="alert alert-info" role="alert">
+                                            <div class="alert alert-info text-wrap" role="alert">
                                                 No Discounts Assigned
                                             </div>
                                             @endforelse
