@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Retailer;
 
-use App\Models\Discount;
+use App\Models\Tax;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class RetailerDiscountsController extends Controller
+class ShopTaxesController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -29,11 +29,11 @@ class RetailerDiscountsController extends Controller
     {
         $this->authorize('view', $shop);
 
-        $discounts = $shop->discounts()->orderBy('name', 'asc')->paginate(15);
+        $taxes = $shop->taxes()->orderBy('name', 'asc')->paginate(15);
 
-        return view('dashboard/retailer/settings/discounts/index', compact([
+        return view('dashboard/retailer/settings/taxes/index', compact([
             'shop',
-            'discounts',
+            'taxes',
         ]));
     }
 
@@ -45,8 +45,8 @@ class RetailerDiscountsController extends Controller
      */
     public function store(Request $request)
     {
-        // Authorize that the user can create discounts
-        $this->authorize('create', Discount::class);
+        // Authorize that the user can create taxes
+        $this->authorize('create', Tax::class);
 
         // Retrieve the shop to determine if it exists
         $shop = Shop::findOrFail($request->shop);
@@ -59,12 +59,12 @@ class RetailerDiscountsController extends Controller
         $this->validate($request,[
             'name' => 'required|string|max:255',
             'rate' => 'required|regex:/^\d+(?:\.\d{0,2})?$/',
-            'rate_type' => 'required|string|in:' . Discount::PERCENTAGE_DISCOUNT . ',' . Discount::CURRENCY_DISCOUNT,
+            'rate_type' => 'required|string|in:' . Tax::PERCENTAGE_TAX,
             'shop' => 'required|integer',
             'status' => 'required|integer',
         ]);
 
-        Discount::create([
+        Tax::create([
             'name' => $request->name,
             'rate' => $request->rate,
             'rate_type' => $request->rate_type,
@@ -75,7 +75,7 @@ class RetailerDiscountsController extends Controller
         if (request()->expectsJson()) {
             return response([
                 'code' => 200,
-                'status' => 'New Discount Created']);
+                'status' => 'New Tax Created']);
         }
         
         return back();
@@ -85,14 +85,14 @@ class RetailerDiscountsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Shop $shop
-     * @param  \App\Models\Discount $discount
+     * @param  \App\Models\Tax $tax
      * @return \Illuminate\Http\Response
      */
-    public function edit(Shop $shop, Discount $discount)
+    public function edit(Shop $shop, Tax $tax)
     {
-        return view('dashboard/retailer/settings/discounts/edit', compact(
+        return view('dashboard/retailer/settings/taxes/edit', compact(
             'shop',
-            'discount'
+            'tax'
         ));
     }
 
@@ -101,69 +101,63 @@ class RetailerDiscountsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Shop $shop
-     * @param \App\Models\Discount $discount
+     * @param \App\Models\Tax $tax
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shop $shop, Discount $discount)
+    public function update(Request $request, Shop $shop, Tax $tax)
     {
-        // Authorize that the user can create discounts
-        $this->authorize('update', Discount::class);
-
-        // Retrieve the shop to determine if it exists
-        // $shop = Shop::findOrFail($request->shop);
+        // Authorize that the user can create taxes
+        $this->authorize('update', Tax::class);
 
         // Authorize if the user can view the shop
         $this->authorize('view', $shop);
 
-        // name, rate, rate_type, shop_id, is_enabled, 
+        // Determine that the user sent the right shop
+        // Do the security check here
+
+        // Validate the data
         $this->validate($request,[
             'name' => 'required|string|max:255',
             'rate' => 'required|regex:/^\d+(?:\.\d{0,2})?$/',
-            'rate_type' => 'required|string|in:' . Discount::PERCENTAGE_DISCOUNT . ',' . Discount::CURRENCY_DISCOUNT,
+            'rate_type' => 'required|string|in:' . Tax::PERCENTAGE_TAX,
             'shop' => 'required|string',
             'status' => 'nullable',
         ]);
 
-        $discount->update([
+        $tax->update([
             'name' => $request->name,
             'rate' => $request->rate,
             'rate_type' => $request->rate_type,
             'shop_id' => $shop->id,
             'is_enabled' => (bool) $request->status,
         ]);
-
-        if (request()->expectsJson()) {
-            return response([
-                'code' => 200,
-                'status' => 'Discount Updated Successfully']);
-        }
-
-        return redirect()->route('retailer.discounts.index', ['shop' => $shop, 'discount' => $discount])->with('success', 'Discount Updated Successfully');
+        
+        return redirect()->route('retailer.taxes.index', ['shop' => $shop, 'tax' => $tax])->with('success', 'Tax Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Shop $shop
-     * @param \App\Models\Discount $discount
+     * @param \App\Models\Tax $tax
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shop $shop, Discount $discount)
+    public function destroy(Shop $shop, Tax $tax)
     {
         // Authorize that the user can update products
-        $this->authorize('delete', Discount::class);
+        $this->authorize('delete', Tax::class);
 
         // Authorize if the user can view the shop
         $this->authorize('view', $shop);
 
-        $discount->delete();
+        $tax->delete();
 
         if (request()->expectsJson()) {
             return response([
                 'code' => 200,
-                'status' => 'Discount Deleted Successfully']);
+                'status' => 'Tax Deleted Successfully']);
         }
 
-        return back()->with('success', 'Discount Deleted Successfully');
+        return back()->with('success', 'Tax Deleted Successfully');
     }
 }

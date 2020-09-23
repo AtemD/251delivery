@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Image;
 use App\Http\Controllers\Controller;
 
-class RetailerProductsController extends Controller
+class ShopProductsController extends Controller
 {
     /**
      * Create a new controller instance.

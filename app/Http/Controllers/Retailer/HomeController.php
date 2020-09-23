@@ -1,17 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Company;
+namespace App\Http\Controllers\Retailer;
 
-use App\User;
-use App\Models\Shop;
-use App\Models\Order;
-use Carbon\Carbon;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
-class CompanyController extends Controller
+class HomeController extends Controller
 {
+   
+   /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -19,34 +26,16 @@ class CompanyController extends Controller
      */
     public function index()
     {
+        $shops = Auth::user()->shops()->paginate(25);
 
-        $shops_count = Shop::count();
-        $users_count = User::count();
+        if($shops->count() > 1){
+            return view('dashboard/retailer/switch-shops', compact('shops'));
+        }
 
-        $orders_count = DB::table('orders')
-        ->selectRaw('count(*) as total')
-        ->selectRaw("count(case when order_status_id = 1 then 1 end) as pending")
-        ->selectRaw("count(case when order_status_id = 2 then 1 end) as approved")
-        ->selectRaw("count(case when order_status_id = 3 then 1 end) as ready")
-        ->selectRaw("count(case when order_status_id = 4 then 1 end) as delivering")
-        ->selectRaw("count(case when order_status_id = 5 then 1 end) as completed")
-        ->selectRaw("count(case when order_status_id = 6 then 1 end) as cancelled")
-        ->first();
-        
-        $todays_orders = Order::whereRaw('date(created_at) = ?', [Carbon::today()])
-            ->with(['products'])
-            ->paginate(30);
-            
-        $todays_orders_count = Order::whereRaw('date(created_at) = ?', [Carbon::today()])->count();
+        // redirect to that specific shops route
+        $my_shop = $shops->first();
+        return redirect()->route('retailer.shops.index', ['shop' => $my_shop->slug]);
 
-        return view('dashboard/company/home', compact([
-            'shops_count',
-            'users_count',
-
-            'orders_count',
-            'todays_orders',
-            'todays_orders_count'
-        ]));
     }
 
     /**

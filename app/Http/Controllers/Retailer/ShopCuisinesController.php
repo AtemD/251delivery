@@ -7,7 +7,7 @@ use App\Models\Cuisine;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class RetailerCuisinesController extends Controller
+class ShopCuisinesController extends Controller
 {
     /**
      * Create a new controller instance.

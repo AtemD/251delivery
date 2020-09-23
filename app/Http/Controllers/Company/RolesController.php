@@ -7,7 +7,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 
-class CompanyRolesController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.

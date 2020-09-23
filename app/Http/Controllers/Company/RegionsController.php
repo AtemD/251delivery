@@ -7,7 +7,7 @@ use App\Models\Country;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CompanyRegionsController extends Controller
+class RegionsController extends Controller
 {
     /**
      * Display a listing of the resource.

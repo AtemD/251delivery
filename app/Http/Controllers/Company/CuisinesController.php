@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\PaymentMethod;
+use App\Models\Cuisine;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CompanyPaymentMethodsController extends Controller
+class CuisinesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,11 @@ class CompanyPaymentMethodsController extends Controller
      */
     public function index()
     {
-        $payment_methods = PaymentMethod::paginate(10);
+        $cuisines = Cuisine::paginate(30);
 
-        return view('dashboard/company/settings/payment-methods/index', compact([
-            'payment_methods',
-        ]));
+        return view('dashboard/company/settings/cuisines/index', compact(
+            'cuisines'
+        ));
     }
 
     /**
@@ -36,7 +36,7 @@ class CompanyPaymentMethodsController extends Controller
             'status' => 'nullable',
         ]);
 
-        PaymentMethod::create([
+        Cuisine::create([
             'name' => $request->name,
             'description' => $request->description,
             'is_enabled' => (bool)$request->status,
@@ -49,10 +49,10 @@ class CompanyPaymentMethodsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PaymentMethod  $payment_method
+     * @param  \App\Models\Cuisine  $cuisine
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PaymentMethod $payment_method)
+    public function update(Request $request, Cuisine $cuisine)
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
@@ -60,7 +60,7 @@ class CompanyPaymentMethodsController extends Controller
             'status' => 'nullable',
         ]);
   
-        $payment_method->update([
+        $cuisine->update([
             'name' => $request->name,
             'description' => $request->description,
             'is_enabled' => (bool)$request->status
@@ -72,12 +72,12 @@ class CompanyPaymentMethodsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PaymentMethod  $payment_method
+     * @param  \App\Models\Cuisine  $cuisine
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PaymentMethod $payment_method)
+    public function destroy(Cuisine $cuisine)
     {
-        $payment_method->delete();
+        $cuisine->delete();
         return back();
     }
 }

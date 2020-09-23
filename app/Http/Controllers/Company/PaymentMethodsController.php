@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\ShopType;
+use App\Models\PaymentMethod;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CompanyShopTypesController extends Controller
+class PaymentMethodsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,11 @@ class CompanyShopTypesController extends Controller
      */
     public function index()
     {
-        $shop_types = ShopType::paginate(10);
+        $payment_methods = PaymentMethod::paginate(10);
 
-        return view('dashboard/company/settings/shop-types/index', compact('shop_types'));
+        return view('dashboard/company/settings/payment-methods/index', compact([
+            'payment_methods',
+        ]));
     }
 
     /**
@@ -34,7 +36,7 @@ class CompanyShopTypesController extends Controller
             'status' => 'nullable',
         ]);
 
-        ShopType::create([
+        PaymentMethod::create([
             'name' => $request->name,
             'description' => $request->description,
             'is_enabled' => (bool)$request->status,
@@ -47,10 +49,10 @@ class CompanyShopTypesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ShopType  $shop_type
+     * @param  \App\Models\PaymentMethod  $payment_method
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ShopType $shop_type)
+    public function update(Request $request, PaymentMethod $payment_method)
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
@@ -58,7 +60,7 @@ class CompanyShopTypesController extends Controller
             'status' => 'nullable',
         ]);
   
-        $shop_type->update([
+        $payment_method->update([
             'name' => $request->name,
             'description' => $request->description,
             'is_enabled' => (bool)$request->status
@@ -70,12 +72,12 @@ class CompanyShopTypesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ShopType  $shop_type
+     * @param  \App\Models\PaymentMethod  $payment_method
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ShopType  $shop_type)
+    public function destroy(PaymentMethod $payment_method)
     {
-        $shop_type->delete();
+        $payment_method->delete();
         return back();
     }
 }

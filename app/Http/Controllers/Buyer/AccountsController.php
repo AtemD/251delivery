@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class BuyerAccountsController extends Controller
+class AccountsController extends Controller
 {
     /**
      * Create a new controller instance.

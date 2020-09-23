@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\UserAccountStatus;
+use App\Models\OrderType;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CompanyUserAccountStatusesController extends Controller
+class OrderTypesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,10 @@ class CompanyUserAccountStatusesController extends Controller
      */
     public function index()
     {
-        $user_account_statuses = UserAccountStatus::paginate(10);
+        $order_types = OrderType::paginate(10);
 
-        return view('dashboard/company/settings/user-account-statuses/index', compact(
-            'user_account_statuses'
+        return view('dashboard/company/settings/order-types/index', compact(
+            'order_types'
         ));
     }
 
@@ -33,13 +33,13 @@ class CompanyUserAccountStatusesController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
-            'color' => 'required|max:255',
+            'status' => 'nullable',
         ]);
 
-        UserAccountStatus::create([
+        OrderType::create([
             'name' => $request->name,
             'description' => $request->description,
-            'color' => $request->color,
+            'is_enabled' => (bool)$request->status,
         ]);
 
         return back();
@@ -49,21 +49,22 @@ class CompanyUserAccountStatusesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UserAccountStatus $user_account_status
+     * @param  \App\Models\OrderType  $order_type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserAccountStatus $user_account_status)
+    public function update(Request $request, OrderType $order_type)
     {
+        // dd($order_type);
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
-            'color' => 'required|max:255',
+            'status' => 'nullable',
         ]);
-
-        $user_account_status->update([
+  
+        $order_type->update([
             'name' => $request->name,
             'description' => $request->description,
-            'color' => $request->color,
+            'is_enabled' => (bool)$request->status
         ]);
 
         return back();
@@ -72,12 +73,12 @@ class CompanyUserAccountStatusesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\OrderType  $order_type
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserAccountStatus $user_account_status)
+    public function destroy(OrderType $order_type)
     {
-        $user_account_status->delete();
+        $order_type->delete();
         return back();
     }
 }

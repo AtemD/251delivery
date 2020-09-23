@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class RetailerShopsController extends Controller
+class ShopsController extends Controller
 {
     /**
      * Create a new controller instance.

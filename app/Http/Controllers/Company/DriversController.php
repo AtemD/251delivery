@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\Order;
-use App\Models\OrderStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CompanyOrdersController extends Controller
+class DriversController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,21 +14,7 @@ class CompanyOrdersController extends Controller
      */
     public function index()
     {
-        $order_statuses = OrderStatus::all();
-
-        $orders = Order::with([
-            'user',
-            'orderType',
-            'paymentMethod',
-            'orderStatus',
-        ])->paginate(10);
-
-        // dd($orders->toArray());
-
-        return view('dashboard/company/orders/index', compact([
-            'orders',
-            'order_statuses'
-        ]));
+        //
     }
 
     /**

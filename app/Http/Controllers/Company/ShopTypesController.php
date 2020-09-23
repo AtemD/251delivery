@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\Cuisine;
+use App\Models\ShopType;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CompanyCuisinesController extends Controller
+class ShopTypesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,9 @@ class CompanyCuisinesController extends Controller
      */
     public function index()
     {
-        $cuisines = Cuisine::paginate(30);
+        $shop_types = ShopType::paginate(10);
 
-        return view('dashboard/company/settings/cuisines/index', compact(
-            'cuisines'
-        ));
+        return view('dashboard/company/settings/shop-types/index', compact('shop_types'));
     }
 
     /**
@@ -36,7 +34,7 @@ class CompanyCuisinesController extends Controller
             'status' => 'nullable',
         ]);
 
-        Cuisine::create([
+        ShopType::create([
             'name' => $request->name,
             'description' => $request->description,
             'is_enabled' => (bool)$request->status,
@@ -49,10 +47,10 @@ class CompanyCuisinesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cuisine  $cuisine
+     * @param  \App\Models\ShopType  $shop_type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cuisine $cuisine)
+    public function update(Request $request, ShopType $shop_type)
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
@@ -60,7 +58,7 @@ class CompanyCuisinesController extends Controller
             'status' => 'nullable',
         ]);
   
-        $cuisine->update([
+        $shop_type->update([
             'name' => $request->name,
             'description' => $request->description,
             'is_enabled' => (bool)$request->status
@@ -72,12 +70,12 @@ class CompanyCuisinesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cuisine  $cuisine
+     * @param  \App\Models\ShopType  $shop_type
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cuisine $cuisine)
+    public function destroy(ShopType  $shop_type)
     {
-        $cuisine->delete();
+        $shop_type->delete();
         return back();
     }
 }

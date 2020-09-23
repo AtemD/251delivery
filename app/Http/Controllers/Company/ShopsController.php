@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Http\Controllers\Controller;
+use App\Models\Shop;
+use App\Models\ShopType;
+use App\Models\ShopAccountStatus;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class CompanyBuyersController extends Controller
+class ShopsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,19 @@ class CompanyBuyersController extends Controller
      */
     public function index()
     {
-        //
+        $shop_types = ShopType::all();
+        $shop_account_statuses = ShopAccountStatus::all();
+
+        $shops = Shop::with([
+            'shopType',
+            'shopAccountStatus',
+        ])->paginate(15);
+
+        return view('dashboard/company/shops/index', compact([
+            'shops',
+            'shop_types',
+            'shop_account_statuses'
+        ]));
     }
 
     /**

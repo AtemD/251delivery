@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\City;
-use App\Models\Region;
+use App\Models\OrderStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CompanyCitiesController extends Controller
+class OrderStatusesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +15,10 @@ class CompanyCitiesController extends Controller
      */
     public function index()
     {
-        $cities = City::with('region.country')->paginate(30);
-        $regions = Region::all();
+        $order_statuses = OrderStatus::paginate(10);
 
-        return view('dashboard/company/settings/cities/index', compact(
-            'cities',
-            'regions'
+        return view('dashboard/company/settings/order-statuses/index', compact(
+            'order_statuses'
         ));
     }
 
@@ -35,18 +32,14 @@ class CompanyCitiesController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'abbreviation' => 'required|max:255',
             'description' => 'required|max:255',
-            'region_id' => 'required|integer|exists:regions,id',
-            'status' => 'nullable'
+            'color' => 'required|max:255',
         ]);
 
-        City::create([
+        OrderStatus::create([
             'name' => $request->name,
-            'abbreviation' => $request->abbreviation,
             'description' => $request->description,
-            'region_id' => $request->region_id,
-            'is_enabled' => (bool)$request->status
+            'color' => $request->color,
         ]);
 
         return back();
@@ -56,25 +49,21 @@ class CompanyCitiesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\City $city
+     * @param  \App\Models\OrderStatus $order_status
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, City $city)
+    public function update(Request $request, OrderStatus $order_status)
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'abbreviation' => 'required|max:255',
             'description' => 'required|max:255',
-            'region_id' => 'required|integer|exists:regions,id',
-            'status' => 'nullable'
+            'color' => 'required|max:255',
         ]);
 
-        $city->update([
+        $order_status->update([
             'name' => $request->name,
-            'abbreviation' => $request->abbreviation,
             'description' => $request->description,
-            'region_id' => $request->region_id,
-            'is_enabled' => (bool)$request->status
+            'color' => $request->color,
         ]);
 
         return back();
@@ -83,12 +72,12 @@ class CompanyCitiesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\City $city
+     * @param  \App\Models\OrderStatus $order_status
      * @return \Illuminate\Http\Response
      */
-    public function destroy(City $city)
+    public function destroy(OrderStatus $order_status)
     {
-        $city->delete();
+        $order_status->delete();
         return back();
     }
 }

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\ShopAccountStatus;
+use App\Models\City;
+use App\Models\Region;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CompanyShopAccountStatusesController extends Controller
+class CitiesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +16,12 @@ class CompanyShopAccountStatusesController extends Controller
      */
     public function index()
     {
-        $shop_account_statuses = ShopAccountStatus::paginate(10);
+        $cities = City::with('region.country')->paginate(30);
+        $regions = Region::all();
 
-        return view('dashboard/company/settings/shop-account-statuses/index', compact(
-            'shop_account_statuses'
+        return view('dashboard/company/settings/cities/index', compact(
+            'cities',
+            'regions'
         ));
     }
 
@@ -32,14 +35,18 @@ class CompanyShopAccountStatusesController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
+            'abbreviation' => 'required|max:255',
             'description' => 'required|max:255',
-            'color' => 'required|max:255',
+            'region_id' => 'required|integer|exists:regions,id',
+            'status' => 'nullable'
         ]);
 
-        ShopAccountStatus::create([
+        City::create([
             'name' => $request->name,
+            'abbreviation' => $request->abbreviation,
             'description' => $request->description,
-            'color' => $request->color,
+            'region_id' => $request->region_id,
+            'is_enabled' => (bool)$request->status
         ]);
 
         return back();
@@ -49,21 +56,25 @@ class CompanyShopAccountStatusesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ShopAccountStatus $shop_account_status
+     * @param  \App\Models\City $city
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ShopAccountStatus $shop_account_status)
+    public function update(Request $request, City $city)
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
+            'abbreviation' => 'required|max:255',
             'description' => 'required|max:255',
-            'color' => 'required|max:255',
+            'region_id' => 'required|integer|exists:regions,id',
+            'status' => 'nullable'
         ]);
 
-        $shop_account_status->update([
+        $city->update([
             'name' => $request->name,
+            'abbreviation' => $request->abbreviation,
             'description' => $request->description,
-            'color' => $request->color,
+            'region_id' => $request->region_id,
+            'is_enabled' => (bool)$request->status
         ]);
 
         return back();
@@ -72,12 +83,12 @@ class CompanyShopAccountStatusesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ShopAccountStatus $shop_account_status
+     * @param  \App\Models\City $city
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ShopAccountStatus $shop_account_status)
+    public function destroy(City $city)
     {
-        $shop_account_status->delete();
+        $city->delete();
         return back();
     }
 }

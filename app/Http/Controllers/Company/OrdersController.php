@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\Shop;
-use App\Models\ShopType;
-use App\Models\ShopAccountStatus;
-use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class CompanyShopsController extends Controller
+class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,18 +16,20 @@ class CompanyShopsController extends Controller
      */
     public function index()
     {
-        $shop_types = ShopType::all();
-        $shop_account_statuses = ShopAccountStatus::all();
+        $order_statuses = OrderStatus::all();
 
-        $shops = Shop::with([
-            'shopType',
-            'shopAccountStatus',
-        ])->paginate(15);
+        $orders = Order::with([
+            'user',
+            'orderType',
+            'paymentMethod',
+            'orderStatus',
+        ])->paginate(10);
 
-        return view('dashboard/company/shops/index', compact([
-            'shops',
-            'shop_types',
-            'shop_account_statuses'
+        // dd($orders->toArray());
+
+        return view('dashboard/company/orders/index', compact([
+            'orders',
+            'order_statuses'
         ]));
     }
 

@@ -1,20 +1,42 @@
 <?php
 
-namespace App\Http\Controllers\Company;
+namespace App\Http\Controllers\Buyer;
 
-use App\Http\Controllers\Controller;
+use App\Models\Buyer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
-class CompanyDriversController extends Controller
+class OrdersController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Buyer $buyer)
     {
-        //
+        $orders = $buyer->orders()->latest()->with([
+            'products',
+            'orderStatus',
+            'paymentMethod',
+            'orderType'
+        ])->paginate(30);
+
+        // dd($orders->toArray());
+        return view('dashboard/buyer/orders/index', compact(
+            'orders'
+        ));
     }
 
     /**

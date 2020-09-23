@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Company;
 
 use App\User;
-use App\Models\Retailer;
 use Illuminate\Http\Request;
 use App\Models\UserAccountStatus;
 use Spatie\Permission\Models\Role;
@@ -12,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 
-class CompanyRetailersController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,19 +20,19 @@ class CompanyRetailersController extends Controller
      */
     public function index()
     {
-        $retailers = Retailer::with([
-            'shops',
+        $users = User::with([
             'userAccountStatus',
             'roles',
             'permissions'
-        ])->latest()->paginate(20);
+        ])->paginate(20);
 
         $roles = Role::all();
         $permissions = Permission::all();
+
         $user_account_statuses = UserAccountStatus::all();
 
-        return view('dashboard/company/retailers/index', compact([
-            'retailers', 
+        return view('dashboard/company/users/index', compact([
+            'users', 
             'user_account_statuses',
             'roles',
             'permisssions'
@@ -48,31 +47,25 @@ class CompanyRetailersController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->toArray());
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'phone_number' => 'required|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'user_account_status_id' => 'nullable|exists:user_account_statuses,id',
-            'roles' => 'required',
+            'user_account_status_id' => 'nullable|integer|exists:user_account_statuses,id',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // dd($validatedData);
-
-        $retailer = Retailer::create([
+        User::create([
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'phone_number' => $validatedData['phone_number'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
             'user_account_status_id' => $validatedData['user_account_status_id'],
-            'status_by' => 2, //Auth::user()->id,
+            'status_by' => 1, // Auth::user()->id,
             'status_date' => now(),
         ]);
-
-        $retailer->assignRole($validatedData['roles']);
 
         return back();
     }
@@ -81,35 +74,26 @@ class CompanyRetailersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Retailer $retailer
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Retailer $retailer)
+    public function update(Request $request, User $user)
     {
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'phone_number' => 'required|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'. $retailer->id,
-            'user_account_status_id' => 'nullable|exists:user_account_statuses,id',
-            'roles' => 'required',
+            'email' => 'required|string|email|max:255|unique:users,email,'. $user->id,
+            'user_account_status_id' => 'nullable|integer|exists:user_account_statuses,id',
         ]);
 
-        // WARNING, note that status date will update even if you did not intend to update it
-        // find another method to update it if necessary,
-        // e.g isDirty(), isClean()
-        // try the above methods to update appropriately
-        $retailer->update([
+        $user->update([
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'phone_number' => $validatedData['phone_number'],
             'email' => $validatedData['email'],
             'user_account_status_id' => $validatedData['user_account_status_id'],
-            'status_by' => 2, //Auth::user()->id,
-            'status_date' => now(),
         ]);
-
-        $retailer->syncRoles($validatedData['roles']);
 
         return back();
     }
@@ -117,12 +101,12 @@ class CompanyRetailersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Retailer $retailer
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Retailer $retailer)
+    public function destroy(User $user)
     {
-        $retailer->delete();
+        $user->delete();
         return back();
     }
 }
