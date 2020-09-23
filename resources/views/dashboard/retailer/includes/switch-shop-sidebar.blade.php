@@ -14,7 +14,7 @@
           <img src="/uploads/images/customer-support.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">John Doe</a>
+          <a href="#" class="d-block">{{Auth::user()->full_name}}</a>
         </div>
       </div>
 

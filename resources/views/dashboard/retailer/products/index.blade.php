@@ -48,7 +48,8 @@
                                     <th>Name</th>
                                     <th>Image</th>
                                     <th>Base Price</th>
-                                    <th>Description</th>
+                                    <th>Taxes</th>
+                                    <th>Discounts</th>
                                     <th>Section</th>
                                     <th>Availability</th>
                                 </tr>
@@ -65,7 +66,24 @@
                                             </div>     
                                         </td>
                                         <td>{{$product->base_price}} ETB</td>
-                                        <td>{{$product->shortDescription }}...</td>
+                                        <td>
+                                            @forelse($product->taxes as $tax)
+                                                <li>{{$tax->name}}</li>
+                                            @empty
+                                                <div class="alert alert-info" role="alert">
+                                                    No Taxes Assigned
+                                                </div>
+                                            @endforelse
+                                        </td>
+                                        <td>
+                                            @forelse($product->discounts as $discount)
+                                                <li>{{$discount->name}}</li>
+                                            @empty
+                                            <div class="alert alert-info" role="alert">
+                                                No Discounts Assigned
+                                            </div>
+                                            @endforelse
+                                        </td>
                                         <td>{{$product->section->name}}</td>
 
                                         <td><span class="badge badge-{{$product->is_available == 1 ? 'primary': 'warning'}}">{{$product->is_available === 1 ? 'available': 'unavailable'}}</span></td>

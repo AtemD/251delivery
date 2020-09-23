@@ -24,7 +24,7 @@
               <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('retailer.shops.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->segment(5) == '') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
                     Dashboard
@@ -40,7 +40,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('retailer.products.index', ['shop' => $shop]) }}" class="nav-link">
+                <a href="{{ route('retailer.products.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->segment(5) == 'products') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-utensils"></i>
                   <p>
                     Products
@@ -48,7 +48,7 @@
                 </a>
               </li>
 
-              <li class="nav-item has-treeview menu-open">
+              <li class="nav-item has-treeview {{ (request()->segment(5) == 'settings') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cog"></i>
                   <p>
@@ -58,19 +58,19 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('retailer.taxes.index', ['shop' => $shop]) }}" class="nav-link">
+                    <a href="{{ route('retailer.taxes.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->segment(6) == 'taxes') ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>Taxes</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('retailer.discounts.index', ['shop' => $shop]) }}" class="nav-link">
+                    <a href="{{ route('retailer.discounts.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->segment(6) == 'discounts') ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>Discounts</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('retailer.cuisines.index', ['shop' => $shop]) }}" class="nav-link">
+                    <a href="{{ route('retailer.cuisines.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->segment(6) == 'cuisines') ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>Cuisines</p>
                     </a>
