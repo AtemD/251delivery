@@ -122,10 +122,10 @@ class Shop extends Model
         return $this->belongsTo('App\Models\ShopAccountStatus');
     }
 
-    // public function location()
-    // {
-    //     return $this->morphOne('App\Models\Location', 'locationable');
-    // }
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
+    }
 
     public function shopLocation()
     {

@@ -40,14 +40,21 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('retailer.products.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->segment(5) == 'products') ? 'active' : '' }}">
+                <a href="{{ route('retailer.orders.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.orders.*')) ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-shopping-cart"></i>
+                  <p>
+                    Orders
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('retailer.products.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.products.*')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-utensils"></i>
                   <p>
                     Products
                   </p>
                 </a>
               </li>
-
               <li class="nav-item has-treeview {{ (request()->segment(5) == 'settings') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cog"></i>

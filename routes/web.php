@@ -270,7 +270,7 @@ Route::put('/dashboard/retailer/shops/{shop}/settings/cuisines', 'Retailer\ShopC
 // Route::delete('/dashboard/retailer/shops/{shop}/settings/cuisines', 'Retailer\ShopCuisinesController@destroy')
 // ->name('retailer.cuisines.destroy');
 
-// Retailer Locations
+// Retailer Shop Locations
 Route::get('/dashboard/retailer/shops/{shop}/settings/locations', 'Retailer\ShopLocationsController@index')
 ->name('retailer.locations.index');
 Route::post('/dashboard/retailer/shops/{shop}/settings/locations', 'Retailer\ShopLocationsController@store')
@@ -281,3 +281,9 @@ Route::put('/dashboard/retailer/shops/{shop}/settings/locations', 'Retailer\Shop
 ->name('retailer.locations.update');
 // Route::delete('/dashboard/retailer/shops/{shop}/settings/locations', 'Retailer\ShopLocationsController@destroy')
 // ->name('retailer.locations.destroy');
+
+// Retailer Shop Orders
+Route::get('/dashboard/retailer/shops/{shop}/orders', 'Retailer\ShopOrdersController@index')
+->name('retailer.orders.index');
+Route::put('/dashboard/retailer/shops/{shop}/orders/{order}', 'Retailer\ShopOrdersController@update')
+->name('retailer.orders.update');

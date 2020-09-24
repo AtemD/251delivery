@@ -25,6 +25,11 @@ class Order extends Model
         return $this->belongsTo('App\Models\Buyer');
     }
 
+    public function shop()
+    {
+        return $this->belongsTo('App\Shop');
+    }
+
     /**
      * The order type that belongs to an order.
      */
