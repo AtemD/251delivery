@@ -156,7 +156,7 @@
 
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <textarea type="text" rows="4" name="description" id="description" class="form-control @error('rate') is-invalid @enderror" 
+                                        <textarea type="text" rows="4" name="description" id="description" class="form-control @error('description') is-invalid @enderror" 
                                         required>{{$product->description}}</textarea>
 
                                         @error('description')

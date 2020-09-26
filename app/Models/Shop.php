@@ -69,7 +69,22 @@ class Shop extends Model
      */
     public function getBannerImagePathAttribute()
     {
-        return "/uploads/shops/banner_images/{$this->banner_image}";
+        return "/uploads/shops/banner_images/large/{$this->banner_image}";
+    }
+
+    public function getSmallBannerImagePathAttribute()
+    {
+        return "/uploads/shops/banner_images/thumb/{$this->banner_image}";
+    }
+
+    public function getMinFoodPreparationTimeAttribute()
+    {
+        return collect(explode('-', $this->average_preparation_time))->first();
+    }
+
+    public function getMaxFoodPreparationTimeAttribute()
+    {
+        return collect(explode('-', $this->average_preparation_time))->last();
     }
 
     public function isVerified()

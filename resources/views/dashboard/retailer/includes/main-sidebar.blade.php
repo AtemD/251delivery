@@ -65,6 +65,12 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
+                    <a href="{{ route('retailer.shops.accounts.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.shops.accounts.*')) ? 'active' : '' }}">
+                      <i class="fas fa-circle nav-icon"></i>
+                      <p>Account</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                     <a href="{{ route('retailer.taxes.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.taxes.*')) ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>Taxes</p>
@@ -90,7 +96,6 @@
                   </li>
                 </ul>
               </li>
-
             </ul>
           </nav>
           <!-- /.sidebar-menu -->

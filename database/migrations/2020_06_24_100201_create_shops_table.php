@@ -28,8 +28,8 @@ class CreateShopsTable extends Migration
                     ->on('shop_types')
                     ->onDelete('cascade');
 
-            $table->string('banner_image');
-            $table->string('logo_image');
+            $table->string('banner_image'); // can be nullable()
+            $table->string('logo_image'); // can be nullable()
             $table->string('average_preparation_time');
             $table->boolean('is_available')->default(0);
 

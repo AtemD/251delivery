@@ -22,7 +22,7 @@ class ShopsController extends Controller
 		$city_name = $request->input('city_name');
         $city_id = City::where('name', '=', $city_name)->pluck('id')->first();
 
-        $shops = Shop::whereHas('location', function($query) use($city_id){
+        $shops = Shop::whereHas('shopLocation', function($query) use($city_id){
                     $query->where('city_id', '=', $city_id);
                 })->with([
                     'cuisines',
@@ -66,14 +66,13 @@ class ShopsController extends Controller
     public function show(Shop $shop)
     {
         $shop = $shop->load([
+            'shopLocation',
             'shopType',
-            'location',
             'cuisines',
             'sections.products',
-            'location.city.region.country',
+            'shopLocation.city.region.country',
         ]);
 
-        // dd($shop->toArray());
         return view('shops.show', compact('shop'));
     }
 

@@ -287,3 +287,19 @@ Route::get('/dashboard/retailer/shops/{shop}/orders', 'Retailer\ShopOrdersContro
 ->name('retailer.orders.index');
 Route::put('/dashboard/retailer/shops/{shop}/orders/{order}', 'Retailer\ShopOrdersController@update')
 ->name('retailer.orders.update');
+
+// Retailer Shop Accounts
+Route::get('/dashboard/retailer/shops/{shop}/settings/accounts', 'Retailer\ShopAccountsController@index')
+->name('retailer.shops.accounts.index');
+Route::get('/dashboard/retailer/shops/{shop}/settings/accounts/edit', 'Retailer\ShopAccountsController@edit')
+->name('retailer.shops.accounts.edit');
+Route::put('/dashboard/retailer/shops/{shop}/settings/accounts', 'Retailer\ShopAccountsController@update')
+->name('retailer.shops.accounts.update');
+
+// Retailer Shop Availability
+Route::put('/dashboard/retailer/shops/{shop}/settings/availability', 'Retailer\ShopAvailabilityStatusController@update')
+->name('retailer.shops.availability.update');
+
+// Retailer Shop Banner Image Controller
+Route::put('/dashboard/retailer/shops/{shop}/settings/image', 'Retailer\ShopImagesController@update')
+->name('retailer.shops.images.update');

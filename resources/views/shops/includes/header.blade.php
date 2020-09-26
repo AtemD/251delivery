@@ -4,7 +4,7 @@
             <h2>{{$shop->name}}</h2>
             <p>
                 <i class="fas fa-map-marker"></i> 
-                {{$shop->location->address}}
+                {{$shop->shopLocation->address}}
             </p>
         </div>
         <div class="col-md-6 d-flex justify-content-end">
