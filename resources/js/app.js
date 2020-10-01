@@ -76,17 +76,20 @@ Vue.component('retailer-edit-shop-component', require('./components/RetailerEdit
 
 // Retailer products
 Vue.component('retailer-product-add', require('./components/RetailerProductAdd.vue').default);
-Vue.component('retailer-product-edit', require('./components/RetailerProductEdit.vue').default);
-Vue.component('retailer-product-delete', require('./components/RetailerProductDelete.vue').default);
+// Vue.component('retailer-product-edit', require('./components/RetailerProductEdit.vue').default);
+// Vue.component('retailer-product-delete', require('./components/RetailerProductDelete.vue').default);
 
 // Retailer Taxes
 Vue.component('retailer-tax-add', require('./components/RetailerTaxAdd.vue').default);
-Vue.component('retailer-tax-edit', require('./components/RetailerTaxEdit.vue').default);
-Vue.component('retailer-tax-delete', require('./components/RetailerTaxDelete.vue').default);
+// Vue.component('retailer-tax-edit', require('./components/RetailerTaxEdit.vue').default);
+// Vue.component('retailer-tax-delete', require('./components/RetailerTaxDelete.vue').default);
 
 Vue.component('retailer-discount-add', require('./components/RetailerDiscountAdd.vue').default);
-Vue.component('retailer-discount-edit', require('./components/RetailerDiscountEdit.vue').default);
-Vue.component('retailer-discount-delete', require('./components/RetailerDiscountDelete.vue').default);
+// Vue.component('retailer-discount-edit', require('./components/RetailerDiscountEdit.vue').default);
+// Vue.component('retailer-discount-delete', require('./components/RetailerDiscountDelete.vue').default);
+
+
+Vue.component('retailer-user-add', require('./components/RetailerUserAdd.vue').default);
 
 
 /**

@@ -55,6 +55,14 @@
                   </p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('retailer.users.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.users.*')) ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+                    Users
+                  </p>
+                </a>
+              </li>
               <li class="nav-item has-treeview {{ (request()->segment(5) == 'settings') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cog"></i>

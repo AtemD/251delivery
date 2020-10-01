@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, HasSlug;
 
     protected $guard_name = 'web';
     protected $table = 'users';
@@ -48,6 +50,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['first_name', 'last_name'])
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnUpdate();
+    }
+    
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function userAccountStatus()
     {
         return $this->belongsTo('App\Models\UserAccountStatus');
@@ -63,6 +86,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Shop', 'shop_has_users', 'user_id', 'shop_id');
     }
 
+    /*
+     * We will use this attribute to get all user permissions
+     * We will use it in vue, to obtain the user permissions
+     */
     public function getAllPermissionsAttribute()
     {
         return Auth::user()->getAllPermissions()->pluck('name')->toArray();

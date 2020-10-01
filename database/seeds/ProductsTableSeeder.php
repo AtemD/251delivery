@@ -21,8 +21,7 @@ class ProductsTableSeeder extends Seeder
             $sections = $shop->sections()->get();
 
             // Give each section one or more products
-            $sections->each(function($section) use($shop, $cuisines){
-                $cuisine = $cuisines->random();
+            $sections->each(function($section) use($shop){
                 factory('App\Models\Product', mt_rand(1, 8))->create([
                     'shop_id' => $shop->id,
                     'section_id' => $section

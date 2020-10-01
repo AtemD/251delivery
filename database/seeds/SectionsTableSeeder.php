@@ -15,7 +15,7 @@ class SectionsTableSeeder extends Seeder
         $shops = Shop::all();
 
         $shops->each(function($shop) {
-            factory('App\Models\Section', mt_rand(3, 13))->create([
+            factory('App\Models\Section', mt_rand(3, 8))->create([
                 'shop_id' => $shop->id,
             ]);
         });

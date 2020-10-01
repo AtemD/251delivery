@@ -118,7 +118,7 @@ class RoleHasPermissionsTableSeeder extends Seeder
            Permission::VIEW_CITIES,
 
         //    Permission::CREATE_PERMISSIONS,
-        //    Permission::UPDATE_PERMISSIONS,
+           Permission::UPDATE_PERMISSIONS,
         //    Permission::DELETE_PERMISSIONS,
            Permission::VIEW_PERMISSIONS,
 

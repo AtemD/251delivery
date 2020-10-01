@@ -207,6 +207,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="image">Choose Image Update <small>(This is the image that appears when users search for you)</small></label>
+                                <p><small class="text-muted">*Use food pictures instead of pictures of the inside and outside your restaurant</small></p>
                                 <input type="file" class="form-control-file @error('image') is-invalid @enderror" id="image" name="image">
 
                                 @error('image')

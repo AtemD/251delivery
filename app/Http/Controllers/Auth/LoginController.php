@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -48,11 +49,20 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if($user->hasPermissionTo('access retailer dashboard')){
+        if($user->hasPermissionTo(Permission::ACCESS_RETAILER_DASHBOARD) 
+            && $user->shops()->exists()
+            && ! $user->hasPermissionTo(Permission::ACCESS_ADMINISTRATOR_DASHBOARD)){
+
+            // User is retailer
             return redirect()->intended(route('retailer.shops'));
-        } else if($user->hasPermissionTo('access administrator dashboard')){
+
+        } else if($user->hasPermissionTo(Permission::ACCESS_ADMINISTRATOR_DASHBOARD)){
+
+            // User is administrator
             return redirect()->intended(route('company.home'));
+
         } else {
+            // User is normal buyer
             return redirect()->intended(route('home'));
         }
     }

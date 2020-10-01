@@ -33,8 +33,9 @@ class HomeController extends Controller
         }
 
         // redirect to that specific shops route
-        $my_shop = $shops->first();
-        return redirect()->route('retailer.shops.index', ['shop' => $my_shop->slug]);
+        $shop = $shops->first();
+        dd($shop->toArray());
+        return redirect()->route('retailer.shops.index', ['shop' => $shop]);
 
     }
 

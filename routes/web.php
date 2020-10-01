@@ -303,3 +303,19 @@ Route::put('/dashboard/retailer/shops/{shop}/settings/availability', 'Retailer\S
 // Retailer Shop Banner Image Controller
 Route::put('/dashboard/retailer/shops/{shop}/settings/image', 'Retailer\ShopImagesController@update')
 ->name('retailer.shops.images.update');
+
+// Retailer Shop Users
+Route::get('/dashboard/retailer/shops/{shop}/users', 'Retailer\ShopUsersController@index')
+->name('retailer.users.index');
+Route::post('/dashboard/retailer/shops/{shop}/users', 'Retailer\ShopUsersController@store')
+->name('retailer.users.store');
+Route::get('/dashboard/retailer/shops/{shop}/users/{user}/edit', 'Retailer\ShopUsersController@edit')
+->name('retailer.users.edit');
+Route::put('/dashboard/retailer/shops/{shop}/users/{user}', 'Retailer\ShopUsersController@update')
+->name('retailer.users.update');
+Route::delete('/dashboard/retailer/shops/{shop}/users/{user}', 'Retailer\ShopUsersController@destroy')
+->name('retailer.users.destroy');
+
+// Retailer User permissions
+Route::put('/dashboard/retailer/shops/{shop}/users/{user}/permissions', 'Retailer\ShopUserPermissionsController@update')
+->name('retailer.shops.users.permissions.update');
