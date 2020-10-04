@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Tax;
+use App\ModelsTax;
 use App\User;
 use App\Models\Permission;
 use Illuminate\Auth\Access\HandlesAuthorization;

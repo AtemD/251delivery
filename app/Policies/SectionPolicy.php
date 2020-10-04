@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\Discount;
+use App\Models\Section;
 use App\User;
 use App\Models\Permission;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class DiscountPolicy
+class SectionPolicy
 {
     use HandlesAuthorization;
 
@@ -30,7 +30,7 @@ class DiscountPolicy
      */
     public function view(User $user)
     {
-        return $user->can(Permission::VIEW_DISCOUNTS);
+        return $user->can(Permission::VIEW_SECTIONS);
     }
 
     /**
@@ -41,7 +41,7 @@ class DiscountPolicy
      */
     public function create(User $user)
     {
-        return $user->can(Permission::CREATE_DISCOUNTS);
+        return $user->can(Permission::CREATE_SECTIONS);
     }
 
     /**
@@ -52,7 +52,7 @@ class DiscountPolicy
      */
     public function update(User $user)
     {
-        return $user->can(Permission::UPDATE_DISCOUNTS);
+        return $user->can(Permission::UPDATE_SECTIONS);
     }
 
     /**
@@ -63,17 +63,17 @@ class DiscountPolicy
      */
     public function delete(User $user)
     {
-        return $user->can(Permission::DELETE_DISCOUNTS);
+        return $user->can(Permission::DELETE_SECTIONS);
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Discount $discount
+     * @param  \App\Section  $section
      * @return mixed
      */
-    public function restore(User $user, Discount $discount)
+    public function restore(User $user, Section $section)
     {
         //
     }
@@ -82,10 +82,10 @@ class DiscountPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Discount $discount
+     * @param  \App\Section  $section
      * @return mixed
      */
-    public function forceDelete(User $user, Discount $discount)
+    public function forceDelete(User $user, Section $section)
     {
         //
     }

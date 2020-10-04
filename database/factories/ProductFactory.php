@@ -27,7 +27,7 @@ $factory->define(Product::class, function (Faker $faker) {
 			'food_10.jpg',
 		]),
         'description' => $faker->sentence,
-        'base_price' => $faker->randomElement([2000, 2500, 3000, 4000, 5500, 7000, 10000, 11000]),
+        'base_price' => $faker->randomElement([200, 250, 300, 400, 550, 30, 25, 150]),
         'is_available' => rand(0,1) == 1
     ];
 });

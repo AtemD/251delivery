@@ -257,6 +257,22 @@ Route::put('/dashboard/retailer/shops/{shop}/settings/discounts/{discount}', 'Re
 Route::delete('/dashboard/retailer/shops/{shop}/settings/discounts/{discount}', 'Retailer\ShopDiscountsController@destroy')
 ->name('retailer.discounts.destroy');
 
+// Retailer shop product sections (The products of a shop)
+Route::get('/dashboard/retailer/shops/{shop}/settings/sections', 'Retailer\ShopSectionsController@index')
+->name('retailer.sections.index');
+Route::post('/dashboard/retailer/shops/{shop}/settings/sections', 'Retailer\ShopSectionsController@store')
+->name('retailer.sections.store');
+Route::get('/dashboard/retailer/shops/{shop}/settings/sections/{section}/edit', 'Retailer\ShopSectionsController@edit')
+->name('retailer.sections.edit');
+Route::put('/dashboard/retailer/shops/{shop}/settings/sections/{section}', 'Retailer\ShopSectionsController@update')
+->name('retailer.sections.update');
+Route::delete('/dashboard/retailer/shops/{shop}/settings/sections/{section}', 'Retailer\ShopSectionsController@destroy')
+->name('retailer.sections.destroy');
+
+// Retailer shop section products (The products of a section)
+Route::put('/dashboard/retailer/shops/{shop}/settings/sections/{section}/products', 'Retailer\ShopSectionProductsController@update')
+->name('retailer.section.products.update');
+
 
 // Retailer Shop Cuisines
 Route::get('/dashboard/retailer/shops/{shop}/settings/cuisines', 'Retailer\ShopCuisinesController@index')

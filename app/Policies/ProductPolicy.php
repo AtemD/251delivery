@@ -27,10 +27,9 @@ class ProductPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Product  $product
      * @return mixed
      */
-    public function view(User $user, Product $product)
+    public function view(User $user)
     {
         return $user->can(Permission::VIEW_PRODUCTS);
     }
@@ -50,10 +49,9 @@ class ProductPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Product  $product
      * @return mixed
      */
-    public function update(User $user, Product $product)
+    public function update(User $user)
     {
         return $user->can(Permission::UPDATE_PRODUCTS);
     }
@@ -65,7 +63,7 @@ class ProductPolicy
      * @param  \App\Product  $product
      * @return mixed
      */
-    public function delete(User $user, Product $product)
+    public function delete(User $user)
     {
         return $user->can(Permission::DELETE_PRODUCTS);
     }
@@ -74,10 +72,9 @@ class ProductPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Product  $product
      * @return mixed
      */
-    public function restore(User $user, Product $product)
+    public function restore(User $user)
     {
         //
     }
@@ -86,10 +83,9 @@ class ProductPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Product  $product
      * @return mixed
      */
-    public function forceDelete(User $user, Product $product)
+    public function forceDelete(User $user)
     {
         //
     }

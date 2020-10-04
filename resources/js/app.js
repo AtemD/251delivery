@@ -91,6 +91,8 @@ Vue.component('retailer-discount-add', require('./components/RetailerDiscountAdd
 
 Vue.component('retailer-user-add', require('./components/RetailerUserAdd.vue').default);
 
+Vue.component('retailer-section-add', require('./components/RetailerSectionAdd.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -263,7 +265,7 @@ if(document.querySelector('#retailerapp')) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Something went wrong! checking your inputs values / reload the page / try again'
+                    text: 'Something went wrong! check your inputs values or reload the page and try again'
                 })
             }
         }
