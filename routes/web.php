@@ -112,6 +112,8 @@ Route::get('/dashboard/company/settings/shop-types', 'Company\ShopTypesControlle
 ->name('company.shop-types.index');
 Route::post('/dashboard/company/settings/shop-types', 'Company\ShopTypesController@store')
 ->name('company.shop-types.store');
+Route::get('/dashboard/company/settings/shop-types/{shop_type}/edit', 'Company\ShopTypesController@edit')
+->name('company.shop-types.edit');
 Route::put('/dashboard/company/settings/shop-types/{shop_type}', 'Company\ShopTypesController@update')
 ->name('company.shop-types.update');
 Route::delete('/dashboard/company/settings/shop-types/{shop_type}', 'Company\ShopTypesController@destroy')

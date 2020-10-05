@@ -50,7 +50,20 @@ class ShopTypesController extends Controller
             'is_enabled' => (bool)$request->status,
         ]);
 
-        return back();
+        return back()->with('success', 'New Shop Type Added Successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\ShopType  $shop_type
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(ShopType $shop_type)
+    {
+        return view('dashboard/company/settings/shop-types/edit', compact(
+            'shop_type'
+        ));
     }
 
     /**
@@ -74,7 +87,7 @@ class ShopTypesController extends Controller
             'is_enabled' => (bool)$request->status
         ]);
 
-        return back();
+        return back()->with('success', 'Shop Type Udpated Successfully');
     }
 
     /**
@@ -86,6 +99,6 @@ class ShopTypesController extends Controller
     public function destroy(ShopType  $shop_type)
     {
         $shop_type->delete();
-        return back();
+        return back()->with('success', 'Shop Type Deleted Successfully');
     }
 }
