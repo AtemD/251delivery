@@ -104,13 +104,13 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('company.payment-methods.index') }}" class="nav-link">
+                    <a href="{{ route('company.payment-methods.index') }}" class="nav-link {{ (request()->routeIs('company.payment-methods.*')) ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>payment methods</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('company.shop-types.index') }}" class="nav-link">
+                    <a href="{{ route('company.shop-types.index') }}" class="nav-link {{ (request()->routeIs('company.shop-types.*')) ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>shop types</p>
                     </a>

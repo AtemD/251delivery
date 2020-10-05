@@ -42,7 +42,20 @@ class PaymentMethodsController extends Controller
             'is_enabled' => (bool)$request->status,
         ]);
 
-        return back();
+        return back()->with('success', 'Payment Method Added Successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\PaymentMethod  $payment_method
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(PaymentMethod $payment_method)
+    {
+        return view('dashboard/company/settings/payment-methods/edit', compact(
+            'payment_method'
+        ));
     }
 
     /**
@@ -66,7 +79,7 @@ class PaymentMethodsController extends Controller
             'is_enabled' => (bool)$request->status
         ]);
 
-        return back();
+        return back()->with('success', 'Payment Method Updated Successfully');
     }
 
     /**
@@ -78,6 +91,6 @@ class PaymentMethodsController extends Controller
     public function destroy(PaymentMethod $payment_method)
     {
         $payment_method->delete();
-        return back();
+        return back()->with('success', 'Payment Method Deleted Successfully');
     }
 }

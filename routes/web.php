@@ -100,6 +100,8 @@ Route::get('/dashboard/company/settings/payment-methods', 'Company\PaymentMethod
 ->name('company.payment-methods.index');
 Route::post('/dashboard/company/settings/payment-methods', 'Company\PaymentMethodsController@store')
 ->name('company.payment-methods.store');
+Route::get('/dashboard/company/settings/payment-methods/{payment_method}/edit', 'Company\PaymentMethodsController@edit')
+->name('company.payment-methods.edit');
 Route::put('/dashboard/company/settings/payment-methods/{payment_method}', 'Company\PaymentMethodsController@update')
 ->name('company.payment-methods.update');
 Route::delete('/dashboard/company/settings/payment-methods/{payment_method}', 'Company\PaymentMethodsController@destroy')
