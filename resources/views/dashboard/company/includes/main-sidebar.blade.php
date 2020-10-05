@@ -98,7 +98,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('company.order-types.index') }}" class="nav-link">
+                    <a href="{{ route('company.order-types.index') }}" class="nav-link {{ (request()->routeIs('company.order-types.*')) ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>order types</p>
                     </a>

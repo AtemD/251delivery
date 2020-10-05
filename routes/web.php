@@ -88,6 +88,8 @@ Route::get('/dashboard/company/settings/order-types', 'Company\OrderTypesControl
 ->name('company.order-types.index');
 Route::post('/dashboard/company/settings/order-types', 'Company\OrderTypesController@store')
 ->name('company.order-types.store');
+Route::get('/dashboard/company/settings/order-types/{order_type}/edit', 'Company\OrderTypesController@edit')
+->name('company.order-types.edit');
 Route::put('/dashboard/company/settings/order-types/{order_type}', 'Company\OrderTypesController@update')
 ->name('company.order-types.update');
 Route::delete('/dashboard/company/settings/order-types/{order_type}', 'Company\OrderTypesController@destroy')

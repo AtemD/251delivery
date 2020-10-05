@@ -46,6 +46,19 @@ class OrderTypesController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\OrderType  $order_type
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(OrderType $order_type)
+    {
+        return view('dashboard/company/settings/order-types/edit', compact(
+            'order_type'
+        ));
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -54,7 +67,6 @@ class OrderTypesController extends Controller
      */
     public function update(Request $request, OrderType $order_type)
     {
-        // dd($order_type);
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -67,7 +79,7 @@ class OrderTypesController extends Controller
             'is_enabled' => (bool)$request->status
         ]);
 
-        return back();
+        return back()->with('success', 'Order Type Updated Successfully');
     }
 
     /**
@@ -79,6 +91,6 @@ class OrderTypesController extends Controller
     public function destroy(OrderType $order_type)
     {
         $order_type->delete();
-        return back();
+        return back()->with('success', 'Order Type Deleted Successfully');
     }
 }

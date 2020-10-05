@@ -73,6 +73,8 @@ Vue.component('cart-details-component', require('./components/CartDetailsCompone
 
 // company cuisines
 Vue.component('company-cuisine-add', require('./components/CompanyCuisineAdd.vue').default);
+// company order types
+Vue.component('company-order-type-add', require('./components/CompanyOrderTypeAdd.vue').default);
 
 // RETAILER COMPONENTS:
 
