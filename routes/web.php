@@ -192,14 +192,20 @@ Route::delete('/dashboard/company/settings/cities/{city}', 'Company\CitiesContro
 ->name('company.cities.destroy');
 
 // Roles
-Route::get('/dashboard/company/settings/roles', 'Company\RolesController@index')
+Route::get('/dashboard/company/settings/access-control-levels/roles', 'Company\RolesController@index')
 ->name('company.roles.index');
-Route::post('/dashboard/company/settings/roles', 'Company\RolesController@store')
+Route::post('/dashboard/company/settings/access-control-levels/roles', 'Company\RolesController@store')
 ->name('company.roles.store');
-Route::put('/dashboard/company/settings/roles/{role}', 'Company\RolesController@update')
+Route::get('/dashboard/company/settings/access-control-levels/roles/{role}/edit', 'Company\RolesController@edit')
+->name('company.roles.edit');
+Route::put('/dashboard/company/settings/access-control-levels/roles/{role}', 'Company\RolesController@update')
 ->name('company.roles.update');
-Route::delete('/dashboard/company/settings/roles/{role}', 'Company\RolesController@destroy')
+Route::delete('/dashboard/company/settings/access-control-levels/roles/{role}', 'Company\RolesController@destroy')
 ->name('company.roles.destroy');
+
+// Role Permissions
+Route::put('/dashboard/company/settings/access-control-levels/roles/{role}/permissions', 'Company\RolePermissionsController@update')
+->name('company.role.permissions.update');
 
 // Permissions
 Route::get('/dashboard/company/settings/permissions', 'Company\PermissionsController@index')

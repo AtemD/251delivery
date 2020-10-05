@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
 {
@@ -48,12 +48,9 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->toArray());
-
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'guard_name' => 'required|max:255',
-            'permissions' => 'nullable'
         ]);
 
         $role = Role::create([
@@ -61,9 +58,25 @@ class RolesController extends Controller
             'guard_name' => $request->guard_name,
         ]);
 
-        $role->syncPermissions($request->permissions);
+        return back()->with('success', 'Role Created Successfully, got to edit to assign it permissions');
+    }
 
-        return back();
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Role  $role
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Role $role)
+    {
+        $role = $role->load('permissions');
+
+        $permissions = Permission::orderBy('name', 'asc')->get();
+        
+        return view('dashboard/company/settings/roles/edit', compact(
+            'role',
+            'permissions'
+        ));
     }
 
     /**
@@ -78,7 +91,6 @@ class RolesController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'guard_name' => 'required|max:255',
-            'permissions' => 'nullable'
         ]);
 
         $role->update([
@@ -86,9 +98,7 @@ class RolesController extends Controller
             'guard_name' => $request->guard_name,
         ]);
 
-        $role->syncPermissions($request->permissions);
-
-        return back();
+        return back()->with('success', 'Role Updated Successfully');
     }
 
     /**
@@ -100,6 +110,6 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return back();
+        return back()->with('success', 'Role Deleted Successfully');;
     }
 }

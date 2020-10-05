@@ -1,7 +1,6 @@
 @extends('dashboard.company.layouts.app')
 
 @section('content')
-<div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
@@ -247,5 +246,4 @@
       </div>
   </div>
   <!-- /.content -->
-</div>
 @endsection

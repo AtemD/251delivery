@@ -26,15 +26,16 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <!-- general form elements --><div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title">Edit <strong>{{$cuisine->name}}</strong> Cuisine</h3>
+                    <!-- form start -->
+                    <form role="form" method="POST" action="{{ route('company.cuisines.update', ['cuisine' => $cuisine]) }}">
+                        @method('PUT')
+                        @csrf 
+                        <!-- general form elements -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title">Edit <strong>{{$cuisine->name}}</strong> Cuisine</h3>
                             </div>
                             <!-- /.card-header -->
-                            <!-- form start -->
-                            <form role="form" method="POST" action="{{ route('company.cuisines.update', ['cuisine' => $cuisine]) }}">
-                                @method('PUT')
-                                @csrf 
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="name">Name</label>
@@ -80,9 +81,9 @@
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update Cuisine</button>
                                 </div>
-                            </form>
                         </div>
-                    <!-- /.card -->
+                        <!-- /.card -->
+                    </form>
                 </div>
             </div>
         </div>

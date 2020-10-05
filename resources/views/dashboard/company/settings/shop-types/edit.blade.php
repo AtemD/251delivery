@@ -26,15 +26,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <!-- general form elements --><div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title">Edit <strong>{{$shop_type->name}}</strong> Shop Type</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <!-- form start -->
-                            <form role="form" method="POST" action="{{ route('company.shop-types.update', ['shop_type' => $shop_type]) }}">
-                                @method('PUT')
-                                @csrf 
+                    <!-- form start -->
+                    <form role="form" method="POST" action="{{ route('company.shop-types.update', ['shop_type' => $shop_type]) }}">
+                        @method('PUT')
+                        @csrf 
+
+                        <!-- general form elements -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title">Edit <strong>{{$shop_type->name}}</strong> Shop Type</h3>
+                                </div>
+                                <!-- /.card-header -->
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="name">Name</label>
@@ -79,10 +81,10 @@
                         
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update Shop Type</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    <!-- /.card -->
+                        <!-- /.card -->
+                    </form>
                 </div>
             </div>
         </div>

@@ -24,7 +24,7 @@
               <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
               <li class="nav-item">
-                <a href="{{ route('company.home') }}" class="nav-link">
+                <a href="{{ route('company.home') }}" class="nav-link {{ (request()->routeIs('company.home')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
                     Dashboard
@@ -32,7 +32,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('company.shops.index') }}" class="nav-link">
+                <a href="{{ route('company.shops.index') }}" class="nav-link {{ (request()->routeIs('company.shops.*')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-store-alt"></i>
                   <p>
                     Shops
@@ -40,14 +40,14 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('company.orders.index') }}" class="nav-link">
+                <a href="{{ route('company.orders.index') }}" class="nav-link {{ (request()->routeIs('company.orders.*')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
                     Orders
                   </p>
                 </a>
               </li>
-              <li class="nav-item has-treeview menu-open">
+              <li class="nav-item has-treeview {{ (request()->routeIs('company.users.*')) ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-users"></i>
                   <p>
@@ -55,29 +55,11 @@
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview" style="display: block;">
+                <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('company.users.index') }}" class="nav-link">
+                    <a href="{{ route('company.users.index') }}" class="nav-link {{ (request()->routeIs('company.users.index')) ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>All Users</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ route('company.buyers.index') }}" class="nav-link">
-                      <i class="fas fa-circle nav-icon"></i>
-                      <p>Buyers</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ route('company.retailers.index') }}" class="nav-link">
-                      <i class="fas fa-circle nav-icon"></i>
-                      <p>Retailers</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="fas fa-circle nav-icon"></i>
-                      <p>Administrators</p>
                     </a>
                   </li>
                 </ul>
@@ -115,7 +97,7 @@
                       <p>shop types</p>
                     </a>
                   </li>
-                  <li class="nav-item has-treeview menu-open">
+                  <li class="nav-item has-treeview {{ (request()->segment(4) == 'access-control-levels') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-circle"></i>
                       <p>
@@ -123,22 +105,22 @@
                         <i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
-                    <ul class="nav nav-treeview" style="display: block;">
+                    <ul class="nav nav-treeview">
                       <li class="nav-item">
-                        <a href="{{ route('company.roles.index') }}" class="nav-link">
+                        <a href="{{ route('company.roles.index') }}" class="nav-link {{ (request()->routeIs('company.roles.*')) ? 'active' : '' }}">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>Roles</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('company.permissions.index') }}" class="nav-link">
+                        <a href="{{ route('company.permissions.index') }}" class="nav-link {{ (request()->routeIs('company.permissions.*')) ? 'active' : '' }}">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>Permissions</p>
                         </a>
                       </li>
                     </ul>
                   </li>
-                  <li class="nav-item has-treeview menu-open">
+                  <li class="nav-item has-treeview {{ (request()->segment(4) == 'statuses') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-circle"></i>
                       <p>
@@ -146,7 +128,7 @@
                         <i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
-                    <ul class="nav nav-treeview" style="display: block;">
+                    <ul class="nav nav-treeview">
                       <li class="nav-item">
                         <a href="{{ route('company.order-statuses.index') }}" class="nav-link">
                           <i class="fas fa-circle nav-icon"></i>
@@ -167,7 +149,7 @@
                       </li>
                     </ul>
                   </li>
-                  <li class="nav-item has-treeview menu-open">
+                  <li class="nav-item has-treeview {{ (request()->segment(4) == 'locations') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-circle"></i>
                       <p>
@@ -175,21 +157,21 @@
                         <i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
-                    <ul class="nav nav-treeview" style="display: block;">
+                    <ul class="nav nav-treeview">
                       <li class="nav-item">
-                        <a href="{{ route('company.countries.index') }}" class="nav-link">
+                        <a href="{{ route('company.countries.index') }}" class="nav-link {{ (request()->routeIs('company.countries.*')) ? 'active' : '' }}">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>countries</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('company.regions.index') }}" class="nav-link">
+                        <a href="{{ route('company.regions.index') }}" class="nav-link {{ (request()->routeIs('company.regions.*')) ? 'active' : '' }}">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>regions</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('company.cities.index') }}" class="nav-link">
+                        <a href="{{ route('company.cities.index') }}" class="nav-link {{ (request()->routeIs('company.cities.*')) ? 'active' : '' }}">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>cities</p>
                         </a>

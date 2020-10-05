@@ -79,6 +79,8 @@ Vue.component('company-order-type-add', require('./components/CompanyOrderTypeAd
 Vue.component('company-payment-method-add', require('./components/CompanyPaymentMethodAdd.vue').default);
 // company shop types
 Vue.component('company-shop-type-add', require('./components/CompanyShopTypeAdd.vue').default);
+// company roles
+Vue.component('company-role-add', require('./components/CompanyRoleAdd.vue').default);
 
 // RETAILER COMPONENTS:
 
