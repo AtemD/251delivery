@@ -69,7 +69,14 @@ Vue.component('cart-count-component', require('./components/CartCountComponent.v
 Vue.component('product-component', require('./components/ProductComponent.vue').default);
 Vue.component('cart-details-component', require('./components/CartDetailsComponent.vue').default);
 
-// retailer components
+// COMPANY COMPONENTS:
+
+// company cuisines
+Vue.component('company-cuisine-add', require('./components/CompanyCuisineAdd.vue').default);
+
+// RETAILER COMPONENTS:
+
+// retailer shops
 Vue.component('retailer-add-shop-component', require('./components/RetailerAddShopComponent.vue').default);
 Vue.component('retailer-delete-shop-component', require('./components/RetailerDeleteShopComponent.vue').default);
 Vue.component('retailer-edit-shop-component', require('./components/RetailerEditShopComponent.vue').default);
@@ -241,6 +248,43 @@ if(document.querySelector('#retailerapp')) {
         el: '#retailerapp',
         created(){
             console.log('retailer app created');
+
+            bus.$on('show-success-toast', () => {
+                this.showSuccessToast();
+            });
+
+            bus.$on('show-error-alert', () => {
+                this.showErrorAlert();
+            });
+        },
+        methods: {
+            showSuccessToast() {
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Item Created Successfully'
+                })
+
+                setTimeout(()=>{ 
+                    window.location.reload();
+                },1000);
+            },
+            showErrorAlert(){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong! check your inputs values or reload the page and try again'
+                })
+            }
+        }
+    });
+}
+
+if(document.querySelector('#companyapp')) {
+    // A fresh vue application instance of the company part of the app
+    const companyapp = new Vue({
+        el: '#companyapp',
+        created(){
+            console.log('company app created');
 
             bus.$on('show-success-toast', () => {
                 this.showSuccessToast();

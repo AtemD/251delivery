@@ -46,6 +46,19 @@ class CuisinesController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Cuisine  $cuisine
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Cuisine $cuisine)
+    {
+        return view('dashboard/company/settings/cuisines/edit', compact(
+            'cuisine'
+        ));
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -66,7 +79,7 @@ class CuisinesController extends Controller
             'is_enabled' => (bool)$request->status
         ]);
 
-        return back();
+        return back()->with('success', 'Cuisine Updated Successfully');
     }
 
     /**

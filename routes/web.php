@@ -32,9 +32,9 @@ Route::get('dashboard/buyers/home', 'Buyer\HomeController@index')
 
 //Account settings
 Route::get('dashboard/buyers/settings/account', 'Buyer\BuyerAccountsController@index')
-->name('buyers.settings.accounts.index');
+->name('buyers.accounts.index');
 Route::put('dashboard/buyers/settings/account/{buyer}', 'Buyer\BuyerAccountsController@update')
-->name('buyers.settings.accounts.update');
+->name('buyers.accounts.update');
 
 // Buyer Orders
 Route::get('dashboard/buyers/orders/{buyer}', 'Buyer\BuyerOrdersController@index')
@@ -85,123 +85,125 @@ Route::get('/dashboard/company/orders', 'Company\OrdersController@index')
 
 // Company Order Types
 Route::get('/dashboard/company/settings/order-types', 'Company\OrderTypesController@index')
-->name('company.settings.order-types.index');
+->name('company.order-types.index');
 Route::post('/dashboard/company/settings/order-types', 'Company\OrderTypesController@store')
-->name('company.settings.order-types.store');
+->name('company.order-types.store');
 Route::put('/dashboard/company/settings/order-types/{order_type}', 'Company\OrderTypesController@update')
-->name('company.settings.order-types.update');
+->name('company.order-types.update');
 Route::delete('/dashboard/company/settings/order-types/{order_type}', 'Company\OrderTypesController@destroy')
-->name('company.settings.order-types.destroy');
+->name('company.order-types.destroy');
 
 // Company Payment Methods
 Route::get('/dashboard/company/settings/payment-methods', 'Company\PaymentMethodsController@index')
-->name('company.settings.payment-methods.index');
+->name('company.payment-methods.index');
 Route::post('/dashboard/company/settings/payment-methods', 'Company\PaymentMethodsController@store')
-->name('company.settings.payment-methods.store');
+->name('company.payment-methods.store');
 Route::put('/dashboard/company/settings/payment-methods/{payment_method}', 'Company\PaymentMethodsController@update')
-->name('company.settings.payment-methods.update');
+->name('company.payment-methods.update');
 Route::delete('/dashboard/company/settings/payment-methods/{payment_method}', 'Company\PaymentMethodsController@destroy')
-->name('company.settings.payment-methods.destroy');
+->name('company.payment-methods.destroy');
 
 // Company Shop Types
 Route::get('/dashboard/company/settings/shop-types', 'Company\ShopTypesController@index')
-->name('company.settings.shop-types.index');
+->name('company.shop-types.index');
 Route::post('/dashboard/company/settings/shop-types', 'Company\ShopTypesController@store')
-->name('company.settings.shop-types.store');
+->name('company.shop-types.store');
 Route::put('/dashboard/company/settings/shop-types/{shop_type}', 'Company\ShopTypesController@update')
-->name('company.settings.shop-types.update');
+->name('company.shop-types.update');
 Route::delete('/dashboard/company/settings/shop-types/{shop_type}', 'Company\ShopTypesController@destroy')
-->name('company.settings.shop-types.destroy');
+->name('company.shop-types.destroy');
 
 // Company Cuisines
 Route::get('/dashboard/company/settings/cuisines', 'Company\CuisinesController@index')
-->name('company.settings.cuisines.index');
+->name('company.cuisines.index');
 Route::post('/dashboard/company/settings/cuisines', 'Company\CuisinesController@store')
-->name('company.settings.cuisines.store');
+->name('company.cuisines.store');
+Route::get('/dashboard/company/settings/cuisines/{cuisine}/edit', 'Company\CuisinesController@edit')
+->name('company.cuisines.edit');
 Route::put('/dashboard/company/settings/cuisines/{cuisine}', 'Company\CuisinesController@update')
-->name('company.settings.cuisines.update');
+->name('company.cuisines.update');
 Route::delete('/dashboard/company/settings/cuisines/{cuisine}', 'Company\CuisinesController@destroy')
-->name('company.settings.cuisines.destroy');
+->name('company.cuisines.destroy');
 
 // Company Order Statuses
 Route::get('/dashboard/company/settings/order-statuses', 'Company\OrderStatusesController@index')
-->name('company.settings.order-statuses.index');
+->name('company.order-statuses.index');
 Route::post('/dashboard/company/settings/order-statuses', 'Company\OrderStatusesController@store')
-->name('company.settings.order-statuses.store');
+->name('company.order-statuses.store');
 Route::put('/dashboard/company/settings/order-statuses/{order_status}', 'Company\OrderStatusesController@update')
-->name('company.settings.order-statuses.update');
+->name('company.order-statuses.update');
 Route::delete('/dashboard/company/settings/order-statuses/{order_status}', 'Company\OrderStatusesController@destroy')
-->name('company.settings.order-statuses.destroy');
+->name('company.order-statuses.destroy');
 
 // Company Shop Account Statuses
 Route::get('/dashboard/company/settings/shop-account-statuses', 'Company\ShopAccountStatusesController@index')
-->name('company.settings.shop-account-statuses.index');
+->name('company.shop-account-statuses.index');
 Route::post('/dashboard/company/settings/shop-account-statuses', 'Company\ShopAccountStatusesController@store')
-->name('company.settings.shop-account-statuses.store');
+->name('company.shop-account-statuses.store');
 Route::put('/dashboard/company/settings/shop-account-statuses/{shop_account_status}', 'Company\ShopAccountStatusesController@update')
-->name('company.settings.shop-account-statuses.update');
+->name('company.shop-account-statuses.update');
 Route::delete('/dashboard/company/settings/shop-account-statuses/{shop_account_status}', 'Company\ShopAccountStatusesController@destroy')
-->name('company.settings.shop-account-statuses.destroy');
+->name('company.shop-account-statuses.destroy');
 
 // Company User Account Statuses
 Route::get('/dashboard/company/settings/user-account-statuses', 'Company\UserAccountStatusesController@index')
-->name('company.settings.user-account-statuses.index');
+->name('company.user-account-statuses.index');
 Route::post('/dashboard/company/settings/user-account-statuses', 'Company\UserAccountStatusesController@store')
-->name('company.settings.user-account-statuses.store');
+->name('company.user-account-statuses.store');
 Route::put('/dashboard/company/settings/user-account-statuses/{user_account_status}', 'Company\UserAccountStatusesController@update')
-->name('company.settings.user-account-statuses.update');
+->name('company.user-account-statuses.update');
 Route::delete('/dashboard/company/settings/user-account-statuses/{user_account_status}', 'Company\UserAccountStatusesController@destroy')
-->name('company.settings.user-account-statuses.destroy');
+->name('company.user-account-statuses.destroy');
 
 // Countries
 Route::get('/dashboard/company/settings/countries', 'Company\CountriesController@index')
-->name('company.settings.countries.index');
+->name('company.countries.index');
 Route::post('/dashboard/company/settings/countries', 'Company\CountriesController@store')
-->name('company.settings.countries.store');
+->name('company.countries.store');
 Route::put('/dashboard/company/settings/countries/{country}', 'Company\CountriesController@update')
-->name('company.settings.countries.update');
+->name('company.countries.update');
 Route::delete('/dashboard/company/settings/countries/{country}', 'Company\CountriesController@destroy')
-->name('company.settings.countries.destroy');
+->name('company.countries.destroy');
 
 // Regions
 Route::get('/dashboard/company/settings/regions', 'Company\RegionsController@index')
-->name('company.settings.regions.index');
+->name('company.regions.index');
 Route::post('/dashboard/company/settings/regions', 'Company\RegionsController@store')
-->name('company.settings.regions.store');
+->name('company.regions.store');
 Route::put('/dashboard/company/settings/regions/{region}', 'Company\RegionsController@update')
-->name('company.settings.regions.update');
+->name('company.regions.update');
 Route::delete('/dashboard/company/settings/regions/{region}', 'Company\RegionsController@destroy')
-->name('company.settings.regions.destroy');
+->name('company.regions.destroy');
 
 // Cities
 Route::get('/dashboard/company/settings/cities', 'Company\CitiesController@index')
-->name('company.settings.cities.index');
+->name('company.cities.index');
 Route::post('/dashboard/company/settings/cities', 'Company\CitiesController@store')
-->name('company.settings.cities.store');
+->name('company.cities.store');
 Route::put('/dashboard/company/settings/cities/{city}', 'Company\CitiesController@update')
-->name('company.settings.cities.update');
+->name('company.cities.update');
 Route::delete('/dashboard/company/settings/cities/{city}', 'Company\CitiesController@destroy')
-->name('company.settings.cities.destroy');
+->name('company.cities.destroy');
 
 // Roles
 Route::get('/dashboard/company/settings/roles', 'Company\RolesController@index')
-->name('company.settings.roles.index');
+->name('company.roles.index');
 Route::post('/dashboard/company/settings/roles', 'Company\RolesController@store')
-->name('company.settings.roles.store');
+->name('company.roles.store');
 Route::put('/dashboard/company/settings/roles/{role}', 'Company\RolesController@update')
-->name('company.settings.roles.update');
+->name('company.roles.update');
 Route::delete('/dashboard/company/settings/roles/{role}', 'Company\RolesController@destroy')
-->name('company.settings.roles.destroy');
+->name('company.roles.destroy');
 
 // Permissions
 Route::get('/dashboard/company/settings/permissions', 'Company\PermissionsController@index')
-->name('company.settings.permissions.index');
+->name('company.permissions.index');
 Route::post('/dashboard/company/settings/permissions', 'Company\PermissionsController@store')
-->name('company.settings.permissions.store');
+->name('company.permissions.store');
 Route::put('/dashboard/company/settings/permissions/{permission}', 'Company\PermissionsController@update')
-->name('company.settings.permissions.update');
+->name('company.permissions.update');
 Route::delete('/dashboard/company/settings/permissions/{permission}', 'Company\PermissionsController@destroy')
-->name('company.settings.permissions.destroy');
+->name('company.permissions.destroy');
 
 // RETAILER ROUTES
 

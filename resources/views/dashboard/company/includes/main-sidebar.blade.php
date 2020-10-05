@@ -14,7 +14,7 @@
               <img src="/uploads/images/customer-support.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="#" class="d-block">Daniel Atem</a>
+              <a href="#" class="d-block">{{Auth::user()->full_name}}</a>
             </div>
           </div>
 
@@ -82,7 +82,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item has-treeview menu-open">
+              <li class="nav-item has-treeview {{ (request()->segment(3) == 'settings') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cog"></i>
                   <p>
@@ -92,25 +92,25 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('company.settings.cuisines.index') }}" class="nav-link">
+                    <a href="{{ route('company.cuisines.index') }}" class="nav-link {{ (request()->routeIs('company.cuisines.*')) ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>cuisines</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('company.settings.order-types.index') }}" class="nav-link">
+                    <a href="{{ route('company.order-types.index') }}" class="nav-link">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>order types</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('company.settings.payment-methods.index') }}" class="nav-link">
+                    <a href="{{ route('company.payment-methods.index') }}" class="nav-link">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>payment methods</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('company.settings.shop-types.index') }}" class="nav-link">
+                    <a href="{{ route('company.shop-types.index') }}" class="nav-link">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>shop types</p>
                     </a>
@@ -125,13 +125,13 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: block;">
                       <li class="nav-item">
-                        <a href="{{ route('company.settings.roles.index') }}" class="nav-link">
+                        <a href="{{ route('company.roles.index') }}" class="nav-link">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>Roles</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('company.settings.permissions.index') }}" class="nav-link">
+                        <a href="{{ route('company.permissions.index') }}" class="nav-link">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>Permissions</p>
                         </a>
@@ -148,19 +148,19 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: block;">
                       <li class="nav-item">
-                        <a href="{{ route('company.settings.order-statuses.index') }}" class="nav-link">
+                        <a href="{{ route('company.order-statuses.index') }}" class="nav-link">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>Order Statuses</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('company.settings.shop-account-statuses.index') }}" class="nav-link">
+                        <a href="{{ route('company.shop-account-statuses.index') }}" class="nav-link">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>Shop Account Statuses</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('company.settings.user-account-statuses.index') }}" class="nav-link">
+                        <a href="{{ route('company.user-account-statuses.index') }}" class="nav-link">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>User Account Statuses</p>
                         </a>
@@ -177,19 +177,19 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: block;">
                       <li class="nav-item">
-                        <a href="{{ route('company.settings.countries.index') }}" class="nav-link">
+                        <a href="{{ route('company.countries.index') }}" class="nav-link">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>countries</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('company.settings.regions.index') }}" class="nav-link">
+                        <a href="{{ route('company.regions.index') }}" class="nav-link">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>regions</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('company.settings.cities.index') }}" class="nav-link">
+                        <a href="{{ route('company.cities.index') }}" class="nav-link">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>cities</p>
                         </a>
