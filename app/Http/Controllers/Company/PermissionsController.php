@@ -51,7 +51,7 @@ class PermissionsController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'guard_name' => 'required|max:255',
-            'roles' => 'nullable'
+            // 'roles' => 'nullable'
         ]);
 
         $permission = Permission::create([
@@ -59,9 +59,27 @@ class PermissionsController extends Controller
             'guard_name' => $request->guard_name,
         ]);
 
-        $permission->syncRoles($request->roles);
+        // $permission->syncRoles($request->roles);
 
-        return back();
+        return back()->with('success', 'New Permission Created Successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Permission  $permission
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Permission $permission)
+    {
+        $permission = $permission->load('roles');
+
+        $roles = Role::orderBy('name', 'asc')->get();
+        
+        return view('dashboard/company/settings/permissions/edit', compact(
+            'permission',
+            'roles'
+        ));
     }
 
     /**
@@ -76,7 +94,7 @@ class PermissionsController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'guard_name' => 'required|max:255',
-            'roles' => 'nullable'
+            // 'roles' => 'nullable'
         ]);
 
         $permission->update([
@@ -84,9 +102,9 @@ class PermissionsController extends Controller
             'guard_name' => $request->guard_name,
         ]);
         
-        $permission->syncRoles($request->roles);
+        // $permission->syncRoles($request->roles);
 
-        return back();
+        return back()->with('success', 'Permission Updated Successfully');
     }
 
     /**
@@ -98,6 +116,6 @@ class PermissionsController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        return back();
+        return back()->with('success', 'Permission Deleted Successfully');
     }
 }

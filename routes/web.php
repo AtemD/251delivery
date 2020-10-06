@@ -208,14 +208,20 @@ Route::put('/dashboard/company/settings/access-control-levels/roles/{role}/permi
 ->name('company.role.permissions.update');
 
 // Permissions
-Route::get('/dashboard/company/settings/permissions', 'Company\PermissionsController@index')
+Route::get('/dashboard/company/settings/access-control-levels/permissions', 'Company\PermissionsController@index')
 ->name('company.permissions.index');
-Route::post('/dashboard/company/settings/permissions', 'Company\PermissionsController@store')
+Route::post('/dashboard/company/settings/access-control-levels/permissions', 'Company\PermissionsController@store')
 ->name('company.permissions.store');
-Route::put('/dashboard/company/settings/permissions/{permission}', 'Company\PermissionsController@update')
+Route::get('/dashboard/company/settings/access-control-levels/permissions/{permission}/edit', 'Company\\PermissionsController@edit')
+->name('company.permissions.edit');
+Route::put('/dashboard/company/settings/access-control-levels/permissions/{permission}', 'Company\PermissionsController@update')
 ->name('company.permissions.update');
-Route::delete('/dashboard/company/settings/permissions/{permission}', 'Company\PermissionsController@destroy')
+Route::delete('/dashboard/company/settings/access-control-levels/permissions/{permission}', 'Company\PermissionsController@destroy')
 ->name('company.permissions.destroy');
+
+// Permission Roles
+Route::put('/dashboard/company/settings/access-control-levels/permissions/{permission}/roles', 'Company\PermissionRolesController@update')
+->name('company.permission.roles.update');
 
 // RETAILER ROUTES
 
