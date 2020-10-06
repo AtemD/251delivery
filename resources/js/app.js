@@ -77,6 +77,8 @@ Vue.component('company-cuisine-add', require('./components/CompanyCuisineAdd.vue
 Vue.component('company-order-type-add', require('./components/CompanyOrderTypeAdd.vue').default);
 // company order statuses
 Vue.component('company-order-status-add', require('./components/CompanyOrderStatusAdd.vue').default);
+// company shop account statuses
+Vue.component('company-shop-account-status-add', require('./components/CompanyShopAccountStatusAdd.vue').default);
 // company payment methods
 Vue.component('company-payment-method-add', require('./components/CompanyPaymentMethodAdd.vue').default);
 // company shop types

@@ -50,7 +50,6 @@
                             <th>Name</th>
                             <th>Description</th>
                             <th>Color</th>
-                            <th>Enabled Status</th>
                         </tr>
                         </thead>
                         <tbody>

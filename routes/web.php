@@ -148,6 +148,8 @@ Route::get('/dashboard/company/settings/statuses/shop-account-statuses', 'Compan
 ->name('company.shop-account-statuses.index');
 Route::post('/dashboard/company/settings/statuses/shop-account-statuses', 'Company\ShopAccountStatusesController@store')
 ->name('company.shop-account-statuses.store');
+Route::get('/dashboard/company/settings/statuses/shop-account-statuses/{shop_account_status}/edit', 'Company\ShopAccountStatusesController@edit')
+->name('company.shop-account-statuses.edit');
 Route::put('/dashboard/company/settings/statuses/shop-account-statuses/{shop_account_status}', 'Company\ShopAccountStatusesController@update')
 ->name('company.shop-account-statuses.update');
 Route::delete('/dashboard/company/settings/statuses/shop-account-statuses/{shop_account_status}', 'Company\ShopAccountStatusesController@destroy')

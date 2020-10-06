@@ -52,14 +52,27 @@ class ShopAccountStatusesController extends Controller
             'color' => $request->color,
         ]);
 
-        return back();
+        return back()->with('success', 'New Shop Account Status Created Successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\ShopAccountStatus  $shop_account_status
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(ShopAccountStatus $shop_account_status)
+    {
+        return view('dashboard/company/settings/shop-account-statuses/edit', compact(
+            'shop_account_status',
+        ));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ShopAccountStatus $shop_account_status
+     * @param  \App\Models\ShopAccountStatus  $shop_account_status
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ShopAccountStatus $shop_account_status)
@@ -76,18 +89,18 @@ class ShopAccountStatusesController extends Controller
             'color' => $request->color,
         ]);
 
-        return back();
+        return back()->with('success', 'Shop Account Status Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ShopAccountStatus $shop_account_status
+     * @param  \App\Models\ShopAccountStatus  $shop_account_status
      * @return \Illuminate\Http\Response
      */
     public function destroy(ShopAccountStatus $shop_account_status)
     {
         $shop_account_status->delete();
-        return back();
+        return back()->with('success', 'Shop Account Status Deleted Successfully');
     }
 }

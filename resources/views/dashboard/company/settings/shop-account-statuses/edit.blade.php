@@ -6,14 +6,14 @@
         <div class="container-fluid">
             <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Order Status Editor</h1>
+                <h1 class="m-0 text-dark">Shop Account Status Editor</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('company.home')}}">Home</a></li>
                     <li class="breadcrumb-item">Settings</li>
                     <li class="breadcrumb-item">Statuses</li>
-                    <li class="breadcrumb-item"><a href="{{route('company.order-statuses.index')}}">Order Statuses</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('company.shop-account-statuses.index')}}">Shop Account Statuses</a></li>
                     <li class="breadcrumb-item active">Edit</li>
                 </ol>
             </div><!-- /.col -->
@@ -29,20 +29,20 @@
                 <div class="col-md-12">
                     
                     <!-- form start -->
-                    <form role="form" method="POST" action="{{ route('company.order-statuses.update', ['order_status' => $order_status]) }}">
+                    <form role="form" method="POST" action="{{ route('company.shop-account-statuses.update', ['shop_account_status' => $shop_account_status]) }}">
                         @method('PUT')
                         @csrf 
                         <!-- general form elements -->
                         <div class="card card-primary card-outline">
                             <div class="card-header">
-                                <h3 class="card-title">Edit <strong>{{$order_status->name}}</strong> Order Status</h3>
+                                <h3 class="card-title">Edit <strong>{{$shop_account_status->name}}</strong> Shop Account Status</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $order_status->name }}" id="name" 
-                                        placeholder="e.g Pending" required>
+                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $shop_account_status->name }}" id="name" 
+                                        placeholder="e.g Verified" required>
                                     
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -53,7 +53,7 @@
 
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" id="description" rows="3" name="description" required>{{ $order_status->description }}</textarea>
+                                    <textarea class="form-control" id="description" rows="3" name="description" required>{{ $shop_account_status->description }}</textarea>
 
                                     @error('description')
                                         <span class="invalid-feedback" role="alert">
@@ -64,7 +64,7 @@
                             
                                 <div class="form-group">
                                     <label for="color">Color</label>
-                                    <input type="text" name="color" class="form-control @error('color') is-invalid @enderror" value="{{ $order_status->color }}" id="color" 
+                                    <input type="text" name="color" class="form-control @error('color') is-invalid @enderror" value="{{ $shop_account_status->color }}" id="color" 
                                         placeholder="e.g primary" required>
                                     
                                     @error('color')
@@ -78,7 +78,7 @@
                             <!-- /.card-body -->
                     
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Update Order Status</button>
+                                <button type="submit" class="btn btn-primary">Update Shop Account Status</button>
                             </div>
                         </div>
                         <!-- /.card -->
