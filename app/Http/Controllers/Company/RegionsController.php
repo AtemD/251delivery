@@ -46,18 +46,36 @@ class RegionsController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'abbreviation' => 'required|max:255',
-            'country_id' => 'required|integer|exists:countries,id',
+            'country' => 'required|integer|exists:countries,id',
             'status' => 'nullable'
         ]);
 
         Region::create([
             'name' => $request->name,
             'abbreviation' => $request->abbreviation,
-            'country_id' => $request->country_id,
+            'country_id' => $request->country,
             'is_enabled' => (bool)$request->status
         ]);
 
-        return back();
+        return back()->with('success', 'New Region Created Successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Region  $region
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Region $region)
+    {
+        $countries = Country::all();
+
+        $region = $region->load('country');
+
+        return view('dashboard/company/settings/regions/edit', compact(
+            'region',
+            'countries'
+        ));
     }
 
     /**
@@ -72,18 +90,18 @@ class RegionsController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'abbreviation' => 'required|max:255',
-            'country_id' => 'required|integer|exists:countries,id',
+            'country' => 'required|integer|exists:countries,id',
             'status' => 'nullable'
         ]);
 
         $region->update([
             'name' => $request->name,
             'abbreviation' => $request->abbreviation,
-            'country_id' => $request->country_id,
+            'country_id' => $request->country,
             'is_enabled' => (bool)$request->status
         ]);
 
-        return back();
+        return back()->with('success', 'Region Updated Successfully');
     }
 
     /**
@@ -95,6 +113,6 @@ class RegionsController extends Controller
     public function destroy(Region $region)
     {
         $region->delete();
-        return back();
+        return back()->with('success', 'Region Deleted Successfully');
     }
 }

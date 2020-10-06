@@ -12,6 +12,7 @@
                 <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{route('company.home')}}">Home</a></li>
                 <li class="breadcrumb-item">Settings</li>
+                <li class="breadcrumb-item">Locations</li>
                 <li class="breadcrumb-item active">Countries</li>
                 </ol>
             </div><!-- /.col -->
@@ -108,55 +109,6 @@
 
                                     </td>
                                 </tr>
-
-                                <div class="modal fade" id="edit-country-{{$country->id}}" style="display: none;" aria-hidden="true">
-                                    <div class="modal-dialog edit-country-{{$country->id}}">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Edit {{$country->name}}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <form role="form" method="POST" action="{{ route('company.countries.update', ['country' => $country->id]) }}">
-                                            @method('PUT')
-                                            @csrf
-
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label for="name">Name</label>
-                                                    <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{ $country->name }}" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="abbreviation">Abbr.</label>
-                                                    <input type="text" class="form-control" id="abbreviation" placeholder="abbreviation" name="abbreviation" value="{{ $country->abbreviation }}" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="currency_name">Currency Name</label>
-                                                    <input type="text" class="form-control" id="name" placeholder="currency abbreviation" name="currency_name" value="{{ $country->currency_name }}" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="currency_abbreviation">Currency Abbr.</label>
-                                                    <input type="text" class="form-control" id="name" placeholder="currency name" name="currency_abbreviation" value="{{ $country->currency_abbreviation }}" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="country-switch-{{$country->id}}" name="status" {{$country->is_enabled === 1 ? 'checked' : ''}}>
-                                                        <label class="custom-control-label" for="country-switch-{{$country->id}}">Country Status</label>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Update</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                </div>
 
                             @empty
                                 <div class="row">
