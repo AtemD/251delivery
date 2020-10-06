@@ -56,7 +56,20 @@ class CountriesController extends Controller
             'is_enabled' => (bool)$request->status
         ]);
 
-        return back();
+        return back()->with('success', 'New Country Created Successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Country  $country
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Country $country)
+    {
+        return view('dashboard/company/settings/countries/edit', compact(
+            'country',
+        ));
     }
 
     /**
@@ -84,7 +97,7 @@ class CountriesController extends Controller
             'is_enabled' => (bool)$request->status
         ]);
 
-        return back();
+        return back()->with('success', 'Country Updated Successfully');
     }
 
     /**
@@ -96,6 +109,6 @@ class CountriesController extends Controller
     public function destroy(Country $country)
     {
         $country->delete();
-        return back();
+        return back()->with('success', 'Country Deleted Successfully');
     }
 }

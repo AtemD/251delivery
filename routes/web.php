@@ -168,33 +168,39 @@ Route::delete('/dashboard/company/settings/statuses/user-account-statuses/{user_
 ->name('company.user-account-statuses.destroy');
 
 // Countries
-Route::get('/dashboard/company/settings/countries', 'Company\CountriesController@index')
+Route::get('/dashboard/company/settings/locations/countries', 'Company\CountriesController@index')
 ->name('company.countries.index');
-Route::post('/dashboard/company/settings/countries', 'Company\CountriesController@store')
+Route::post('/dashboard/company/settings/locations/countries', 'Company\CountriesController@store')
 ->name('company.countries.store');
-Route::put('/dashboard/company/settings/countries/{country}', 'Company\CountriesController@update')
+Route::get('/dashboard/company/settings/locations/countries/{country}/edit', 'Company\CountriesController@edit')
+->name('company.countries.edit');
+Route::put('/dashboard/company/settings/locations/countries/{country}', 'Company\CountriesController@update')
 ->name('company.countries.update');
-Route::delete('/dashboard/company/settings/countries/{country}', 'Company\CountriesController@destroy')
+Route::delete('/dashboard/company/settings/locations/countries/{country}', 'Company\CountriesController@destroy')
 ->name('company.countries.destroy');
 
 // Regions
-Route::get('/dashboard/company/settings/regions', 'Company\RegionsController@index')
+Route::get('/dashboard/company/settings/locations/regions', 'Company\RegionsController@index')
 ->name('company.regions.index');
-Route::post('/dashboard/company/settings/regions', 'Company\RegionsController@store')
+Route::post('/dashboard/company/settings/locations/regions', 'Company\RegionsController@store')
 ->name('company.regions.store');
-Route::put('/dashboard/company/settings/regions/{region}', 'Company\RegionsController@update')
+Route::get('/dashboard/company/settings/locations/regions/{region}/edit', 'Company\RegionsController@edit')
+->name('company.regions.edit');
+Route::put('/dashboard/company/settings/locations/regions/{region}', 'Company\RegionsController@update')
 ->name('company.regions.update');
-Route::delete('/dashboard/company/settings/regions/{region}', 'Company\RegionsController@destroy')
+Route::delete('/dashboard/company/settings/locations/regions/{region}', 'Company\RegionsController@destroy')
 ->name('company.regions.destroy');
 
 // Cities
-Route::get('/dashboard/company/settings/cities', 'Company\CitiesController@index')
+Route::get('/dashboard/company/settings/locations/cities', 'Company\CitiesController@index')
 ->name('company.cities.index');
-Route::post('/dashboard/company/settings/cities', 'Company\CitiesController@store')
+Route::post('/dashboard/company/settings/locations/cities', 'Company\CitiesController@store')
 ->name('company.cities.store');
-Route::put('/dashboard/company/settings/cities/{city}', 'Company\CitiesController@update')
+Route::get('/dashboard/company/settings/locations/cities/{city}/edit', 'Company\CitiesController@edit')
+->name('company.cities.edit');
+Route::put('/dashboard/company/settings/locations/cities/{city}', 'Company\CitiesController@update')
 ->name('company.cities.update');
-Route::delete('/dashboard/company/settings/cities/{city}', 'Company\CitiesController@destroy')
+Route::delete('/dashboard/company/settings/locations/cities/{city}', 'Company\CitiesController@destroy')
 ->name('company.cities.destroy');
 
 // Roles
