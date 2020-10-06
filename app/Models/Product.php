@@ -16,7 +16,7 @@ class Product extends Model
 
     const PRODUCT_DEFAULT_IMAGE = 'product_default.jpg';
 
-    protected $appends = ['base_price', 'image_path', 'short_description'];
+    protected $appends = ['status', 'image_path', 'short_description'];
 
     public function shop()
     {
@@ -42,6 +42,11 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Order', 'order_has_product', 'product_id', 'order_id')
             ->withPivot('quantity', 'amount', 'special_request')->withTimestamps();;
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->is_available ? 'available' : 'unavailable';
     }
 
     /**

@@ -22,7 +22,7 @@
                         <div class="col-2 pt-2">
                             <div  class="shop-item-product-price">
                                 <p class="card-text text-muted d-flex justify-content-center">
-                                    {{$product->price}}
+                                    {{$product->base_price}}
                                 </p>
                                 <p class="card-text text-muted d-flex justify-content-center shop-item-product-currency">ETB</p>
                             </div>

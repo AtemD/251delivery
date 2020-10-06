@@ -8,8 +8,8 @@
                     </div>
                     <div class="col-8">
                         <div class="card-body shop-item-product-details">
-                            <h5 class="card-title shop-item-product-title">{{product.name}}</h5>
-                            <h5 class="card-title shop-item-product-title text-muted">{{product.price}} <small>ETB</small></h5>
+                            <h5 class="card-title shop-item-product-title">{{product.name}}</h5><br>
+                            <h5 class="card-title shop-item-product-title text-muted">{{product.base_price}} <small>ETB</small></h5>
                             <small><p class="card-text text-muted text-break">{{product.description}}</p></small>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
         data(){
             return {
                 productQuantity: 1,
-                productTotalPrice: this.product.price,
+                productTotalPrice: this.product.base_price,
                 productStatus: this.product.status,
                 addingToCart:false,
             }
@@ -97,10 +97,10 @@
 
                 if (matchingProductIndex > -1) {
                     this.productQuantity = this.cart[matchingProductIndex].qty;
-                    this.productTotalPrice = this.product.price * this.productQuantity;
+                    this.productTotalPrice = this.product.base_price * this.productQuantity;
                 } else {
                     this.productQuantity = 1;
-                    this.productTotalPrice = this.product.price;
+                    this.productTotalPrice = this.product.base_price;
                 }
             },
 

@@ -148,7 +148,7 @@ if(document.querySelector('#app')) {
         computed: {
             cartTotal(){
                 return this.cart.reduce((total, product) => {
-                    return total + product.qty * product.price;
+                    return total + product.qty * product.base_price;
                 }, 0);
             },
             totalItems(){

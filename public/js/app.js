@@ -3222,7 +3222,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       productQuantity: 1,
-      productTotalPrice: this.product.price,
+      productTotalPrice: this.product.base_price,
       productStatus: this.product.status,
       addingToCart: false
     };
@@ -3253,10 +3253,10 @@ __webpack_require__.r(__webpack_exports__);
 
       if (matchingProductIndex > -1) {
         this.productQuantity = this.cart[matchingProductIndex].qty;
-        this.productTotalPrice = this.product.price * this.productQuantity;
+        this.productTotalPrice = this.product.base_price * this.productQuantity;
       } else {
         this.productQuantity = 1;
-        this.productTotalPrice = this.product.price;
+        this.productTotalPrice = this.product.base_price;
       }
     },
     findMatchingProductIndex: function findMatchingProductIndex() {
@@ -44278,11 +44278,14 @@ var render = function() {
                             _vm._v(_vm._s(cartItem.name))
                           ]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(cartItem.price) + " ETB")]),
+                          _c("td", [
+                            _vm._v(_vm._s(cartItem.base_price) + " ETB")
+                          ]),
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(
-                              _vm._s(cartItem.price * cartItem.qty) + " ETB"
+                              _vm._s(cartItem.base_price * cartItem.qty) +
+                                " ETB"
                             )
                           ]),
                           _vm._v(" "),
@@ -48101,6 +48104,7 @@ var render = function() {
               _c("h5", { staticClass: "card-title shop-item-product-title" }, [
                 _vm._v(_vm._s(_vm.product.name))
               ]),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "h5",
@@ -48108,7 +48112,7 @@ var render = function() {
                   staticClass: "card-title shop-item-product-title text-muted"
                 },
                 [
-                  _vm._v(_vm._s(_vm.product.price) + " "),
+                  _vm._v(_vm._s(_vm.product.base_price) + " "),
                   _c("small", [_vm._v("ETB")])
                 ]
               ),
@@ -64083,7 +64087,7 @@ if (document.querySelector('#app')) {
     computed: {
       cartTotal: function cartTotal() {
         return this.cart.reduce(function (total, product) {
-          return total + product.qty * product.price;
+          return total + product.qty * product.base_price;
         }, 0);
       },
       totalItems: function totalItems() {

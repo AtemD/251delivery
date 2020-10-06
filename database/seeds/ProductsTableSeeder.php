@@ -24,7 +24,7 @@ class ProductsTableSeeder extends Seeder
             $sections->each(function($section) use($shop){
                 factory('App\Models\Product', mt_rand(1, 8))->create([
                     'shop_id' => $shop->id,
-                    'section_id' => $section
+                    'section_id' => $section->id
                 ]);
             });
             

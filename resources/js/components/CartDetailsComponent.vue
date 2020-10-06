@@ -22,8 +22,8 @@
                             <tbody>
                                 <tr v-for="cartItem in cart" :key="cartItem.id">
                                     <th scope="row">{{cartItem.name}}</th>
-                                    <td>{{cartItem.price}} ETB</td>
-                                    <td>{{cartItem.price*cartItem.qty}} ETB</td>
+                                    <td>{{cartItem.base_price}} ETB</td>
+                                    <td>{{cartItem.base_price*cartItem.qty}} ETB</td>
                                     <td class="d-flex justify-content-end">
                                         <button @click="removeFromCart(cartItem)" type="button" class="btn btn-danger btn-sm">-</button>
                                             <strong class="mx-1"> {{cartItem.qty}} </strong> 

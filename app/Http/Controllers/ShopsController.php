@@ -72,7 +72,7 @@ class ShopsController extends Controller
             'sections.products',
             'shopLocation.city.region.country',
         ]);
-
+// dd($shop->toArray());
         return view('shops.show', compact('shop'));
     }
 
