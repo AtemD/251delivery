@@ -52,7 +52,20 @@ class OrderStatusesController extends Controller
             'color' => $request->color,
         ]);
 
-        return back();
+        return back()->with('success', 'Order Status Created Successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\OrderStatus  $order_status
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(OrderStatus $order_status)
+    {
+        return view('dashboard/company/settings/order-statuses/edit', compact(
+            'order_status',
+        ));
     }
 
     /**
@@ -76,7 +89,7 @@ class OrderStatusesController extends Controller
             'color' => $request->color,
         ]);
 
-        return back();
+        return back()->with('success', 'Order Status Updated Successfully');
     }
 
     /**
@@ -88,6 +101,6 @@ class OrderStatusesController extends Controller
     public function destroy(OrderStatus $order_status)
     {
         $order_status->delete();
-        return back();
+        return back()->with('success', 'Order Status Deleted Successfully');
     }
 }

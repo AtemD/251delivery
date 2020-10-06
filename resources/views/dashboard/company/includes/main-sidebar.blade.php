@@ -130,19 +130,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
-                        <a href="{{ route('company.order-statuses.index') }}" class="nav-link">
+                        <a href="{{ route('company.order-statuses.index') }}" class="nav-link {{ (request()->routeIs('company.order-statuses.*')) ? 'active' : '' }}">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>Order Statuses</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('company.shop-account-statuses.index') }}" class="nav-link">
+                        <a href="{{ route('company.shop-account-statuses.index') }}" class="nav-link {{ (request()->routeIs('company.shop-account-statuses.*')) ? 'active' : '' }}">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>Shop Account Statuses</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('company.user-account-statuses.index') }}" class="nav-link">
+                        <a href="{{ route('company.user-account-statuses.index') }}" class="nav-link {{ (request()->routeIs('company.user-account-statuses.*')) ? 'active' : '' }}">
                           <i class="fas fa-circle nav-icon"></i>
                           <p>User Account Statuses</p>
                         </a>

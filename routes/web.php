@@ -132,33 +132,35 @@ Route::delete('/dashboard/company/settings/cuisines/{cuisine}', 'Company\Cuisine
 ->name('company.cuisines.destroy');
 
 // Company Order Statuses
-Route::get('/dashboard/company/settings/order-statuses', 'Company\OrderStatusesController@index')
+Route::get('/dashboard/company/settings/statuses/order-statuses', 'Company\OrderStatusesController@index')
 ->name('company.order-statuses.index');
-Route::post('/dashboard/company/settings/order-statuses', 'Company\OrderStatusesController@store')
+Route::post('/dashboard/company/settings/statuses/order-statuses', 'Company\OrderStatusesController@store')
 ->name('company.order-statuses.store');
-Route::put('/dashboard/company/settings/order-statuses/{order_status}', 'Company\OrderStatusesController@update')
+Route::get('/dashboard/company/settings/statuses/order-statuses/{order_status}/edit', 'Company\OrderStatusesController@edit')
+->name('company.order-statuses.edit');
+Route::put('/dashboard/company/settings/statuses/order-statuses/{order_status}', 'Company\OrderStatusesController@update')
 ->name('company.order-statuses.update');
-Route::delete('/dashboard/company/settings/order-statuses/{order_status}', 'Company\OrderStatusesController@destroy')
+Route::delete('/dashboard/company/settings/statuses/order-statuses/{order_status}', 'Company\OrderStatusesController@destroy')
 ->name('company.order-statuses.destroy');
 
 // Company Shop Account Statuses
-Route::get('/dashboard/company/settings/shop-account-statuses', 'Company\ShopAccountStatusesController@index')
+Route::get('/dashboard/company/settings/statuses/shop-account-statuses', 'Company\ShopAccountStatusesController@index')
 ->name('company.shop-account-statuses.index');
-Route::post('/dashboard/company/settings/shop-account-statuses', 'Company\ShopAccountStatusesController@store')
+Route::post('/dashboard/company/settings/statuses/shop-account-statuses', 'Company\ShopAccountStatusesController@store')
 ->name('company.shop-account-statuses.store');
-Route::put('/dashboard/company/settings/shop-account-statuses/{shop_account_status}', 'Company\ShopAccountStatusesController@update')
+Route::put('/dashboard/company/settings/statuses/shop-account-statuses/{shop_account_status}', 'Company\ShopAccountStatusesController@update')
 ->name('company.shop-account-statuses.update');
-Route::delete('/dashboard/company/settings/shop-account-statuses/{shop_account_status}', 'Company\ShopAccountStatusesController@destroy')
+Route::delete('/dashboard/company/settings/statuses/shop-account-statuses/{shop_account_status}', 'Company\ShopAccountStatusesController@destroy')
 ->name('company.shop-account-statuses.destroy');
 
 // Company User Account Statuses
-Route::get('/dashboard/company/settings/user-account-statuses', 'Company\UserAccountStatusesController@index')
+Route::get('/dashboard/company/settings/statuses/user-account-statuses', 'Company\UserAccountStatusesController@index')
 ->name('company.user-account-statuses.index');
-Route::post('/dashboard/company/settings/user-account-statuses', 'Company\UserAccountStatusesController@store')
+Route::post('/dashboard/company/settings/statuses/user-account-statuses', 'Company\UserAccountStatusesController@store')
 ->name('company.user-account-statuses.store');
-Route::put('/dashboard/company/settings/user-account-statuses/{user_account_status}', 'Company\UserAccountStatusesController@update')
+Route::put('/dashboard/company/settings/statuses/user-account-statuses/{user_account_status}', 'Company\UserAccountStatusesController@update')
 ->name('company.user-account-statuses.update');
-Route::delete('/dashboard/company/settings/user-account-statuses/{user_account_status}', 'Company\UserAccountStatusesController@destroy')
+Route::delete('/dashboard/company/settings/statuses/user-account-statuses/{user_account_status}', 'Company\UserAccountStatusesController@destroy')
 ->name('company.user-account-statuses.destroy');
 
 // Countries
