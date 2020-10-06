@@ -52,7 +52,20 @@ class UserAccountStatusesController extends Controller
             'color' => $request->color,
         ]);
 
-        return back();
+        return back()->with('success', 'New User Account Status Created Successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\UserAccountStatus  $user_account_status
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(UserAccountStatus $user_account_status)
+    {
+        return view('dashboard/company/settings/user-account-statuses/edit', compact(
+            'user_account_status',
+        ));
     }
 
     /**
@@ -76,7 +89,7 @@ class UserAccountStatusesController extends Controller
             'color' => $request->color,
         ]);
 
-        return back();
+        return back()->with('success', 'User Account Status Updated Successfully');;
     }
 
     /**
@@ -88,6 +101,6 @@ class UserAccountStatusesController extends Controller
     public function destroy(UserAccountStatus $user_account_status)
     {
         $user_account_status->delete();
-        return back();
+        return back()->with('success', 'User Account Status Deleted Successfully');;
     }
 }
