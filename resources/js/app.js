@@ -91,6 +91,8 @@ Vue.component('company-role-add', require('./components/CompanyRoleAdd.vue').def
 Vue.component('company-country-add', require('./components/CompanyCountryAdd.vue').default);
 // company regions
 Vue.component('company-region-add', require('./components/CompanyRegionAdd.vue').default);
+// company cities
+Vue.component('company-city-add', require('./components/CompanyCityAdd.vue').default);
 
 // RETAILER COMPONENTS:
 

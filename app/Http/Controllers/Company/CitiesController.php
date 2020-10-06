@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Company;
 
 use App\Models\City;
 use App\Models\Region;
-use App\Http\Controllers\Controller;
+use App\Models\Country;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CitiesController extends Controller
 {
@@ -27,11 +28,13 @@ class CitiesController extends Controller
     public function index()
     {
         $cities = City::with('region.country')->paginate(30);
+        $countries = Country::all();
         $regions = Region::all();
 
         return view('dashboard/company/settings/cities/index', compact(
             'cities',
-            'regions'
+            'regions',
+            'countries'
         ));
     }
 
@@ -47,7 +50,7 @@ class CitiesController extends Controller
             'name' => 'required|max:255',
             'abbreviation' => 'required|max:255',
             'description' => 'required|max:255',
-            'region_id' => 'required|integer|exists:regions,id',
+            'region' => 'required|integer|exists:regions,id',
             'status' => 'nullable'
         ]);
 
@@ -55,11 +58,32 @@ class CitiesController extends Controller
             'name' => $request->name,
             'abbreviation' => $request->abbreviation,
             'description' => $request->description,
-            'region_id' => $request->region_id,
+            'region_id' => $request->region,
             'is_enabled' => (bool)$request->status
         ]);
 
-        return back();
+        return back()->with('success', 'New City Added Successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\City  $city
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(City $city)
+    {
+        // *Note: delete this code once you implement dynamic/dependent dropdown feature: for countries, regions and cities
+        $countries = Country::all();
+        $regions = Region::all();
+
+        $city = $city->load('region.country');
+
+        return view('dashboard/company/settings/cities/edit', compact(
+            'countries',
+            'regions',
+            'city'
+        ));
     }
 
     /**
@@ -70,12 +94,13 @@ class CitiesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, City $city)
-    {
+    { 
+        // dd($request->all());
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'abbreviation' => 'required|max:255',
             'description' => 'required|max:255',
-            'region_id' => 'required|integer|exists:regions,id',
+            'region' => 'required|integer|exists:regions,id',
             'status' => 'nullable'
         ]);
 
@@ -83,11 +108,11 @@ class CitiesController extends Controller
             'name' => $request->name,
             'abbreviation' => $request->abbreviation,
             'description' => $request->description,
-            'region_id' => $request->region_id,
+            'region_id' => $request->region,
             'is_enabled' => (bool)$request->status
         ]);
 
-        return back();
+        return back()->with('success', 'City Updated Successfully');
     }
 
     /**
@@ -99,6 +124,6 @@ class CitiesController extends Controller
     public function destroy(City $city)
     {
         $city->delete();
-        return back();
+        return back()->with('success', 'City Deleted Successfully');
     }
 }
