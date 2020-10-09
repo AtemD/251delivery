@@ -25,6 +25,8 @@ class ShopAccountStatusesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', ShopAccountStatus::class);
+
         $shop_account_statuses = ShopAccountStatus::paginate(10);
 
         return view('dashboard/company/settings/shop-account-statuses/index', compact(
@@ -40,6 +42,8 @@ class ShopAccountStatusesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', ShopAccountStatus::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -63,6 +67,8 @@ class ShopAccountStatusesController extends Controller
      */
     public function edit(ShopAccountStatus $shop_account_status)
     {
+        $this->authorize('update', ShopAccountStatus::class);
+
         return view('dashboard/company/settings/shop-account-statuses/edit', compact(
             'shop_account_status',
         ));
@@ -77,6 +83,8 @@ class ShopAccountStatusesController extends Controller
      */
     public function update(Request $request, ShopAccountStatus $shop_account_status)
     {
+        $this->authorize('update', ShopAccountStatus::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -100,6 +108,8 @@ class ShopAccountStatusesController extends Controller
      */
     public function destroy(ShopAccountStatus $shop_account_status)
     {
+        $this->authorize('delete', ShopAccountStatus::class);
+
         $shop_account_status->delete();
         return back()->with('success', 'Shop Account Status Deleted Successfully');
     }

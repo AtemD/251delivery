@@ -25,6 +25,8 @@ class CuisinesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Cuisine::class);
+
         $cuisines = Cuisine::paginate(30);
 
         return view('dashboard/company/settings/cuisines/index', compact(
@@ -40,6 +42,8 @@ class CuisinesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Cuisine::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -63,6 +67,8 @@ class CuisinesController extends Controller
      */
     public function edit(Cuisine $cuisine)
     {
+        $this->authorize('update', Cuisine::class);
+
         return view('dashboard/company/settings/cuisines/edit', compact(
             'cuisine'
         ));
@@ -77,6 +83,8 @@ class CuisinesController extends Controller
      */
     public function update(Request $request, Cuisine $cuisine)
     {
+        $this->authorize('update', Cuisine::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -100,6 +108,8 @@ class CuisinesController extends Controller
      */
     public function destroy(Cuisine $cuisine)
     {
+        $this->authorize('delete', Cuisine::class);
+
         $cuisine->delete();
         return back();
     }

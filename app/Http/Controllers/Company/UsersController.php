@@ -30,22 +30,22 @@ class UsersController extends Controller
      */
     public function index()
     {
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        $user_account_statuses = UserAccountStatus::all();
+
         $users = User::with([
             'userAccountStatus',
             'roles',
             'permissions'
         ])->paginate(20);
 
-        $roles = Role::all();
-        $permissions = Permission::all();
-
-        $user_account_statuses = UserAccountStatus::all();
-
         return view('dashboard/company/users/index', compact([
             'users', 
             'user_account_statuses',
             'roles',
-            'permisssions'
+            'permissions'
         ]));
     }
 

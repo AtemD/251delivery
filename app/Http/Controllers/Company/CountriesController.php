@@ -25,6 +25,8 @@ class CountriesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Country::class);
+
         $countries = Country::paginate(3);
 
         return view('dashboard/company/settings/countries/index', compact(
@@ -40,6 +42,8 @@ class CountriesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Country::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'abbreviation' => 'required|max:255',
@@ -67,6 +71,8 @@ class CountriesController extends Controller
      */
     public function edit(Country $country)
     {
+        $this->authorize('update', Country::class);
+
         return view('dashboard/company/settings/countries/edit', compact(
             'country',
         ));
@@ -81,6 +87,8 @@ class CountriesController extends Controller
      */
     public function update(Request $request, Country $country)
     {
+        $this->authorize('update', Country::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'abbreviation' => 'required|max:255',
@@ -108,6 +116,8 @@ class CountriesController extends Controller
      */
     public function destroy(Country $country)
     {
+        $this->authorize('delete', Country::class);
+
         $country->delete();
         return back()->with('success', 'Country Deleted Successfully');
     }

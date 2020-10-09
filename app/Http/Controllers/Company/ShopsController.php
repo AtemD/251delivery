@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Company;
 
 use App\Models\Shop;
 use App\Models\ShopType;
-use App\Models\ShopAccountStatus;
+use App\Models\Permission;
 use Illuminate\Http\Request;
+use App\Models\ShopAccountStatus;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ShopsController extends Controller
 {
@@ -27,6 +29,8 @@ class ShopsController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermissionTo(Permission::VIEW_SHOPS)) return view('errors.403');
+
         $shop_types = ShopType::all();
         $shop_account_statuses = ShopAccountStatus::all();
 
@@ -49,7 +53,7 @@ class ShopsController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Shop::class);
     }
 
     /**
@@ -60,7 +64,7 @@ class ShopsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Shop::class);
     }
 
     /**
@@ -94,7 +98,7 @@ class ShopsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->authorize('update', Shop::class);
     }
 
     /**
@@ -105,6 +109,6 @@ class ShopsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('delete', Shop::class);
     }
 }

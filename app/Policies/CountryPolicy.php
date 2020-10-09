@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\Tax;
 use App\User;
+use App\Models\Country;
 use App\Models\Permission;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TaxPolicy
+class CountryPolicy
 {
     use HandlesAuthorization;
 
@@ -30,7 +30,7 @@ class TaxPolicy
      */
     public function view(User $user)
     {
-        return $user->can(Permission::VIEW_TAXES);
+        return $user->can(Permission::VIEW_COUNTRIES);
     }
 
     /**
@@ -41,7 +41,7 @@ class TaxPolicy
      */
     public function create(User $user)
     {
-        return $user->can(Permission::CREATE_TAXES);
+        return $user->can(Permission::CREATE_COUNTRIES);
     }
 
     /**
@@ -50,9 +50,9 @@ class TaxPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function update(User $user )
+    public function update(User $user)
     {
-        return $user->can(Permission::UPDATE_TAXES);
+        return $user->can(Permission::UPDATE_COUNTRIES);
     }
 
     /**
@@ -63,17 +63,17 @@ class TaxPolicy
      */
     public function delete(User $user)
     {
-        return $user->can(Permission::DELETE_TAXES);
+        return $user->can(Permission::DELETE_COUNTRIES);
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Models\Tax  $tax
+     * @param  \App\Models\Country  $country
      * @return mixed
      */
-    public function restore(User $user, Tax $tax)
+    public function restore(User $user, Country $country)
     {
         //
     }
@@ -82,10 +82,10 @@ class TaxPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Models\Tax  $tax
+     * @param  \App\Models\Country  $country
      * @return mixed
      */
-    public function forceDelete(User $user, Tax $tax)
+    public function forceDelete(User $user, Country $country)
     {
         //
     }

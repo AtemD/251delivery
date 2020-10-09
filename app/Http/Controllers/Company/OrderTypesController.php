@@ -25,6 +25,8 @@ class OrderTypesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', OrderType::class);
+
         $order_types = OrderType::paginate(10);
 
         return view('dashboard/company/settings/order-types/index', compact(
@@ -40,6 +42,8 @@ class OrderTypesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', OrderType::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -63,6 +67,8 @@ class OrderTypesController extends Controller
      */
     public function edit(OrderType $order_type)
     {
+        $this->authorize('update', OrderType::class);
+
         return view('dashboard/company/settings/order-types/edit', compact(
             'order_type'
         ));
@@ -77,6 +83,8 @@ class OrderTypesController extends Controller
      */
     public function update(Request $request, OrderType $order_type)
     {
+        $this->authorize('update', OrderType::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -100,6 +108,8 @@ class OrderTypesController extends Controller
      */
     public function destroy(OrderType $order_type)
     {
+        $this->authorize('delete', OrderType::class);
+
         $order_type->delete();
         return back()->with('success', 'Order Type Deleted Successfully');
     }

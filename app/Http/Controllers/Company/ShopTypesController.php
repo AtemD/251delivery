@@ -25,6 +25,8 @@ class ShopTypesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', ShopType::class);
+
         $shop_types = ShopType::paginate(10);
 
         return view('dashboard/company/settings/shop-types/index', compact('shop_types'));
@@ -38,6 +40,8 @@ class ShopTypesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', ShopType::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -61,6 +65,8 @@ class ShopTypesController extends Controller
      */
     public function edit(ShopType $shop_type)
     {
+        $this->authorize('update', ShopType::class);
+
         return view('dashboard/company/settings/shop-types/edit', compact(
             'shop_type'
         ));
@@ -75,6 +81,8 @@ class ShopTypesController extends Controller
      */
     public function update(Request $request, ShopType $shop_type)
     {
+        $this->authorize('update', ShopType::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -98,6 +106,8 @@ class ShopTypesController extends Controller
      */
     public function destroy(ShopType  $shop_type)
     {
+        $this->authorize('delete', ShopType::class);
+
         $shop_type->delete();
         return back()->with('success', 'Shop Type Deleted Successfully');
     }

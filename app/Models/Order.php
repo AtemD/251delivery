@@ -18,11 +18,11 @@ class Order extends Model
     const CANCELLED_ORDER = 'cancelled';
 
     /**
-     * The buyer that owns the order.
+     * The user that owns the order.
      */
-    public function buyer()
+    public function user()
     {
-        return $this->belongsTo('App\Models\Buyer');
+        return $this->belongsTo('App\User');
     }
 
     public function shop()

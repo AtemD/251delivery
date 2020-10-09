@@ -27,6 +27,8 @@ class CitiesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', City::class);
+
         $cities = City::with('region.country')->paginate(30);
         $countries = Country::all();
         $regions = Region::all();
@@ -46,6 +48,8 @@ class CitiesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', City::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'abbreviation' => 'required|max:255',
@@ -73,6 +77,8 @@ class CitiesController extends Controller
      */
     public function edit(City $city)
     {
+        $this->authorize('update', City::class);
+
         // *Note: delete this code once you implement dynamic/dependent dropdown feature: for countries, regions and cities
         $countries = Country::all();
         $regions = Region::all();
@@ -95,7 +101,8 @@ class CitiesController extends Controller
      */
     public function update(Request $request, City $city)
     { 
-        // dd($request->all());
+        $this->authorize('update', City::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'abbreviation' => 'required|max:255',
@@ -123,6 +130,8 @@ class CitiesController extends Controller
      */
     public function destroy(City $city)
     {
+        $this->authorize('delete', City::class);
+
         $city->delete();
         return back()->with('success', 'City Deleted Successfully');
     }

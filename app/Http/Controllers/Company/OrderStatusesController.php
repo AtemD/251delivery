@@ -25,6 +25,8 @@ class OrderStatusesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', OrderStatus::class);
+
         $order_statuses = OrderStatus::paginate(10);
 
         return view('dashboard/company/settings/order-statuses/index', compact(
@@ -40,6 +42,8 @@ class OrderStatusesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', OrderStatus::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -63,6 +67,8 @@ class OrderStatusesController extends Controller
      */
     public function edit(OrderStatus $order_status)
     {
+        $this->authorize('update', OrderStatus::class);
+
         return view('dashboard/company/settings/order-statuses/edit', compact(
             'order_status',
         ));
@@ -77,6 +83,8 @@ class OrderStatusesController extends Controller
      */
     public function update(Request $request, OrderStatus $order_status)
     {
+        $this->authorize('update', OrderStatus::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -100,6 +108,8 @@ class OrderStatusesController extends Controller
      */
     public function destroy(OrderStatus $order_status)
     {
+        $this->authorize('delete', OrderStatus::class);
+
         $order_status->delete();
         return back()->with('success', 'Order Status Deleted Successfully');
     }

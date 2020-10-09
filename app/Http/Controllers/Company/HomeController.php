@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Company;
 
 use App\User;
+use Carbon\Carbon;
 use App\Models\Shop;
 use App\Models\Order;
-use Carbon\Carbon;
-use App\Http\Controllers\Controller;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -29,6 +31,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermissionTo(Permission::ACCESS_ADMINISTRATOR_DASHBOARD)) return view('errors.403');
 
         $shops_count = Shop::count();
         $users_count = User::count();

@@ -25,6 +25,8 @@ class UserAccountStatusesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', UserAccountStatus::class);
+
         $user_account_statuses = UserAccountStatus::paginate(10);
 
         return view('dashboard/company/settings/user-account-statuses/index', compact(
@@ -40,6 +42,8 @@ class UserAccountStatusesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', UserAccountStatus::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -63,6 +67,8 @@ class UserAccountStatusesController extends Controller
      */
     public function edit(UserAccountStatus $user_account_status)
     {
+        $this->authorize('update', UserAccountStatus::class);
+
         return view('dashboard/company/settings/user-account-statuses/edit', compact(
             'user_account_status',
         ));
@@ -77,6 +83,8 @@ class UserAccountStatusesController extends Controller
      */
     public function update(Request $request, UserAccountStatus $user_account_status)
     {
+        $this->authorize('update', UserAccountStatus::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -100,6 +108,8 @@ class UserAccountStatusesController extends Controller
      */
     public function destroy(UserAccountStatus $user_account_status)
     {
+        $this->authorize('delete', UserAccountStatus::class);
+
         $user_account_status->delete();
         return back()->with('success', 'User Account Status Deleted Successfully');;
     }

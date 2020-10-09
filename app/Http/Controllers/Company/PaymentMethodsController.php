@@ -25,6 +25,8 @@ class PaymentMethodsController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', PaymentMethod::class);
+
         $payment_methods = PaymentMethod::paginate(10);
 
         return view('dashboard/company/settings/payment-methods/index', compact([
@@ -40,6 +42,8 @@ class PaymentMethodsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', PaymentMethod::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -63,6 +67,8 @@ class PaymentMethodsController extends Controller
      */
     public function edit(PaymentMethod $payment_method)
     {
+        $this->authorize('update', PaymentMethod::class);
+
         return view('dashboard/company/settings/payment-methods/edit', compact(
             'payment_method'
         ));
@@ -77,6 +83,8 @@ class PaymentMethodsController extends Controller
      */
     public function update(Request $request, PaymentMethod $payment_method)
     {
+        $this->authorize('update', PaymentMethod::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
@@ -100,6 +108,8 @@ class PaymentMethodsController extends Controller
      */
     public function destroy(PaymentMethod $payment_method)
     {
+        $this->authorize('delete', PaymentMethod::class);
+
         $payment_method->delete();
         return back()->with('success', 'Payment Method Deleted Successfully');
     }

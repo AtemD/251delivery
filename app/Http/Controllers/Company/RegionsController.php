@@ -26,6 +26,8 @@ class RegionsController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Region::class);
+
         $regions = Region::with('country')->paginate(30);
         $countries = Country::all();
 
@@ -43,6 +45,8 @@ class RegionsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Region::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'abbreviation' => 'required|max:255',
@@ -68,6 +72,8 @@ class RegionsController extends Controller
      */
     public function edit(Region $region)
     {
+        $this->authorize('update', Region::class);
+
         $countries = Country::all();
 
         $region = $region->load('country');
@@ -87,6 +93,8 @@ class RegionsController extends Controller
      */
     public function update(Request $request, Region $region)
     {
+        $this->authorize('update', Region::class);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'abbreviation' => 'required|max:255',
@@ -112,6 +120,8 @@ class RegionsController extends Controller
      */
     public function destroy(Region $region)
     {
+        $this->authorize('delete', Region::class);
+
         $region->delete();
         return back()->with('success', 'Region Deleted Successfully');
     }
