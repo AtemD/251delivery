@@ -42,16 +42,6 @@
                                         class="form-control" :class="{ 'is-invalid': form.errors.has('email') }" required>
                                     <has-error :form="form" field="email"></has-error>
                                 </div>
-                                
-                                <div class="form-group">
-                                    <label>Shop</label>
-                                    <select class="form-control" name="shop" v-model="form.shop" :class="{ 'is-invalid': form.errors.has('shop') }" required>
-                                        <option :value="currentShop.id" selected>
-                                            {{ currentShop.name }}
-                                        </option>
-                                    </select>
-                                    <has-error :form="form" field="shop"></has-error>
-                                </div>
 
                                 <div class="form-group">
                                     <label for="password">Password</label>
@@ -86,10 +76,8 @@
 
 <script>
     export default {
-        props: ['shop'],
-
         mounted() {
-            console.log('Add retailer user component mounted.')
+            console.log('Add company user component mounted.')
         }, 
         data() {
             return {
@@ -98,16 +86,14 @@
                     last_name : '',
                     phone_number : '',
                     email : '',
-                    shop: this.shop,
                     password: '',
                     password_confirmation: ''
                 }),
-                currentShop: this.shop,
             }
         },
         methods: {
             createUser(){
-                this.form.post('/dashboard/retailer/shops/'+this.currentShop.slug+'/users')
+                this.form.post('/dashboard/company/users')
                 .then(()=>{
 
                     $('#add-user').modal('hide');

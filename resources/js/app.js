@@ -93,6 +93,8 @@ Vue.component('company-country-add', require('./components/CompanyCountryAdd.vue
 Vue.component('company-region-add', require('./components/CompanyRegionAdd.vue').default);
 // company cities
 Vue.component('company-city-add', require('./components/CompanyCityAdd.vue').default);
+// company users
+Vue.component('company-user-add', require('./components/CompanyUserAdd.vue').default);
 
 // RETAILER COMPONENTS:
 
