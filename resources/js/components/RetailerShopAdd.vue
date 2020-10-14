@@ -43,24 +43,31 @@
                                         class="form-control" :class="{ 'is-invalid': form.errors.has('phone_number') }" required>
                                     <has-error :form="form" field="phone_number"></has-error>
                                 </div>
+                                
+                                <label>Bannner Image</label>
+                                <div class="form-group">
+                                    <div class="custom-file">
+                                        <input type="file" name="banner_image" class="custom-file-input form-control" id="banner_image"
+                                            :class="{ 'is-invalid': form.errors.has('banner_image') }" @change="selectFile">
+                                        <label class="custom-file-label" for="banner_image">{{ image_notice }}</label>
+                                        <has-error :form="form" field="banner_image"></has-error>
+                                    </div>
+                                </div>
 
-                                <div class="form-group">
-                                    <label>Image</label>
-                                    <input v-model="form.banner_image" type="text" name="banner_image" placeholder="your shops phone number"
-                                        class="form-control" :class="{ 'is-invalid': form.errors.has('banner_image') }" required>
-                                    <has-error :form="form" field="banner_image"></has-error>
-                                </div>
-                                <div class="form-group">
-                                    <label>Logo</label>
-                                    <input v-model="form.logo_image" type="text" name="logo_image" placeholder="your shops phone number"
-                                        class="form-control" :class="{ 'is-invalid': form.errors.has('logo_image') }" required>
-                                    <has-error :form="form" field="logo_image"></has-error>
-                                </div>
-                                <div class="form-group">
-                                    <label>Average Food Preparation Time (mins)</label>
-                                    <input v-model="form.average_preparation_time" type="text" name="average_preparation_time" placeholder="food preparation time in minutes"
-                                        class="form-control" :class="{ 'is-invalid': form.errors.has('average_preparation_time') }" required>
-                                    <has-error :form="form" field="average_preparation_time"></has-error>
+                                <label>Average Food Preparation Time</label>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="min_food_time">Min <small class="text-muted">(in minutes)</small></label>
+                                        <input v-model="form.min_food_time" type="text" name="min_food_time" class="form-control" :class="{ 'is-invalid': form.errors.has('min_food_time') }" id="min_food_time" 
+                                            placeholder="e.g 15" required>
+                                        <has-error :form="form" field="min_food_time"></has-error>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="max_food_time">Max <small class="text-muted">(in minutes)</small></label>
+                                        <input v-model="form.max_food_time" type="text" name="max_food_time" class="form-control" :class="{ 'is-invalid': form.errors.has('max_food_time') }" id="max_food_time" 
+                                            placeholder="e.g 35" required>
+                                        <has-error :form="form" field="max_food_time"></has-error>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -94,7 +101,7 @@
         props: ['shoptypes'],
 
         mounted() {
-            console.log('Retailer add shop Component mounted.')
+            console.log('Retailer Shop Add Component mounted.')
         }, 
         data() {
             return {
@@ -105,28 +112,41 @@
                     email: '',
                     phone_number: '',
                     banner_image: '',
-                    logo_image: '',
-                    average_preparation_time: '',
+                    min_food_time: '',
+                    max_food_time: '',
                     
                 }),
                 allShopTypes: this.shoptypes,
+                image_notice: 'choose shop banner image',
             }
         },
         methods: {
+            selectFile(e) {
+                const file = e.target.files[0];
+                // Assign the image name to notice
+                this.image_notice = file.name;
+                // Assign the file to the image
+                this.form.banner_image = file;
+            },
             createShop(){
-                this.form.post('/dashboard/retailer/shops')
+                this.form.post('/dashboard/retailer/shops', {
+                    // Transform form data to FormData
+                    transformRequest: [function (data, headers) {
+                        return objectToFormData(data)
+                    }]
+                })
                 .then(()=>{
 
-                    $('#add-shop').modal('hide');
+                    // $('#add-shop').modal('hide');
 
                     Toast.fire({
                         icon: 'success',
                         title: 'Shop Created Successfully'
                     })
 
-                    setTimeout(()=>{ 
-                        window.location.reload();
-                    }, 2000);
+                    // setTimeout(()=>{ 
+                    //     window.location.reload();
+                    // }, 2000);
 
                 })
                 .catch(()=>{

@@ -29,20 +29,15 @@ class ShopsController extends Controller
      */
     public function index()
     {
-        if(!Auth::user()->hasPermissionTo(Permission::VIEW_SHOPS)) return view('errors.403');
-
-        $shop_types = ShopType::all();
-        $shop_account_statuses = ShopAccountStatus::all();
+        // if(!Auth::user()->hasPermissionTo(Permission::VIEW_SHOPS)) return view('errors.403');
 
         $shops = Shop::with([
             'shopType',
             'shopAccountStatus',
-        ])->paginate(15);
-
+        ])->paginate(45);
+        // dd($shops->toArray());
         return view('dashboard/company/shops/index', compact([
             'shops',
-            'shop_types',
-            'shop_account_statuses'
         ]));
     }
 

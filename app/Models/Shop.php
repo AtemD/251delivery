@@ -18,6 +18,7 @@ class Shop extends Model
     protected $fillable = [
         'name', 'slug', 'description', 'email', 'phone_number', 
         'shop_type_id', 'banner_image', 'logo_image', 'average_preparation_time',
+        'shop_account_status_id', 'is_available', 'status_by', 'status_date'
     ];
 
     // protected $guarded = [];

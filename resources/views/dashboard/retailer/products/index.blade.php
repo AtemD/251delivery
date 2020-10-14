@@ -134,8 +134,8 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="alert alert-warning">
-                                                <h5><i class="icon fas fa-warning"></i> No shop Registered Yet!</h5>
-                                                Register at least one shop.
+                                                <h5><i class="icon fas fa-exclamation-triangle"></i> No Products Registered Yet!</h5>
+                                                Please click on "Add Product" button above to add a new product.
                                             </div>
                                         </div>
                                     </div>

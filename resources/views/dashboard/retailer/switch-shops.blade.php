@@ -26,9 +26,30 @@
 
     <!-- Default box -->
     <div class="card card-solid">
+        <div class="card-header">
+          <div class="card-tools float-left">
+              <div class="input-group input-group-sm" style="width: 150px;">
+              <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+              <div class="input-group-append">
+                  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+              </div>
+              </div>
+          </div>
+      
+          <div class="card-tools">
+              {{-- <button href="#add-shop" class="btn btn-primary" data-toggle="modal" data-target="#add-shop">
+                  <i class="fas fa-store-alt"></i>
+                  <i class="fas fa-plus xs"></i>
+                  Add Shop
+              </button> --}}
+              <retailer-shop-add :shoptypes="{{$shop_types}}"></retailer-shop-add>
+          </div>
+      </div>
+
       <div class="card-body pb-0">
         <div class="row d-flex align-items-stretch">
-          @foreach($shops as $shop)
+          @forelse($shops as $shop)
             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
               <div class="card bg-light">
                 <div class="card-header text-muted border-bottom-0">
@@ -53,7 +74,14 @@
                 </div>
               </div>
             </div>
-          @endforeach
+          @empty 
+            <div class="col-12 col-sm-6 col-md-12">
+              <div class="alert alert-warning">
+                <h5><i class="icon fas fa-exclamation-triangle"></i> You Haven't Registered Any Shop Yet!</h5>
+                  Please register your shop by cliking the "Add Shop" button above.
+              </div>
+          </div>
+          @endforelse
         </div>
       </div>
       <!-- /.card-body -->

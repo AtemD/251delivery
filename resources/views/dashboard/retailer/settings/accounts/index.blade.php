@@ -56,9 +56,13 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <span class="badge badge-{{$shop->shopAccountStatus->color}}">
-                                                {{$shop->shopAccountStatus->name}}
-                                            </span>
+                                            @if(!empty($shop->ShopAccountStatus))
+                                                <span class="badge badge-{{$shop->shopAccountStatus->color}}">
+                                                    {{$shop->shopAccountStatus->name}}
+                                                </span>
+                                            @else 
+                                                <p class="text-danger">NULL</p>
+                                            @endif
                                         </td>
                                         <td>
                                             <div class="text-muted">

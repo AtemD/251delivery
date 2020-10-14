@@ -68,7 +68,7 @@
                                         {{$shop->email}}
                                     </td>
                                     <td>{{$shop->shopType->name}}</td>
-                                    <td><span class="badge badge-{{$shop->ShopAccountStatus->color}}">{{$shop->shopAccountStatus->name}}</span></td>
+                                    <td><span class="badge badge-{{$shop->shopAccountStatus->color}}">{{$shop->shopAccountStatus->name}}</span></td>
                                     <td><span class="badge badge-{{$shop->is_available == 1 ? 'primary': 'secondary'}}">{{$shop->is_available == 1 ? 'Available': 'Unavailable'}}</span></td>
                                     <td class="project-actions">
                                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-shop-{{$shop->id}}">
@@ -82,78 +82,6 @@
                                     </td>
                                 </tr>
 
-                                <div class="modal fade" id="edit-shop-{{$shop->id}}" style="display: none;" aria-hidden="true">
-                                    <div class="modal-dialog edit-shop-{{$shop->id}}">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Edit {{$shop->name}}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-
-                                            <div class="row">
-                            
-                                                <div class="col-md-12">
-                                                    <!-- select -->
-                                                    <div class="form-group">
-                                                        <label>Shop Type</label>
-                                                        <select class="form-control">
-                                                            @foreach($shop_types as $shop_type)
-                                                                <option>{{ $shop_type->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <!-- select -->
-                                                    <div class="form-group">
-                                                        <label>Shop Account Status</label>
-                                                        <select class="form-control">
-                                                            @foreach($shop_account_statuses as $account_status)
-                                                                <option>{{ $account_status->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                </div>
-
-                                <div class="modal fade" id="delete-shop-{{$shop->id}}" style="display: none;" aria-hidden="true">
-                                    <div class="modal-dialog delete-shop-{{$shop->id}}">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h4 class="modal-title">Delete {{$shop->name}}</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                        </div>
-                                        <div class="modal-body">
-                                        <p>One fine body…</p>
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                </div>
-
                             @empty
                                 <div class="row">
                                     <div class="col-md-12">
@@ -164,32 +92,6 @@
                                     </div>
                                 </div>
                             @endempty
-
-                            <div class="modal fade" id="add-shop" style="display: none;" aria-hidden="true">
-                                <div class="modal-dialog add-shop">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h4 class="modal-title">Add New Shop</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                    </div>
-                                    
-                                    <form role="form">
-                                        <div class="modal-body">
-                                            <p>One fine body…</p>
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
-
-                                </div>
-                                <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
 
                         </tbody>
                     </table>

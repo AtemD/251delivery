@@ -99,9 +99,9 @@ Vue.component('company-user-add', require('./components/CompanyUserAdd.vue').def
 // RETAILER COMPONENTS:
 
 // retailer shops
-Vue.component('retailer-add-shop-component', require('./components/RetailerAddShopComponent.vue').default);
-Vue.component('retailer-delete-shop-component', require('./components/RetailerDeleteShopComponent.vue').default);
-Vue.component('retailer-edit-shop-component', require('./components/RetailerEditShopComponent.vue').default);
+Vue.component('retailer-shop-add', require('./components/RetailerShopAdd.vue').default);
+// Vue.component('retailer-shop-delete-component', require('./components/RetailerShopDeleteComponent.vue').default);
+// Vue.component('retailer-shop-edit-component', require('./components/RetailerShopEditComponent.vue').default);
 
 // Retailer products
 Vue.component('retailer-product-add', require('./components/RetailerProductAdd.vue').default);

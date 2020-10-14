@@ -50,7 +50,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if($user->hasPermissionTo(Permission::ACCESS_RETAILER_DASHBOARD) 
-            && $user->shops()->exists()
+            // && $user->shops()->exists()
             && ! $user->hasPermissionTo(Permission::ACCESS_ADMINISTRATOR_DASHBOARD)){
 
             // User is retailer

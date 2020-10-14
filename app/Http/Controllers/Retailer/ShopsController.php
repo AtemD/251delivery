@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Retailer;
 use App\Models\Shop;
 use App\Models\ShopType;
 use Illuminate\Http\Request;
+use App\Models\ShopAccountStatus;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class ShopsController extends Controller
 {
@@ -54,6 +56,10 @@ class ShopsController extends Controller
      */
     public function store(Request $request)
     {
+        // $shop_account_status = ShopAccountStatus::where('name', ShopAccountStatus::UNVERIFIED_SHOP)->get();
+        // dd($shop_account_status->toArray());
+        // dd($request->all());
+
         $this->authorize('create', Shop::class);
 
         $this->validate($request,[
@@ -62,23 +68,48 @@ class ShopsController extends Controller
             'email' => 'required|string|email|max:191',
             'phone_number' => 'required',
             'shop_type' => 'required|integer',
-            'banner_image' => 'required|string',
-            'logo_image' => 'required|string',
-            'average_preparation_time' => 'required|string',
+            'banner_image' => 'required|image|mimes:jpeg,png,bmp|max:2048',
+            'max_food_time' => 'required|integer|between:1,60',
+            'min_food_time' => 'required|integer|between:1,60',
         ]);
+
+        // handle the image upload
+		if ($request->hasFile('banner_image')) {
+
+            $image = $request->file('banner_image');
+
+            // getClientOriginalExtension - gives us the original extension: eg. png, jpg etc...
+            $new_image_name = time(). '_' . mt_rand(1, 50) . '.' . $image->getClientOriginalExtension();
+            
+            // define path for the thumbnail image.
+            $large_path = public_path('/uploads/shops/banner_images/large');
+            $small_path = public_path('/uploads/shops/banner_images/small');
+            
+            // open an image file.
+            $img = Image::make($image);
+            $img2 = Image::make($image);
+            
+            // resize, then save to respective path.
+            $img->resize(800, 600)->save($large_path . '/' . $new_image_name);
+            $img2->resize(250, 188)->save($small_path . '/' . $new_image_name);
+		}
 
         $shop = Shop::class;
 
-        DB::transaction(function() use(&$shop, $request){
+        $shop_account_status = ShopAccountStatus::where('name', ShopAccountStatus::UNVERIFIED_SHOP)->get()->first();
+
+        DB::transaction(function() use(&$shop, $request, $new_image_name, $shop_account_status){
            $shop = Shop::create([
-                'name' => $request['name'],
-                'description' => $request['description'],
-                'email' => $request['email'],
-                'phone_number' => $request['phone_number'],
-                'shop_type_id' => $request['shop_type'],
-                'banner_image' => $request['banner_image'],
-                'logo_image' => $request['logo_image'],
-                'average_preparation_time' => $request['average_preparation_time'],
+                'name' => $request->name,
+                'description' => $request->description,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'shop_type_id' => $request->shop_type,
+                'banner_image' => $new_image_name,
+                'logo_image' => 'default_logo.jpg',
+                'average_preparation_time' => $request->min_food_time . '-' . $request->max_food_time,
+                'is_available' => false, // should be set to false by default
+                'shop_account_status_id' => $shop_account_status->id, // status unverified by default.
             ]);
             
             Auth::user()->shops()->attach($shop);
@@ -87,10 +118,10 @@ class ShopsController extends Controller
         if (request()->expectsJson()) {
             return response([
                 'code' => 200,
-                'status' => 'New Shop Created']);
+                'status' => 'New Shop Created Successfully']);
         }
         
-        return back();
+        return back()->with('success', 'New Shop Created Successfully');
     }
 
     /**
@@ -117,14 +148,14 @@ class ShopsController extends Controller
 
 
         $shop->update([
-            'name' => $request['name'],
-            'description' => $request['description'],
-            'email' => $request['email'],
-            'phone_number' => $request['phone_number'],
-            'shop_type_id' => $request['shop_type'],
-            'banner_image' => $request['banner_image'],
-            'logo_image' => $request['logo_image'],
-            'average_preparation_time' => $request['average_preparation_time'],
+            'name' => $request->name,
+            'description' => $request->description,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'shop_type_id' => $request->shop_type,
+            'banner_image' => $request->banner_image,
+            'logo_image' => $request->logo_image,
+            'average_preparation_time' => $request->average_preparation_time,
         ]);
 
         if (request()->expectsJson()) {

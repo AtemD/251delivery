@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Retailer;
 
+use App\Models\ShopType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -27,16 +28,26 @@ class HomeController extends Controller
     public function index()
     {
         $shops = Auth::user()->shops()->paginate(25);
+        $shops_count = $shops->count();
 
-        if($shops->count() > 1){
-            return view('dashboard/retailer/switch-shops', compact('shops'));
-        }
+        // A user with more than one shop, has to choose which shop to manage.
+        // A user with no shops has to first register one.
+        // if($shops_count > 1 || $shops_count==0){
+            
+            $shop_types = ShopType::all();
+            
+            return view('dashboard/retailer/switch-shops', compact([
+                'shops',
+                'shop_types'
+            ]));
+        // }
 
-        // redirect to that specific shops route
-        $shop = $shops->first();
-        dd($shop->toArray());
-        return redirect()->route('retailer.shops.index', ['shop' => $shop]);
-
+        // else if a user has only one shop redirect to that specific shops route
+        // if($shops_count == 1){
+        //     $shop = $shops->first();
+        //     return redirect()->route('retailer.shops.index', ['shop' => $shop]);
+        // }
+        
     }
 
     /**

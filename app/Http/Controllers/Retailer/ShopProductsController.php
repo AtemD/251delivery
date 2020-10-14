@@ -35,7 +35,7 @@ class ShopProductsController extends Controller
         $sections = $shop->sections()->get();
 
         // Authorize if the user is allowed to view products
-        $this->authorize('view', $products->first());
+        $this->authorize('view', Product::class);
 
         return view('dashboard/retailer/products/index', compact([
             'shop',
