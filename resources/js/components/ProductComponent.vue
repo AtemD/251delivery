@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-6 col-sm-12 col-12">
         <div class="shop-item-product">
-            <div class="card mb-3">
+            <div class="card mb-3" :id="product.name">
                 <div class="row no-gutters">
                     <div class="col-4 p-1">
                         <img class="card-img img-fluid" :src="product.image_path" alt="product image">
@@ -54,7 +54,7 @@
 
 <script>
     export default {
-        props: ['product', 'cart'],
+        props: ['product', 'cart', 'shoppath'],
 
         mounted() {
             console.log('Component mounted.')
@@ -79,6 +79,8 @@
                 }
             },
             addToCart(){
+                this.product.shop_path = this.shoppath;
+
                 bus.$emit('add-to-cart',this.product);
                 this.findProductQuantityInCart();
 

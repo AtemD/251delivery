@@ -5,7 +5,7 @@
 
             @forelse($section->products as $product)
 
-                <product-component :cart="cart" :product="{{$product}}">
+                <product-component :cart="cart" :product="{{$product}}" shoppath="{{$shop->path()}}">
                 </product-component>
 
             @empty 

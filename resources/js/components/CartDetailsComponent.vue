@@ -21,7 +21,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="cartItem in cart" :key="cartItem.id">
-                                    <th scope="row">{{cartItem.name}}</th>
+                                    <th scope="row" @click="goToProductLocation(cartItem)" class="text-primary">{{cartItem.name}}</th>
                                     <td>{{cartItem.base_price}} ETB</td>
                                     <td>{{cartItem.base_price*cartItem.qty}} ETB</td>
                                     <td class="d-flex justify-content-end">
@@ -78,6 +78,10 @@
                 bus.$emit('add-to-cart',cartItem);
 
             },
+            goToProductLocation(cartItem) {
+                $('#cartDetail').modal('hide');
+                window.location.href = cartItem.shop_path +"?#"+ cartItem.name ;
+            }
             // proceedToCheckout(){
             //     this.form.myCart = this.cart;
 

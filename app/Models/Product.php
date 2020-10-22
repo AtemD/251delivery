@@ -16,7 +16,7 @@ class Product extends Model
 
     const PRODUCT_DEFAULT_IMAGE = 'product_default.jpg';
 
-    protected $appends = ['status', 'image_path', 'short_description'];
+    protected $appends = ['status', 'image_path', 'short_description', 'base_price'];
 
     public function shop()
     {
