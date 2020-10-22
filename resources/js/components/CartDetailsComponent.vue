@@ -48,7 +48,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Back</button>
-                    <button v-if="totalitems > 0" type="submit" class="btn btn-primary">Proceed to CheckOut</button>
+                    <a v-if="totalitems > 0" href="/checkout" type="button" class="btn btn-primary">Proceed to CheckOut</a>
                 </div>
             </div>
         </div>
@@ -62,7 +62,13 @@
         mounted() {
             console.log('Component mounted.')
         },
-
+        // data() {
+        //     return {
+        //         form: new Form({
+        //             myCart : '',
+        //         }),
+        //     }
+        // },
         methods:{
             removeFromCart(cartItem){
                 bus.$emit('remove-from-cart',cartItem);
@@ -71,7 +77,21 @@
             addToCart(cartItem){
                 bus.$emit('add-to-cart',cartItem);
 
-            }
+            },
+            // proceedToCheckout(){
+            //     this.form.myCart = this.cart;
+
+            //     this.form.post('/checkout')
+            //     .then(()=>{
+            //         $('#cartDetail').modal('hide');
+            //         bus.$emit('show-success-toast');
+
+            //     })
+            //     .catch(()=>{
+            //         bus.$emit('show-error-alert');
+            //     })
+                
+            // }
         }
     }
 </script>
