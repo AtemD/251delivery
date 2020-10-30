@@ -47,8 +47,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Back</button>
-                    <a v-if="totalitems > 0" href="/checkout" type="button" class="btn btn-primary">Proceed to CheckOut</a>
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Back to Shopping</button>
+                    <button v-if="totalitems > 0" type="button" class="btn btn-primary" @click="proceedToCheckout">Proceed to Checkout</button>
                 </div>
             </div>
         </div>
@@ -60,15 +60,17 @@
         props:['cart','carttotal','totalitems'],
 
         mounted() {
-            console.log('Component mounted.')
+            console.log('Component mounted.');
         },
-        // data() {
-        //     return {
-        //         form: new Form({
-        //             myCart : '',
-        //         }),
-        //     }
-        // },
+        data() {
+            return {
+                form: new Form({
+                    user_cart : '',
+                    // cart_total: '',
+                    // total_items: ''
+                }),
+            }
+        },
         methods:{
             removeFromCart(cartItem){
                 bus.$emit('remove-from-cart',cartItem);
@@ -81,21 +83,36 @@
             goToProductLocation(cartItem) {
                 $('#cartDetail').modal('hide');
                 window.location.href = cartItem.shop_path +"?#"+ cartItem.name ;
-            }
-            // proceedToCheckout(){
-            //     this.form.myCart = this.cart;
+            },
+            proceedToCheckout(){
+                if(!this.totalitems>0) return bus.$emit('show-error-alert');
 
-            //     this.form.post('/checkout')
-            //     .then(()=>{
-            //         $('#cartDetail').modal('hide');
-            //         bus.$emit('show-success-toast');
+                this.form.user_cart = this.cart;
 
-            //     })
-            //     .catch(()=>{
-            //         bus.$emit('show-error-alert');
-            //     })
+                this.form.post('/checkout')
+                .then(()=>{
+
+                    $('#cartDetail').modal('hide');
+                    window.location.href = "/checkout";
+
+                })
+                .catch(
+                    (error)=>{
+
+                        // If the error is due to user not logged in 
+                        if(error.response && error.response.status === 401) {
+                            // Redirect the user to the checkout page so that they are automatically redirected to login page
+                            // Redirecting directly to login, will not redirect user to intended url, but to homepage, which is not what we want.
+                            window.location.href = "/checkout";
+                        } else {
+                            // if there is another error
+                            bus.$emit('show-error-alert');
+                        }
+                        
+                    }
+                )
                 
-            // }
+            }
         }
     }
 </script>

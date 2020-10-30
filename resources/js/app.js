@@ -68,6 +68,7 @@ Vue.component('product-modal-component', require('./components/ProductModalCompo
 Vue.component('cart-count-component', require('./components/CartCountComponent.vue').default);
 Vue.component('product-component', require('./components/ProductComponent.vue').default);
 Vue.component('cart-details-component', require('./components/CartDetailsComponent.vue').default);
+Vue.component('cart-summary-component', require('./components/CartSummaryComponent.vue').default);
 
 // COMPANY COMPONENTS:
 
@@ -144,6 +145,14 @@ if(document.querySelector('#app')) {
 
             bus.$on('remove-from-cart', (product) => {
                 this.removeFromCart(product);
+            });
+
+            bus.$on('show-success-toast', () => {
+                this.showSuccessToast();
+            });
+
+            bus.$on('show-error-alert', () => {
+                this.showErrorAlert();
             });
 
         },
@@ -257,6 +266,24 @@ if(document.querySelector('#app')) {
                     // Cart is empty
                     return false;
                 }
+            },
+
+            showSuccessToast() {
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Item Created Successfully'
+                })
+
+                setTimeout(()=>{ 
+                    window.location.reload();
+                },1000);
+            },
+            showErrorAlert(){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sorry something went wrong! Try reloading the page or try again later'
+                })
             }
             
 

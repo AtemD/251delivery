@@ -54,9 +54,9 @@ class Product extends Model
      *
      * @return string
      */
-    public function getBasePriceAttribute($value)
+    public function getBasePriceAttribute()
     {
-        return $value / 100;
+        return $this->attributes['base_price'] / 100;
     }
 
     /**

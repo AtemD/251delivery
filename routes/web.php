@@ -25,6 +25,20 @@ Route::get('/shops', 'ShopsController@index')
 Route::get('/shops/{shop}', 'ShopsController@show')
     ->name('shops.show');
 
+// Proceed to checkout route
+Route::get('/checkout', 'CheckoutController@index')
+->name('checkout.index');
+Route::post('/checkout', 'CheckoutController@store')
+->name('checkout.store');
+
+// validate cart
+// Route::post('/validate-cart', 'ValidateCartController@index')
+// ->name('validate-cart.index');
+
+// Place order route
+Route::post('/place-order', 'PlaceOrderController@store')
+->name('place_order.store');
+
 // BUYER ROUTES
 
 Route::get('dashboard/buyers/home', 'Buyer\HomeController@index')
