@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 <h1>Thank you for your order!</h1>
                 <p>Order Number: <span class="text-primary">{{$users_latest_order_today->number}}</span></p>
-                <p><a href="/" class="btn btn-primary alert-link"><< Back To Shopping</a></p>
+                <p><a href="/" class="btn btn-primary alert-link"> << Back To Shopping</a></p>
                 <hr>
 
                 <div class="card card-primary card-outline mt-5">

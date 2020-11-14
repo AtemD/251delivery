@@ -86,6 +86,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Shop', 'shop_has_users', 'user_id', 'shop_id');
     }
 
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
+    }
+
     public function userLocation()
     {
         return $this->hasOne('App\Models\UserLocation');

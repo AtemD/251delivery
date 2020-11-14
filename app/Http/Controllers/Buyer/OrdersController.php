@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Buyer;
 
-use App\Models\Buyer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +23,9 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Buyer $buyer)
+    public function index()
     {
-        $orders = $buyer->orders()->latest()->with([
+        $orders = auth()->user()->orders()->latest()->with([
             'products',
             'orderStatus',
             'paymentMethod',

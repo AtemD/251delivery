@@ -29,12 +29,19 @@
                         <div class="card-header">
                             <div class="card-tools float-left">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-            
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                    </div>
                                 </div>
-                                </div>
+                            </div>
+
+                            <div class="card-tools">
+                                <a href="/" class="btn btn-primary">
+                                    Place New Order
+                                    <i class="fas fa-angle-double-right xs"></i>
+                                </a>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -47,6 +54,7 @@
                                   <th>Delivery Addr.</th>
                                   <th>Payment Method</th>
                                   <th>Product</th>
+                                  <th>Amount</th>
                                   <th>Status</th>
                                   <th>Order Date</th>
                                   <th>More</th>
@@ -66,7 +74,8 @@
                                                 No product ordered
                                             @endforelse
                                         </td>
-                                        <td><span class="badge badge-success">{{$order->orderStatus->name}}</span></td>
+                                        <td>150.00ETB</td>
+                                        <td><span class="badge badge-{{$order->orderStatus->color}}">{{$order->orderStatus->name}}</span></td>
                                         <td>{{ $order->created_at->diffForHumans() }}</td>
                                         <td>
                                             <button type="button" class="btn btn-sm btn-outline-info">
@@ -80,7 +89,7 @@
                                         <div class="alert alert-info alert-dismissible">
                                           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                           <h5><i class="icon fas fa-info"></i> You haven't yet place any Order!</h5>
-                                          <small>Please click here to make your first order</small>
+                                          <small>Please (click here) to make your first order</small>
                                         </div>
                                       </div>
                                     </div>

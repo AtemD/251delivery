@@ -32,14 +32,14 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('buyers.orders.index', ['buyer' => Auth::user()->id])}}" class="nav-link">
+                <a href="{{ route('buyers.orders.index') }}" class="nav-link {{ (request()->routeIs('buyers.orders.*')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
                     Order History
                   </p>
                 </a>
               </li>
-              <li class="nav-item has-treeview menu-open">
+              <li class="nav-item has-treeview {{ (request()->segment(3) == 'favorites') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-star"></i>
                   <p>
@@ -63,7 +63,7 @@
                 </ul>
               </li>
 
-              <li class="nav-item has-treeview menu-open">
+              <li class="nav-item has-treeview {{ (request()->segment(3) == 'settings') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cog"></i>
                   <p>

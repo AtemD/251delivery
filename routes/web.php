@@ -45,17 +45,17 @@ Route::get('/thank-you', 'ThankYouController@index')
 
 // BUYER ROUTES
 
-Route::get('dashboard/buyers/home', 'Buyer\HomeController@index')
+Route::get('dashboard/buyer/home', 'Buyer\HomeController@index')
 ->name('buyers.home');
 
 //Account settings
-Route::get('dashboard/buyers/settings/account', 'Buyer\BuyerAccountsController@index')
+Route::get('dashboard/buyer/settings/account', 'Buyer\AccountsController@index')
 ->name('buyers.accounts.index');
-Route::put('dashboard/buyers/settings/account/{buyer}', 'Buyer\BuyerAccountsController@update')
+Route::put('dashboard/buyer/settings/account/{buyer}', 'Buyer\AccountsController@update')
 ->name('buyers.accounts.update');
 
 // Buyer Orders
-Route::get('dashboard/buyers/orders/{buyer}', 'Buyer\BuyerOrdersController@index')
+Route::get('dashboard/buyer/orders', 'Buyer\OrdersController@index')
 ->name('buyers.orders.index');
 
 // COMPANY ADMIN ROUTES
