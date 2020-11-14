@@ -13,7 +13,10 @@
             @include('dashboard.buyer.includes.main-sidebar')
 
             <!-- Content Wrapper. Contains page content -->
-            @yield('content')
+            <div class="content-wrapper">
+                @include('dashboard.buyer.includes.messages')
+                @yield('content')
+            </div>
 
             <!-- Control Sidebar -->
             @include('dashboard.buyer.includes.control-sidebar')

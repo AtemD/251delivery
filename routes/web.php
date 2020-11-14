@@ -51,7 +51,9 @@ Route::get('dashboard/buyer/home', 'Buyer\HomeController@index')
 //Account settings
 Route::get('dashboard/buyer/settings/account', 'Buyer\AccountsController@index')
 ->name('buyers.accounts.index');
-Route::put('dashboard/buyer/settings/account/{buyer}', 'Buyer\AccountsController@update')
+Route::get('dashboard/buyer/settings/account/edit', 'Buyer\AccountsController@edit')
+->name('buyers.accounts.edit');
+Route::put('dashboard/buyer/settings/account', 'Buyer\AccountsController@update')
 ->name('buyers.accounts.update');
 
 // Buyer Orders

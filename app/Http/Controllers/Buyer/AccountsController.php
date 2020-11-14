@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Buyer;
 
-use App\Models\Buyer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class AccountsController extends Controller
 {
@@ -26,9 +24,24 @@ class AccountsController extends Controller
      */
     public function index()
     {
-        $buyer = Auth::user();
+        $buyer = auth()->user();
 
         return view('dashboard/buyer/settings/account/index', compact(
+            'buyer'
+        ));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit()
+    {
+        // Get the current authenticated user
+        $buyer = auth()->user();
+
+        return view('dashboard/buyer/settings/account/edit', compact(
             'buyer'
         ));
     }
@@ -37,11 +50,12 @@ class AccountsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Buyer $buyer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Buyer $buyer)
+    public function update(Request $request)
     {
+        $buyer = auth()->user();
+        
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -56,6 +70,6 @@ class AccountsController extends Controller
             'email' => $validatedData['email'],
         ]);
 
-        return back();
+        return back()->with('success', 'Account updated successfully');
     }
 }
