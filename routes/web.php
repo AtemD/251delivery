@@ -39,6 +39,10 @@ Route::post('/checkout', 'CheckoutController@store')
 Route::post('/place-order', 'PlaceOrderController@store')
 ->name('place_order.store');
 
+// Thank you
+Route::get('/thank-you', 'ThankYouController@index')
+->name('thank-you.index');
+
 // BUYER ROUTES
 
 Route::get('dashboard/buyers/home', 'Buyer\HomeController@index')

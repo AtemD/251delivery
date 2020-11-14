@@ -24,13 +24,22 @@ class OrdersTableSeeder extends Seeder
         // For each user generate between 1 and 13 orders
         $users->each(function($user) use($order_types, $payment_methods, $order_statuses, $admin_users){
 
-            factory('App\Models\Order', mt_rand(1, 13))->create([
-                'user_id' => $user->id,
-                'order_type_id' => $order_types->random()->id,
-                'payment_method_id' => $payment_methods->random()->id,
-                'order_status_id' => $order_statuses->random()->id,
-                'status_by' => $admin_users->random()->id
-            ]);
+            $number_of_orders = mt_rand(1, 5);
+            
+
+            for($i=0; $i<$number_of_orders; $i++){
+                // $random_number = base_convert(mt_rand(12345,98765), 10, 16);
+
+                factory('App\Models\Order')->create([
+                    'user_id' => $user->id,
+                    'number' => Carbon\Carbon::now()->getPreciseTimestamp(),
+                    'order_type_id' => $order_types->random()->id,
+                    'payment_method_id' => $payment_methods->random()->id,
+                    'order_status_id' => $order_statuses->random()->id,
+                    'status_by' => $admin_users->random()->id
+                ]);
+            }
+            
         });
         
     }

@@ -86,6 +86,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Shop', 'shop_has_users', 'user_id', 'shop_id');
     }
 
+    public function userLocation()
+    {
+        return $this->hasOne('App\Models\UserLocation');
+    }
+
     /*
      * We will use this attribute to get all user permissions
      * We will use it in vue, to obtain the user permissions

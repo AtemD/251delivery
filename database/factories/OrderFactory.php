@@ -2,11 +2,13 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use Carbon\Carbon;
 use App\Models\Order;
 use Faker\Generator as Faker;
 
 $factory->define(Order::class, function (Faker $faker) {
     return [
+        'number' => Carbon::now()->timestamp,
         'user_id' => function() {
         	return factory('App\User')->create()->id;
         },

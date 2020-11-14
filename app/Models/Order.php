@@ -8,14 +8,14 @@ class Order extends Model
 {
     // protected $guarded = [];
 
-    // Order Statuses
-    const PENDING_ORDER = 'pending';
-    const APPROVED_ORDER = 'approved';
-    const READY_ORDER = 'ready';
-    const DELIVERING_ORDER = 'delivering';
-    const COMPLETED_ORDER = 'completed';
-    const REJECTED_ORDER = 'rejected';
-    const CANCELLED_ORDER = 'cancelled';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'number', 'user_id', 'order_type_id', 'delivery_address', 'special_requests', 'payment_method_id', 'order_status_id', 'status_by', 'status_date'
+    ];
 
     /**
      * The user that owns the order.

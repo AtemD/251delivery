@@ -13,16 +13,22 @@
                     <!-- form start -->
                     <form role="form" method="POST" action="{{ route('place_order.store') }}">
                         @csrf 
-    
+
                         <div class="card-body">
     
                             <div class="form-group">
+                                <div class="alert alert-danger" role="alert">
+                                    @foreach($errors->all() as $error)
+                                        <li class="text-danger">* {{$error}}</li>
+                                    @endforeach
+                                </div>
+                               
                                 <!--CITY SHOULD BE STORED IN SESSION BECAUSE AS THE USER REACHES HERE, HE/SHE HAS ALREADY CHOSEN A LOCATION -->
                                 <label for="city">City</label>
                                 <select name="city" class="form-control @error('city') is-invalid @enderror" id="city"
                                     required>
                                     @forelse($cities as $city)
-                                        <option value="{{$city->id}}">
+                                        <option value="{{$city->id}}" {{ $city->name == session()->get('city_name') ? 'selected': ''}}>
                                             {{ $city->name }}
                                         </option>
                                     @empty 
@@ -33,6 +39,31 @@
                                 </select>
     
                                 @error('city')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="order_type">Order Type</label>
+                                <select name="order_type" class="form-control @error('order_type') is-invalid @enderror" id="order_type"
+                                    required>
+                                    @forelse($order_types as $order_type)
+                                        <option value="{{$order_type->id}}"
+                                            @if(session()->has('order_type_name'))
+                                                {{ session()->get('order_type_name') == $order_type->name ? 'selected' : ''}}    
+                                            @endif>
+                                            {{ $order_type->name }}
+                                        </option>
+                                    @empty 
+                                        <div class="alert alert-warning" role="alert">
+                                            No cities cities to show, contact admin for help!
+                                        </div>
+                                    @endforelse
+                                </select>
+    
+                                @error('order_type')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -50,7 +81,7 @@
                                 @enderror
                             </div>
     
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="address">Delivery Address/Location</label>
                                 <textarea type="text" rows="3" name="address" id="address" class="form-control @error('address') is-invalid @enderror" 
                                 value="{{ old('address') }}" placeholder="Your Address" required></textarea>
@@ -60,13 +91,43 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div> --}}
+
+                            <div class="form-group">
+                                <label for="delivery_address">Delivery Address/Location</label>
+                                    @forelse($user_delivery_addresses as $delivery_address)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="delivery_address" id="delivery-address-{{$loop->index}}" value="{{$delivery_address}}">
+                                            <label class="form-check-label" for="delivery-address-{{$loop->index}}">
+                                              {{$delivery_address}}
+                                            </label>
+                                        </div>
+                                    @empty 
+                                        <div class="form-group">
+                                            <label for="new_delivery_address">Delivery Address/Location</label>
+                                            <textarea type="text" rows="3" name="new_delivery_address" id="new_delivery_address" class="form-control @error('new_delivery_address') is-invalid @enderror" 
+                                            value="{{ old('new_delivery_address') }}" placeholder="Your Delivery Address" required></textarea>
+                
+                                            @error('new_delivery_address')
+                                                <span class="text-danger" role="alert">
+                                                    <strong>{{ $errors->new_delivery_address }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div> 
+                                    @endforelse
+    
+                                @error('delivery_address')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->delivery_address }}</strong>
+                                    </span>
+                                @enderror
                             </div>
     
                             <div class="form-group">
-                                <label for="payment_methods">Preferred Payment Method</label>
+                                <label for="payment_method">Preferred Payment Method</label>
                                     @forelse($payment_methods as $payment_method)
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_methods" id="payment-method-{{$payment_method->id}}" value="{{$payment_method->id}}">
+                                            <input class="form-check-input" type="radio" name="payment_method" id="payment-method-{{$payment_method->id}}" value="{{$payment_method->id}}">
                                             <label class="form-check-label" for="payment-method-{{$payment_method->id}}">
                                               {{$payment_method->name}}
                                             </label>
@@ -77,16 +138,18 @@
                                         </div>
                                     @endforelse
     
-                                @error('payment_methods')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                @error('payment_method')
+                                    <span class="text-danger" role="alert">
+                                        <strong>*** {{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                             <hr>
                             <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" name="agreed_to_terms_and_conditions" id="agreed_to_terms_and_conditions" required>
-                                <label class="form-check-label" for="agreed_to_terms_and_conditions">I have read and agreed with this websites terms and conditions</label>
+                                <input type="checkbox" class="form-check-input" name="agreed_to_terms_and_conditions" id="agreed_to_terms_and_conditions" {{ old('agreed_to_terms_and_conditions') ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="agreed_to_terms_and_conditions">
+                                    I have read and agreed with this websites terms and conditions
+                                </label>
                             </div>
     
                         </div>
@@ -114,10 +177,10 @@
                                 {{ $product->name}}
                             </div>
                             <div class="col-md-3">
-                                x{{$product->ordered_qty}}
+                                x{{$product->quantity}}
                             </div>
                             <div class="col-md-3">
-                                {{$product->base_price*$product->ordered_qty}} ETB
+                                {{$product->base_price*$product->quantity}} ETB
                             </div>
                         </div>
                         @endforeach

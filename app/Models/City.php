@@ -16,11 +16,19 @@ class City extends Model
     ];
 
     /**
-     * Get the locations for the city
+     * Get the shop locations for the city
      */
     public function shopLocations()
     {
         return $this->hasMany('App\Models\ShopLocation');
+    }
+
+    /**
+     * Get the user locations for the city
+     */
+    public function userLocations()
+    {
+        return $this->hasMany('App\Models\UserLocation');
     }
 
     /**

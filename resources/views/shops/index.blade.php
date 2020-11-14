@@ -4,6 +4,41 @@
 
 @section('content')
 <div class="container py-4">
+	<div class="row pb-4">
+		<div class="col-md-12">
+			<nav class="navbar navbar-light shadow border border-success">
+
+				<h5><span class="badge badge-secondary mr-1">{{ session()->get('city_name') }}</span></h5>
+				<h5><span class="badge badge-secondary mr-1"> {{ session()->get('order_type_name') }}</span></h5>
+
+				<!-- search and filters-->
+				<ul class="navbar-nav mr-auto"></ul>
+				<button class="btn btn-sm btn-outline-secondary mr-4">
+					<i class="fas fa-filter"></i> Filters
+				</button>
+				
+				
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search restaurants, meals..." aria-label="Search">
+					<button class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+
+			</nav>
+			{{-- 
+			<div class="alert alert-success border-success" role="alert">
+				<div class="row justify-content-between">
+					<div class="col-md-6">
+						<h5><span class="badge badge-secondary">{{ session()->get('city_name') }}</span></h5>
+						<h5><span class="badge badge-secondary">{{ session()->get('order_type_name') }}</span></h5>
+					</div>
+					<div class="col-md-6">
+						<!-- search and filters-->
+					</div>
+				</div>
+			</div> 
+			--}}
+		</div>
+	</div>
 	<div class="row shop-list py-4">
 		@forelse($shops as $shop)
 			<div class="col-md-4 pb-4">

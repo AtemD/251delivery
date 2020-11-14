@@ -15,37 +15,37 @@ class OrderStatusesTableSeeder extends Seeder
     {
         // Name, description, color
         factory(OrderStatus::class)->create([
-            'name' => Order::PENDING_ORDER,
+            'name' => OrderStatus::PENDING_ORDER,
             'description' => 'a new order',
             'color' => 'info'
         ]);
         factory(OrderStatus::class)->create([
-            'name' => Order::APPROVED_ORDER,
+            'name' => OrderStatus::APPROVED_ORDER,
             'description' => 'an accepted order',
             'color' => 'primary'
         ]);
         factory(OrderStatus::class)->create([
-            'name' => Order::READY_ORDER,
+            'name' => OrderStatus::READY_ORDER,
             'description' => 'a ready to be delivered order',
             'color' => 'success'
         ]);
         factory(OrderStatus::class)->create([
-            'name' => Order::DELIVERING_ORDER,
+            'name' => OrderStatus::DELIVERING_ORDER,
             'description' => 'an order on the way to the customer',
             'color' => 'info'
         ]);
         factory(OrderStatus::class)->create([
-            'name' => Order::COMPLETED_ORDER,
+            'name' => OrderStatus::COMPLETED_ORDER,
             'description' => 'an order that the customer has received and is satisfied with it',
             'color' => 'success'
         ]);
         factory(OrderStatus::class)->create([
-            'name' => Order::REJECTED_ORDER,
+            'name' => OrderStatus::REJECTED_ORDER,
             'description' => 'an order rejected by the shop due to some reason',
             'color' => 'warning'
         ]);
         factory(OrderStatus::class)->create([
-            'name' => Order::CANCELLED_ORDER,
+            'name' => OrderStatus::CANCELLED_ORDER,
             'description' => 'an order cancelled by the customer before it is approved',
             'color' => 'danger'
         ]);

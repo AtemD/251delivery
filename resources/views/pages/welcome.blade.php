@@ -22,7 +22,12 @@
                                             <select class="custom-select form-control mb-2 mr-sm-2" id="city" name="city_name" required>
                                                 <option value="" selected>Select your city...</option>
                                                 @forelse($cities as $city)
-                                                    <option value="{{$city->name}}">{{$city->name}}</option>
+                                                    <option value="{{$city->name}}" 
+                                                        @if(session()->has('city_name'))
+                                                            {{ session()->get('city_name') == $city->name ? 'selected' : ''}}    
+                                                        @endif>
+                                                        {{$city->name}}
+                                                    </option>
                                                 @empty
                                                     <p>No cities yet</p>
                                                 @endforelse
@@ -37,6 +42,33 @@
                                     </div> 
         
                                     <div class="col-md-6">
+                                        <div class="form-group{{ $errors->has('order_type') ? ' has-error' : '' }}">
+                                            <label class="sr-only" for="order_type">Select your order type</label>
+                                            <select class="custom-select form-control mb-2 mr-sm-2" id="order_type" name="order_type" required>
+                                                <option value="" selected>Select order type...</option>
+                                                @forelse($order_types as $order_type)
+                                                    <option value="{{$order_type->name}}"
+                                                        @if(session()->has('order_type_name'))
+                                                            {{ session()->get('order_type_name') == $order_type->name ? 'selected' : ''}}    
+                                                        @endif
+                                                        >
+                                                        {{$order_type->name}}
+                                                    </option>
+                                                @empty
+                                                    <p>No order types yet</p>
+                                                @endforelse
+                                            </select>
+                
+                                            @if ($errors->has('order_type'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('order_type') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-outline-success btn-block mb-2">Search Items &raquo;</button>
                                         </div>

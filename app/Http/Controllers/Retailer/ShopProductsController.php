@@ -71,7 +71,7 @@ class ShopProductsController extends Controller
             'image' => 'sometimes|nullable|image|mimes:jpeg,bmp|max:2048',
             'description' => 'required|string|max:255',
             'base_price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'status' => 'required|integer',
+            'availability' => 'required|integer',
         ]);
 
         // handle the image upload
@@ -101,7 +101,7 @@ class ShopProductsController extends Controller
             'image' => $filename,
             'description' => $request->description,
             'base_price' => $request->base_price,
-            'is_available' => (bool)$request->status,
+            'is_available' => (bool)$request->availability,
         ]);
 
         if (request()->expectsJson()) {

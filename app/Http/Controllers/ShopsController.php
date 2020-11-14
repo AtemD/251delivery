@@ -16,12 +16,20 @@ class ShopsController extends Controller
     public function index(Request $request)
     {
 		$this->validate($request, array(
-			'city_name' => 'required|exists:cities,name',
-		));
+            'city_name' => 'required|exists:cities,name',
+            'order_type' => 'required|exists:order_types,name'
+        ));
 
+        // Store order type and city in the session
+        session()->put('order_type_name', $request->order_type);
+        session()->put('city_name', $request->city_name);
+
+        // Retrive the city from the database
 		$city_name = $request->input('city_name');
         $city_id = City::where('name', '=', $city_name)->pluck('id')->first();
 
+        // Get all shops for the specific city.
+        // Shop account status should be verified and is_available should be true.
         $shops = Shop::whereHas('shopLocation', function($query) use($city_id){
                     $query->where('city_id', '=', $city_id);
                 })->with([

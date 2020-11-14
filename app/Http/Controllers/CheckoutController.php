@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use App\Models\Shop;
+use App\Models\OrderType;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
@@ -27,18 +29,27 @@ class CheckoutController extends Controller
     public function index()
     {
         // if there's no cart or the cart in the session is empty, return back with error.
-        if (!session()->has('cart')) return back()->with('error', 'Your Cart is Empty, Please Add Some Items and then Click Proceed to checkout button');
+        if (!session()->has('cart')) return back()->with('error', 'Your Cart is Empty or current products in cart are corrupted, please delete them and add new ones.');
 
         $cart = session()->get('cart');
 
         $cities = City::all();
         $payment_methods = PaymentMethod::all();
+        $order_types = OrderType::all();
 
+        $auth_user_location = Auth::user()->userLocation()->get()->first();
+
+        $user_delivery_addresses = json_decode($auth_user_location->delivery_addresses);
+
+        // dd(json_decode($user_location['delivery_addresses']));
         
         return view('checkout', compact([
             'cities',
             'payment_methods',
-            'cart'
+            'order_types',
+            'cart',
+            'auth_user_location', 
+            'user_delivery_addresses'
         ]));
     }
 
@@ -73,7 +84,9 @@ class CheckoutController extends Controller
             ->get();
 
         // check the count, to ensure no product was illegally added
-        if($cart_products_count != $products->count()) return back()->with('error', 'There was something wrong with your cart contents');
+        if($cart_products_count != $products->count()) {
+            return back()->with('error', 'There was something wrong with your cart contents, delete them and add new ones');
+        }
 
         // At this point we are sure all the products are from the same shop, and are not illegally added
 
@@ -101,12 +114,12 @@ class CheckoutController extends Controller
             if(!empty($current_user_cart_product)) {
 
                 // Give the product model instance an order quantity from the user cart.
-                $product->ordered_qty = $current_user_cart_product['qty'];
+                $product->quantity = $current_user_cart_product['qty'];
+                $product->amount = ($product->base_price*$current_user_cart_product['qty'])*100; // *100 to convert to cents for db storage
                 
                 // Update the cart metadata
                 $grand_total = $grand_total + ($product->base_price*$current_user_cart_product['qty']);
                 $total_items = $total_items + $current_user_cart_product['qty'];
-
                 
                 // Push the products into the cart
                 $request->session()->push('cart.products', $product);
