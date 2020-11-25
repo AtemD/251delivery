@@ -31,10 +31,6 @@ Route::get('/checkout', 'CheckoutController@index')
 Route::post('/checkout', 'CheckoutController@store')
 ->name('checkout.store');
 
-// validate cart
-// Route::post('/validate-cart', 'ValidateCartController@index')
-// ->name('validate-cart.index');
-
 // Place order route
 Route::post('/place-order', 'PlaceOrderController@store')
 ->name('place_order.store');
@@ -292,6 +288,14 @@ Route::put('/dashboard/retailer/shops/{shop}/products/{product}', 'Retailer\Shop
 ->name('retailer.products.update');
 Route::delete('/dashboard/retailer/shops/{shop}/products/{product}', 'Retailer\ShopProductsController@destroy')
 ->name('retailer.products.destroy');
+
+// Retailer product taxes
+Route::put('/dashboard/retailer/shops/{shop}/products/{product}/taxes', 'Retailer\ShopProductTaxesController@update')
+->name('retailer.product.taxes.update');
+
+// Retailer product discounts
+Route::put('/dashboard/retailer/shops/{shop}/products/{product}/discounts', 'Retailer\ShopProductDiscountsController@update')
+->name('retailer.product.discounts.update');
 
 // Retailer taxes
 Route::get('/dashboard/retailer/shops/{shop}/settings/taxes', 'Retailer\ShopTaxesController@index')
