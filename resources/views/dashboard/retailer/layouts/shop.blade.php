@@ -8,7 +8,7 @@
         <div id="retailerapp">
             <div class="wrapper">
                 <!-- Navbar -->
-                @include('dashboard.retailer.includes.navbar')
+                @include('dashboard.retailer.includes.switch-shop-navbar')
     
                 <!-- Seoondary Sidebar Container -->
                 @include('dashboard.retailer.includes.switch-shop-sidebar')
