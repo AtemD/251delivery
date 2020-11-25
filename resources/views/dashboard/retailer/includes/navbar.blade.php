@@ -18,36 +18,44 @@
           </div>
         </form>
 
+        @php
+            $notifications = collect($shop->notifications);
+            $notifications_count = $notifications->count();
+
+            // filter notifications to only get the orderplaced notifications.
+            $order_placed_notifications = $notifications->filter(function($value, $key) {
+              return $value->type == 'App\Notifications\OrderPlaced';
+            });
+
+            $order_placed_notifications_count = $order_placed_notifications->count();
+        @endphp
+
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-          <!-- Authentication Links -->
-            @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
-                @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
+          @if(!empty($notifications->first()))
+            <li class="nav-item dropdown">
+              <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                <i class="fas fa-bell mr-3"></i>
+
+                <span class="badge badge-warning navbar-badge">{{ $notifications_count }}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <span class="dropdown-item dropdown-header">{{ $notifications_count }} {{ Str::plural('Notification', $notifications_count) }} </span>
+                <div class="dropdown-divider"></div>
+
+                @if(!empty($order_placed_notifications->first()))
+                  <a href="#" class="dropdown-item">
+                    <i class="fas fa-shopping-cart mr-2"></i> {{ $order_placed_notifications_count }} new {{ Str::plural('order', $order_placed_notifications_count) }}
+                    <span class="float-right text-muted text-sm">
+                      {{ $order_placed_notifications->first()->created_at->diffForHumans() }}
+                    </span>
+                  </a>
                 @endif
-            @else
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->first_name }} <span class="caret"></span>
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-            @endguest
+                
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+              </div>
+            </li>
+          @endif
         </ul>
       </nav>
