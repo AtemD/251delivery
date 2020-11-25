@@ -2,12 +2,12 @@
 
 namespace App;
 
+use App\Models\Permission;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Models\Permission;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -94,6 +94,19 @@ class User extends Authenticatable
     public function userLocation()
     {
         return $this->hasOne('App\Models\UserLocation');
+    }
+
+    public function getHomeAttribute(){
+        $permissions = Auth::user()->getAllPermissions()->pluck('name');
+
+        if($permissions->contains(Permission::ACCESS_RETAILER_DASHBOARD) 
+                 && !$permissions->contains(Permission::ACCESS_ADMINISTRATOR_DASHBOARD)){
+            return '/dashboard/retailer/shops';
+        } else if ($permissions->contains(Permission::ACCESS_ADMINISTRATOR_DASHBOARD)){
+            return '/dashboard/company/home';
+        } else {
+            return '/dashboard/buyer/home';
+        }
     }
 
     /*
