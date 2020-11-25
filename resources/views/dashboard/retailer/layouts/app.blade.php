@@ -4,7 +4,7 @@
          @include('dashboard.retailer.includes.head')
     </head>
 
-    <body class="hold-transition sidebar-mini">
+    <body class="sidebar-mini layout-navbar-fixed sidebar-collapse">
         <div id="retailerapp">
             <div class="wrapper">
                 <!-- Navbar -->
