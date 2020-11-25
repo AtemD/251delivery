@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Spatie\Sluggable\HasSlug;
+use App\Scopes\NoficationScope;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Shop extends Model
 {
-    use HasSlug;
+    use Notifiable, HasSlug;
 
     /**
      * The attributes that are mass assignable.
