@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -49,9 +49,8 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if($user->hasPermissionTo(Permission::ACCESS_RETAILER_DASHBOARD) 
-            // && $user->shops()->exists()
-            && ! $user->hasPermissionTo(Permission::ACCESS_ADMINISTRATOR_DASHBOARD)){
+        if($user->hasPermissionTo(Permission::ACCESS_RETAILER_DASHBOARD)
+            && !$user->hasPermissionTo(Permission::ACCESS_ADMINISTRATOR_DASHBOARD)){
 
             // User is retailer
             return redirect()->intended(route('retailer.shops'));
@@ -63,7 +62,7 @@ class LoginController extends Controller
 
         } else {
             // User is normal buyer
-            return redirect()->intended(route('home'));
+            return redirect()->intended(route('buyers.home'));
         }
     }
 }
