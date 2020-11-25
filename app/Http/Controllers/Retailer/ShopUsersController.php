@@ -37,9 +37,8 @@ class ShopUsersController extends Controller
         $this->authorize('view', User::class);
 
         $shop = $shop->load('users.roles.permissions');
-        // dd($shop->toArray());
 
-        // shop  users who are admin or have permission to access admin dashboard should be removed
+        // *shop  users who are admin or have permission to access admin dashboard should be removed
 
         $retailer_role = Role::where('name', Role::RETAILER)->firstOrFail();
         $retailer_role = $retailer_role->load('permissions');
