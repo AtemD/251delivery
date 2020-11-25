@@ -35,7 +35,8 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
+                                document.getElementById('logout-form').submit();">
+                                    <i class="nav-icon fas fa-sign-out-alt xs"></i>
                                 {{ __('Logout') }}
                             </a>
 
@@ -43,6 +44,9 @@
                                 @csrf
                             </form>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="{{ auth()->user()->home }}"><i class="nav-icon fas fa-home xs"></i> {{ __('Home') }}</a>
                     </li>
                 @endguest
             </ul>
