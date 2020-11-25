@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Shop;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
+use App\Notifications\OrderPlaced;
 use Illuminate\Support\Facades\DB;
 
 class PlaceOrderController extends Controller
@@ -27,9 +29,6 @@ class PlaceOrderController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
-        // Validate the request
         $this->validate($request,[
             'city' => 'required|integer|exists:cities,id',
             'order_type' => 'required|integer|exists:order_types,id',
@@ -43,16 +42,19 @@ class PlaceOrderController extends Controller
         // process the payment method
         $chosen_payment_method = PaymentMethod::findOrFail($request->payment_method);
 
+        // Make sure the payment method is enabled
+        if(!$chosen_payment_method->is_enabled) {
+            return back()->with('error', 'Invalid payment method');
+        }
+
         // redirect the user to the payment page or appropriate website to process the payment
         if($chosen_payment_method->status === false) {
             return back()->with('error', 'Payment Method Not Allowed');
         }
 
+        // Determine which payment method has been chosen.
         switch ($chosen_payment_method->name) {
             case PaymentMethod::CASH_ON_DELIVERY:
-                
-                // order: user_id, order_type_id, delivery_address, special_requests, payment_method_id, order_status_id, status_by, status_date
-                // order_has_products: order_id, product_id, quantity, amount, special_request
 
                 $order_status = OrderStatus::where('name', OrderStatus::PENDING_ORDER)->firstOrFail();
                 $order = \App\Models\Order::class; 
@@ -61,13 +63,12 @@ class PlaceOrderController extends Controller
                 {
                     $products = session()->get('cart.products');
 
-
                     DB::transaction(function() use($request, &$order, $order_status, $products, $chosen_payment_method){
                         
                         // generate order number or ID for the user
                         // make sure the generated order number is not in the database
                         $order_number = \Carbon\Carbon::now()->getPreciseTimestamp();
-// dd($order_number);
+
                         $order = \App\Models\Order::create([
                             'user_id' => auth()->user()->id,
                             'number' => $order_number,
@@ -91,6 +92,15 @@ class PlaceOrderController extends Controller
 
                     // run order event here
                     // send notifications to user and restaurant: SMS, EMAIL, etc
+                    $shop = session()->get('cart.shop');
+                    $shop = Shop::findOrFail($shop->id);
+
+                    // Notify shop of the order;
+                    $shop->notify(new OrderPlaced($order));
+
+                    // Notify current logged in user of the order
+                    // auth()->user()->notify(new OrderPlaced();)
+
                 }
             break;
 
@@ -104,25 +114,10 @@ class PlaceOrderController extends Controller
 
         }
 
-        // Once payment is complete
-        // redirect to thank you page.
-        $cart = session()->get('cart');
-
         // Clear the order from the cart, 
         // in this way if the user accidentally or intentionally cannot place the order again by reloading the place order page or clicking the place order function
         session()->forget('cart');
 
         return redirect()->route('thank-you.index');
-
-        // return view('thank-you', compact([
-        //     'order',
-        //     'cart'
-        // ]));
-
-
-        // return view('checkout', compact([
-        //     'cities',
-        //     'payment_methods'
-        // ]));
     }
 }
