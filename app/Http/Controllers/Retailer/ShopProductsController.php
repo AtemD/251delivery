@@ -146,19 +146,14 @@ class ShopProductsController extends Controller
      */
     public function update(Request $request, Shop $shop, Product $product)
     {
-        // dd($request->toArray());
-        // Authorize that the user can update products
-        $this->authorize('update', $product);
-
-        // Retrieve the shop to determine if it exists
-        // $shop = Shop::findOrFail($request->shop);
-
         // Authorize if the user can view the shop
         $this->authorize('view', $shop);
 
+        // Authorize that the user can update products
+        $this->authorize('update', $product);
+
         // Retrieve the sections of the given shop to later validate if the section belongs to the shop
         $shop_sections = $shop->sections->pluck('id')->toArray();
-
         
         /**
          * The regex of base_price will hold for quantities like '12' or '12.5' or '12.05'
@@ -169,8 +164,6 @@ class ShopProductsController extends Controller
             'name' => 'required|string|max:255',
             'shop' => 'required|string',
             'section' => 'required|integer|in:' . implode(',', $shop_sections),
-            'taxes' => 'nullable',
-            'discounts' =>'nullable',
             'image' => 'sometimes|image|mimes:jpeg,png,bmp|max:2048',
             'description' => 'required|string|max:255',
             'base_price' => 'required|regex:/^\d+(\.\d{1,2})?$/', // allows: 12, 12.5, 12.05, 1 or 2 decimal places; dissalows: .22 
@@ -216,16 +209,13 @@ class ShopProductsController extends Controller
             'is_available' => (bool)$request->status,
         ]);
 
-        $product->taxes()->syncWithoutDetaching($request->taxes);
-        $product->discounts()->syncWithoutDetaching($request->discounts);
-
         if (request()->expectsJson()) {
             return response([
                 'code' => 200,
                 'status' => 'Product Updated']);
         }
         
-        return redirect()->route('retailer.products.index', ['shop' => $shop, 'product' => $product])->with('success', 'Product Updated Successfully');
+        return back()->with('success', 'Product Updated Successfully');
     }
 
     /**
