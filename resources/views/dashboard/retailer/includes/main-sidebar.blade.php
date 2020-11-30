@@ -39,13 +39,31 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{ route('retailer.orders.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.orders.*')) ? 'active' : '' }}">
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link {{ (request()->routeIs('retailer.orders.*')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
-                    Orders
+                     Orders
+                    <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('retailer.orders.new.index', ['shop' => $shop]) }}" class="nav-link 
+                      {{ (request()->routeIs('retailer.orders.new.*') 
+                        || request()->routeIs('retailer.orders.in-progress.*') 
+                        || request()->routeIs('retailer.orders.ready.*')) ? 'active' : '' }}">
+                      <i class="fas fa-circle nav-icon"></i>
+                      <p>Manage Orders</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('retailer.orders.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.orders.index')) ? 'active' : '' }}">
+                      <i class="fas fa-circle nav-icon"></i>
+                      <p>Order History</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-item">
                 <a href="{{ route('retailer.products.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.products.*')) ? 'active' : '' }}">
