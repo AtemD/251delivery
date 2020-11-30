@@ -19,15 +19,16 @@
         </form>
 
         @php
-            $notifications = collect($shop->notifications);
-            $notifications_count = $notifications->count();
+          $notifications = $shop->notifications;
+          $notifications = collect($notifications);
+          $notifications_count = $notifications->count();
 
-            // filter notifications to only get the orderplaced notifications.
-            $order_placed_notifications = $notifications->filter(function($value, $key) {
-              return $value->type == 'App\Notifications\OrderPlaced';
-            });
+          // filter notifications to only get the orderplaced notifications.
+          $order_placed_notifications = $notifications->filter(function($value, $key) {
+            return $value->type == 'App\Notifications\OrderPlaced';
+          });
 
-            $order_placed_notifications_count = $order_placed_notifications->count();
+          $order_placed_notifications_count = $order_placed_notifications->count();
         @endphp
 
         <!-- Right navbar links -->
