@@ -49,11 +49,26 @@ class ProductPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
+     * @param \App\Product $product 
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, Product $product)
     {
-        return $user->can(Permission::UPDATE_PRODUCTS);
+        // Get the shop the product belongs to 
+        $shop = $product->shop()->firstOrFail();
+
+        // get all the users of the retrieved shop
+        $shop_owners = $shop->users()->get()->pluck('id');
+
+        // check if the user is among shop owners and has the appropriate permission
+        if( $shop_owners->contains($user->id) && 
+            $user->can(Permission::UPDATE_PRODUCTS)
+           )
+        {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -63,9 +78,23 @@ class ProductPolicy
      * @param  \App\Product  $product
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, Product $product)
     {
-        return $user->can(Permission::DELETE_PRODUCTS);
+         // Get the shop the product belongs to 
+         $shop = $product->shop()->firstOrFail();
+
+         // get all the users of the retrieved shop
+         $shop_owners = $shop->users()->get()->pluck('id');
+ 
+         // check if the user is among shop owners and has the appropriate permission
+         if( $shop_owners->contains($user->id) && 
+             $user->can(Permission::DELETE_PRODUCTS)
+            )
+         {
+             return true;
+         } else {
+             return false;
+         }
     }
 
     /**
