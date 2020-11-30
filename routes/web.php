@@ -289,6 +289,11 @@ Route::put('/dashboard/retailer/shops/{shop}/products/{product}', 'Retailer\Shop
 Route::delete('/dashboard/retailer/shops/{shop}/products/{product}', 'Retailer\ShopProductsController@destroy')
 ->name('retailer.products.destroy');
 
+// Retailer product availability
+Route::put('/dashboard/retailer/shops/{shop}/products/{product}/availability', 'Retailer\ShopProductAvailabilityController@update')
+->name('retailer.product.availability.update');
+
+
 // Retailer product taxes
 Route::put('/dashboard/retailer/shops/{shop}/products/{product}/taxes', 'Retailer\ShopProductTaxesController@update')
 ->name('retailer.product.taxes.update');
@@ -363,10 +368,22 @@ Route::put('/dashboard/retailer/shops/{shop}/settings/locations', 'Retailer\Shop
 // ->name('retailer.locations.destroy');
 
 // Retailer Shop Orders
-Route::get('/dashboard/retailer/shops/{shop}/orders', 'Retailer\ShopOrdersController@index')
+Route::get('/dashboard/retailer/shops/{shop}/orders/history', 'Retailer\ShopOrdersController@index')
 ->name('retailer.orders.index');
 Route::put('/dashboard/retailer/shops/{shop}/orders/{order}', 'Retailer\ShopOrdersController@update')
 ->name('retailer.orders.update');
+
+// Retailer shop order management
+// Route::get('/dashboard/retailer/shops/{shop}/orders/manage', 'Retailer\ShopOrdersManagementController@index')
+// ->name('retailer.orders.index');
+
+
+Route::get('/dashboard/retailer/shops/{shop}/orders/new', 'Retailer\ShopOrdersNewController@index')
+->name('retailer.orders.new.index');
+Route::get('/dashboard/retailer/shops/{shop}/orders/in-progress', 'Retailer\ShopOrdersInProgressController@index')
+->name('retailer.orders.in-progress.index');
+Route::get('/dashboard/retailer/shops/{shop}/orders/ready', 'Retailer\ShopOrdersReadyController@index')
+->name('retailer.orders.ready.index');
 
 // Retailer Shop Accounts
 Route::get('/dashboard/retailer/shops/{shop}/settings/accounts', 'Retailer\ShopAccountsController@index')
