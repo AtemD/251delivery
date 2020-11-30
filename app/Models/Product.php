@@ -16,7 +16,7 @@ class Product extends Model
 
     const PRODUCT_DEFAULT_IMAGE = 'product_default.jpg';
 
-    protected $appends = ['status', 'image_path', 'short_description', 'base_price'];
+    protected $appends = ['status', 'image_path', 'short_description', 'modified_base_price'];
 
     public function shop()
     {
@@ -40,7 +40,7 @@ class Product extends Model
 
     public function orders()
     {
-        return $this->belongsToMany('App\Models\Order', 'order_has_product', 'product_id', 'order_id')
+        return $this->belongsToMany('App\Models\Order', 'order_has_products', 'product_id', 'order_id')
             ->withPivot('quantity', 'amount', 'special_request')->withTimestamps();;
     }
 
@@ -54,7 +54,7 @@ class Product extends Model
      *
      * @return string
      */
-    public function getBasePriceAttribute()
+    public function getModifiedBasePriceAttribute()
     {
         return $this->attributes['base_price'] / 100;
     }
