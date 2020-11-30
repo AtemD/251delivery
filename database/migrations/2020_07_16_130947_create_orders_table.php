@@ -23,6 +23,12 @@ class CreateOrdersTable extends Migration
                     ->references('id')
                     ->on('users')
                     ->onDelete('cascade');
+
+            $table->integer('shop_id')->unsigned();
+            $table->foreign('shop_id')
+                ->references('id')
+                ->on('shops')
+                ->onDelete('cascade');
             
             $table->tinyInteger('order_type_id')->unsigned();
             $table->foreign('order_type_id')
