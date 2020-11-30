@@ -4,9 +4,10 @@
          @include('dashboard.retailer.includes.head')
     </head>
 
-    <body class="sidebar-mini layout-navbar-fixed sidebar-collapse">
+    <body class="sidebar-mini layout-navbar-fixed">
         <div id="retailerapp">
             <div class="wrapper">
+                
                 <!-- Navbar -->
                 @include('dashboard.retailer.includes.navbar')
     
