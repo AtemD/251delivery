@@ -58,7 +58,7 @@
                                     <tr>
                                         <td>{{$tax->name}}</td>
                                         <td>
-                                            {{$tax->rate}}    
+                                            {{$tax->modified_rate}}{{ $tax->rate_type == 'percentage' ? '%': '' }} 
                                         </td>
                                         <td>{{$tax->rate_type}}</td>
                                         <td>{{$shop->name }}</td>

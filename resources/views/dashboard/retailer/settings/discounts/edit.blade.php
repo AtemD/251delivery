@@ -51,7 +51,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="rate">Rate</label>
-                                            <input type="text" name="rate" class="form-control @error('rate') is-invalid @enderror" value="{{ $discount->rate }}" id="rate" 
+                                            <input type="text" name="rate" class="form-control @error('rate') is-invalid @enderror" value="{{ $discount->modified_rate }}" id="rate" 
                                                 placeholder="e.g 15.00" required>
 
                                             @error('rate')

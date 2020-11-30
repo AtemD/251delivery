@@ -57,7 +57,7 @@
                                     <tr>
                                         <td>{{$discount->name}}</td>
                                         <td>
-                                            {{$discount->rate}}    
+                                            {{$discount->modified_rate}}{{ $discount->rate_type == 'percentage' ? '%': ' ETB' }}
                                         </td>
                                         <td>{{$discount->rate_type}}</td>
                                         <td>{{$shop->name }}</td>
