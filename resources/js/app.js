@@ -106,6 +106,7 @@ Vue.component('retailer-shop-add', require('./components/RetailerShopAdd.vue').d
 
 // Retailer products
 Vue.component('retailer-product-add', require('./components/RetailerProductAdd.vue').default);
+Vue.component('retailer-product-availability-button', require('./components/RetailerProductAvailabilityButton.vue').default);
 // Vue.component('retailer-product-edit', require('./components/RetailerProductEdit.vue').default);
 // Vue.component('retailer-product-delete', require('./components/RetailerProductDelete.vue').default);
 

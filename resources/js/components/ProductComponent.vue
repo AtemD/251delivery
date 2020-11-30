@@ -9,7 +9,7 @@
                     <div class="col-8">
                         <div class="card-body shop-item-product-details">
                             <h5 class="card-title shop-item-product-title">{{product.name}}</h5><br>
-                            <h5 class="card-title shop-item-product-title text-muted">{{product.base_price}} <small>ETB</small></h5>
+                            <h5 class="card-title shop-item-product-title text-muted">{{product.modified_base_price}} <small>ETB</small></h5>
                             <small><p class="card-text text-muted text-break">{{product.description}}</p></small>
                         </div>
                     </div>
