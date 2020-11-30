@@ -30,12 +30,11 @@ class ShopProductsController extends Controller
     {
         $this->authorize('view', $shop);
         
+        $this->authorize('view', Product::class);
+
         // Get all the products of this shop
         $products = $shop->products()->with('section', 'taxes', 'discounts')->orderBy('name', 'asc')->paginate(15);
         $sections = $shop->sections()->get();
-
-        // Authorize if the user is allowed to view products
-        $this->authorize('view', Product::class);
 
         return view('dashboard/retailer/products/index', compact([
             'shop',
