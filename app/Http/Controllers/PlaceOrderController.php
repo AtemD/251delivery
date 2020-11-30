@@ -38,6 +38,8 @@ class PlaceOrderController extends Controller
             // 'special_request' => 'nullable',
             'agreed_to_terms_and_conditions' => 'required|string',
         ]);
+        // $shop = session()->get('cart.shop');
+        // dd($shop->id);
 
         // process the payment method
         $chosen_payment_method = PaymentMethod::findOrFail($request->payment_method);
@@ -62,8 +64,9 @@ class PlaceOrderController extends Controller
                 if(session()->has('cart.products')) 
                 {
                     $products = session()->get('cart.products');
+                    $shop = session()->get('cart.shop');
 
-                    DB::transaction(function() use($request, &$order, $order_status, $products, $chosen_payment_method){
+                    DB::transaction(function() use($request, &$order, $shop, $order_status, $products, $chosen_payment_method){
                         
                         // generate order number or ID for the user
                         // make sure the generated order number is not in the database
@@ -71,6 +74,7 @@ class PlaceOrderController extends Controller
 
                         $order = \App\Models\Order::create([
                             'user_id' => auth()->user()->id,
+                            'shop_id' => $shop->id,
                             'number' => $order_number,
                             'order_type_id' => $request->order_type,
                             'delivery_address' => $request->delivery_address, 
