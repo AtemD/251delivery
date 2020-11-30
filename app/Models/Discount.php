@@ -10,7 +10,7 @@ class Discount extends Model
         'name', 'rate', 'rate_type', 'shop_id', 'is_enabled'
     ];
 
-    protected $appends = ['rate'];
+    protected $appends = ['modified_rate'];
 
     // Rate types
     const PERCENTAGE_DISCOUNT = 'percentage';
@@ -35,9 +35,9 @@ class Discount extends Model
      *
      * @return string
      */
-    public function getRateAttribute($value)
+    public function getModifiedRateAttribute()
     {
-        return $value / 100;
+        return $this->attributes['rate'] / 100;
     }
 
     /**

@@ -10,7 +10,7 @@ class Tax extends Model
         'name', 'rate', 'rate_type', 'shop_id', 'is_enabled'
     ];
 
-    protected $appends = ['rate'];
+    protected $appends = ['modified_rate'];
 
     // Rate types
     const PERCENTAGE_TAX = 'percentage';
@@ -34,9 +34,9 @@ class Tax extends Model
      *
      * @return string
      */
-    public function getRateAttribute($value)
+    public function getModifiedRateAttribute($value)
     {
-        return $value / 100;
+        return $this->attributes['rate'] / 100;
     }
 
     /**
