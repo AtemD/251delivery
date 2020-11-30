@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Retailer;
 
 use App\Models\Shop;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,14 +29,20 @@ class ShopOrdersController extends Controller
     {
         $this->authorize('view', $shop);
 
-        // $this->authorize('view', Order::class);
-        
-        // Get all the products of this shop
-        // $shop = $shop->orders()->latest()->paginate(30);
+        $this->authorize('view', Order::class);
 
-        return view('dashboard/retailer/orders/index', compact([
-            'shop'
-        ]));
+        $orders = $shop->orders()->with([
+            'orderType',
+            'paymentMethod',
+            'orderStatus',
+            'user',
+            'products'
+        ])->paginate(10);
+
+        return view('dashboard/retailer/orders/index', compact(
+            'shop',
+            'orders',
+        ));
     }
 
     /**
