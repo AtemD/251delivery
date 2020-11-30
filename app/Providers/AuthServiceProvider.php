@@ -19,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\OrderStatus' => 'App\Policies\OrderStatusPolicy',
         'App\Models\ShopAccountStatus' => 'App\Policies\ShopAccountStatusPolicy',
         'App\Models\UserAccountStatus' => 'App\Policies\UserAccountStatusPolicy',
+        'App\Models\Order' => 'App\Policies\OrderPolicy',
         'App\Models\OrderType' => 'App\Policies\OrderTypePolicy',
         'App\Models\ShopType' => 'App\Policies\ShopTypePolicy',
         'App\Models\PaymentMethod' => 'App\Policies\PaymentMethodPolicy',
