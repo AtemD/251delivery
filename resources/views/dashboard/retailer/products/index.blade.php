@@ -35,6 +35,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        
                     
                         <div class="card-tools">
                             <retailer-product-add :shop="{{$shop}}" :sections="{{$sections}}"></retailer-product-add>
@@ -42,22 +44,26 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
+                        
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Availability</th>
                                     <th>Image</th>
                                     <th>Base Price</th>
                                     <th>Taxes</th>
                                     <th>Discounts</th>
                                     <th>Section</th>
-                                    <th>Availability</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($products as $product)
                                     <tr>
                                         <td>{{$product->name}}</td>
+                                        <td>
+                                            <retailer-product-availability-button :shop="{{$shop}}" :product="{{$product}}"></retailer-product-availability-button>
+                                        </td>
                                         <td>
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -68,7 +74,7 @@
                                         <td>{{$product->base_price}} ETB</td>
                                         <td>
                                             @forelse($product->taxes as $tax)
-                                                <li>{{$tax->name}}</li>
+                                                <li>{{$tax->name}} ({{ $tax->modified_rate}}{{ $tax->rate_type == 'percentage' ? '%': '' }})</li>
                                             @empty
                                                 <div class="alert alert-info text-wrap" role="alert">
                                                     No Taxes Assigned
@@ -77,7 +83,7 @@
                                         </td>
                                         <td>
                                             @forelse($product->discounts as $discount)
-                                                <li>{{$discount->name}}</li>
+                                                <li>{{$discount->name}} ({{ $discount->modified_rate}}{{ $discount->rate_type == 'percentage' ? '%': ' ETB' }})</li>
                                             @empty
                                             <div class="alert alert-info text-wrap" role="alert">
                                                 No Discounts Assigned
@@ -86,7 +92,6 @@
                                         </td>
                                         <td>{{$product->section->name}}</td>
 
-                                        <td><span class="badge badge-{{$product->is_available == 1 ? 'primary': 'warning'}}">{{$product->is_available === 1 ? 'available': 'unavailable'}}</span></td>
                                         <td class="project-actions">
                                             <a class="btn btn-info btn-sm" href="{{ route('retailer.products.edit', ['shop'=> $shop, 'product' => $product->id]) }}" role="button">
                                                 <i class="fas fa-pencil-alt">

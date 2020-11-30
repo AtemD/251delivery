@@ -118,7 +118,7 @@
 
                                 <div class="form-group">
                                     <label for="base_price">Base Price</label>
-                                    <input type="text" name="base_price" class="form-control @error('base_price') is-invalid @enderror" value="{{ $product->base_price }}" id="base_price" 
+                                    <input type="text" name="base_price" class="form-control @error('base_price') is-invalid @enderror" value="{{ $product->modified_base_price }}" id="base_price" 
                                         placeholder="e.g 35.00 (without extra fees like tax)" required>
                                     
                                     @error('base_price')
@@ -167,11 +167,14 @@
                                     <p><small class="text-muted">Apply Tax For This Product or (<a href="#">create a tax</a>) to assign to this product</small></p>
                                     <div class="row">
                                         @forelse($shop->taxes as $tax)
-                                            <div class="col-md-4">
+                                            <div class="col-md-12">
                                                 <div class="form-group form-check">
                                                     <input type="checkbox" name="taxes[]" value="{{$tax->id}}" class="form-check-input" id="add-tax-{{$tax->id}}" 
                                                         {{ ($product->taxes->contains($tax->id)) ? ' checked' : '' }}>
-                                                    <label class="form-check-label" for="add-tax-{{$tax->id}}">{{$tax->name}}</label>
+                                                    <label class="form-check-label" for="add-tax-{{$tax->id}}">
+                                                        {{$tax->name}} 
+                                                        ({{ $tax->modified_rate}}{{ $tax->rate_type == 'percentage' ? '%': '' }})
+                                                    </label>
                                                 </div>
                                             </div>
                                         @empty 
@@ -208,11 +211,14 @@
                                     <p><small class="text-muted">Apply Discount For This Product or (<a href="#">create a discount</a>) to assign to this product</small></p>
                                     <div class="row">
                                         @forelse($shop->discounts as $discount)
-                                            <div class="col-md-4">
+                                            <div class="col-md-12">
                                                 <div class="form-group form-check">
                                                     <input type="checkbox" name="discounts[]" value="{{$discount->id}}" class="form-check-input" id="add-discount-{{$discount->id}}" 
                                                         {{ ($product->discounts->contains($discount->id)) ? ' checked' : '' }}>
-                                                    <label class="form-check-label" for="add-discount-{{$discount->id}}">{{$discount->name}}</label>
+                                                    <label class="form-check-label" for="add-discount-{{$discount->id}}">
+                                                        {{$discount->name}}
+                                                        ({{ $discount->modified_rate}}{{ $discount->rate_type == 'percentage' ? '%': ' ETB' }})
+                                                    </label>
                                                 </div>
                                             </div>
                                         @empty 
