@@ -10,11 +10,29 @@
         <div class="sidebar">
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+              <small class="text-white">{{$shop->name}}</small>
+
+                  <div class="custom-control custom-switch">                      
+                    <input name="availability" type="checkbox" class="custom-control-input" disabled
+                      id="availability-{{$shop->slug}}" {{ (bool)$shop->is_available ? 'checked' : ''}}>
+                      
+                      <label class="custom-control-label" for="availability-{{$shop->slug}}">
+                        <a href="{{route('retailer.shops.accounts.edit', ['shop' => $shop])}}" class="{{ (bool)$shop->is_available ? 'text-success' : 'text-danger'}}">
+                          Shop is {{$shop->is_available ? 'Available' : 'unavailable'}}
+                        </a>
+                      </label>
+                  </div>
+
+            </div>
+          </div>
+
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
               <img src="/uploads/images/customer-support.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="#" class="d-block">{{Auth::user()->full_name}}</a>
+              <a href="{{route('retailer.users.edit', ['shop' => $shop, 'user'=>auth()->user()->slug])}}" class="d-block">{{Auth::user()->full_name}}</a>
             </div>
           </div>
 
@@ -33,7 +51,7 @@
               </li>
               <li class="nav-item">
                 <a href="{{ route('retailer.shops') }}" class="nav-link">
-                  <i class="nav-icon fas fa-store-alt"></i>
+                  <i class="nav-icon fas fa-list-alt"></i>
                   <p>
                     My Shops
                   </p>
@@ -53,13 +71,13 @@
                       {{ (request()->routeIs('retailer.orders.new.*') 
                         || request()->routeIs('retailer.orders.in-progress.*') 
                         || request()->routeIs('retailer.orders.ready.*')) ? 'active' : '' }}">
-                      <i class="fas fa-circle nav-icon"></i>
+                      <i class="fas fa-circle nav-icon text-danger"></i>
                       <p>Manage Orders</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('retailer.orders.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.orders.index')) ? 'active' : '' }}">
-                      <i class="fas fa-circle nav-icon"></i>
+                      <i class="fas fa-circle nav-icon text-info"></i>
                       <p>Order History</p>
                     </a>
                   </li>

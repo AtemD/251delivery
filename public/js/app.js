@@ -4207,6 +4207,98 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['shop'],
+  mounted: function mounted() {
+    console.log('Retailer Shoop Availability Component mounted.');
+  },
+  data: function data() {
+    return {
+      form: new Form({
+        availability: this.shop.is_available
+      }),
+      // currentShopState: this.shop.is_available,
+      currentShop: this.shop,
+      shopStatus: this.shop.is_available
+    };
+  },
+  computed: {
+    // updateShopState(){
+    //     this.currentShopState = !this.currentShopState;
+    // },
+    // updateForm(){
+    //     this.form.availability = this.currentShopState;
+    // }
+    updateShopStatus: function updateShopStatus() {
+      this.shopStatus = !this.shopStatus;
+    }
+  },
+  methods: {
+    updateShopAvailability: function updateShopAvailability() {
+      var _this = this;
+
+      // this.updateShopstate;
+      // this.updateForm;
+      // make sure the product belongs to the shop, and the user has permission to update the shop
+      this.form.put('/dashboard/retailer/shops/' + this.currentShop.slug + '/settings/availability').then(function () {
+        _this.updateShopStatus();
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Availability Successfully'
+        }); // setTimeout(()=>{ 
+        //     window.location.reload();
+        // },1000);
+      })["catch"](function () {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong, Try again.!'
+        });
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RetailerTaxAdd.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RetailerTaxAdd.vue?vue&type=script&lang=js& ***!
@@ -50966,6 +51058,126 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=template&id=211ac2be&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=template&id=211ac2be& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _vm.$can("update products")
+      ? _c("div", [
+          _c(
+            "form",
+            {
+              attrs: { role: "form" },
+              on: { click: _vm.updateShopAvailability }
+            },
+            [
+              _c("div", { staticClass: "user-panel mt-3 pb-3 mb-3 d-flex" }, [
+                _c("div", { staticClass: "info" }, [
+                  _c("small", { staticClass: "text-white" }, [
+                    _vm._v(_vm._s(this.shop.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("div", { staticClass: "custom-control custom-switch" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.availability,
+                            expression: "form.availability"
+                          }
+                        ],
+                        staticClass: "custom-control-input",
+                        class: {
+                          "is-invalid": _vm.form.errors.has("availability")
+                        },
+                        attrs: {
+                          name: "availability",
+                          type: "checkbox",
+                          id: "availability-" + this.currentShop.slug
+                        },
+                        domProps: {
+                          checked: Array.isArray(_vm.form.availability)
+                            ? _vm._i(_vm.form.availability, null) > -1
+                            : _vm.form.availability
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.form.availability,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.form,
+                                    "availability",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.form,
+                                    "availability",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.form, "availability", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label text-success",
+                          attrs: {
+                            for: "availability-" + this.currentShop.slug
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "Shop is " +
+                              _vm._s(
+                                this.shopStatus ? "Available" : "unavailable"
+                              )
+                          )
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ]
+          )
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RetailerTaxAdd.vue?vue&type=template&id=f54a539e&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RetailerTaxAdd.vue?vue&type=template&id=f54a539e& ***!
@@ -64196,7 +64408,8 @@ Vue.component('company-user-add', __webpack_require__(/*! ./components/CompanyUs
 
 Vue.component('retailer-shop-add', __webpack_require__(/*! ./components/RetailerShopAdd.vue */ "./resources/js/components/RetailerShopAdd.vue")["default"]); // Vue.component('retailer-shop-delete-component', require('./components/RetailerShopDeleteComponent.vue').default);
 // Vue.component('retailer-shop-edit-component', require('./components/RetailerShopEditComponent.vue').default);
-// Retailer products
+
+Vue.component('retailer-shop-availability-button', __webpack_require__(/*! ./components/RetailerShopAvailabilityButton.vue */ "./resources/js/components/RetailerShopAvailabilityButton.vue")["default"]); // Retailer products
 
 Vue.component('retailer-product-add', __webpack_require__(/*! ./components/RetailerProductAdd.vue */ "./resources/js/components/RetailerProductAdd.vue")["default"]);
 Vue.component('retailer-product-availability-button', __webpack_require__(/*! ./components/RetailerProductAvailabilityButton.vue */ "./resources/js/components/RetailerProductAvailabilityButton.vue")["default"]); // Vue.component('retailer-product-edit', require('./components/RetailerProductEdit.vue').default);
@@ -65994,6 +66207,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RetailerShopAdd_vue_vue_type_template_id_3b2a5cc0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RetailerShopAdd_vue_vue_type_template_id_3b2a5cc0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/RetailerShopAvailabilityButton.vue":
+/*!********************************************************************!*\
+  !*** ./resources/js/components/RetailerShopAvailabilityButton.vue ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _RetailerShopAvailabilityButton_vue_vue_type_template_id_211ac2be___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RetailerShopAvailabilityButton.vue?vue&type=template&id=211ac2be& */ "./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=template&id=211ac2be&");
+/* harmony import */ var _RetailerShopAvailabilityButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RetailerShopAvailabilityButton.vue?vue&type=script&lang=js& */ "./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _RetailerShopAvailabilityButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RetailerShopAvailabilityButton_vue_vue_type_template_id_211ac2be___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RetailerShopAvailabilityButton_vue_vue_type_template_id_211ac2be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/RetailerShopAvailabilityButton.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RetailerShopAvailabilityButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./RetailerShopAvailabilityButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RetailerShopAvailabilityButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=template&id=211ac2be&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=template&id=211ac2be& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RetailerShopAvailabilityButton_vue_vue_type_template_id_211ac2be___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./RetailerShopAvailabilityButton.vue?vue&type=template&id=211ac2be& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RetailerShopAvailabilityButton.vue?vue&type=template&id=211ac2be&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RetailerShopAvailabilityButton_vue_vue_type_template_id_211ac2be___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RetailerShopAvailabilityButton_vue_vue_type_template_id_211ac2be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

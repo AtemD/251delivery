@@ -94,7 +94,7 @@
                               </div>
 
                               <div class="col-md-4 d-flex justify-content-start">
-                                <small class="mb-1">*Expires: </small>{{ $order->created_at->toTimeString()}}
+                                <small class="mb-1 text-danger">*Expires_at: </small>{{ $order->created_at->toTimeString()}}
                               </div>
                             </div>
                           </div>
@@ -147,7 +147,7 @@
                                   {{$product->name}}
                                 </div>
                                 <div class="col-4 px-0">
-                                  ETB {{$product->pivot->amount}} 
+                                  ETB {{$product->modified_amount}} 
                                 </div>
                               </div>
                               @endforeach

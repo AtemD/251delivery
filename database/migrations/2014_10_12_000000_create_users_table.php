@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
                 ->on('user_account_statuses')
                 ->onDelete('cascade');
 
-            $table->bigInteger('status_by')->nullable()->unsigned();
+            $table->bigInteger('status_by')->unsigned()->nullable();
             $table->foreign('status_by')
                 ->references('id')
                 ->on('users')

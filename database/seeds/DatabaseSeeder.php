@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersTableSeeder::class);
 
-        
+        $this->call(CurrenciesTableSeeder::class);
         $this->call(ShopAccountStatusesTableSeeder::class);
         $this->call(OrderStatusesTableSeeder::class);
         $this->call(UserAccountStatusesTableSeeder::class);
@@ -51,5 +51,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ShopLocationsTableSeeder::class);
         $this->call(UserLocationsTableSeeder::class);
+
+        $this->call(EWalletAccountStatusesTableSeeder::class);
+        $this->call(EWalletAccountsTableSeeder::class);
     }
 }

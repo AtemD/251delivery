@@ -30,12 +30,24 @@ class ShopAvailabilityStatusController extends Controller
         $this->authorize('update', $shop);
 
         $this->validate($request,[
-            'availability_status' => 'nullable',
+            'availability' => 'nullable',
         ]);
 
-        $shop->is_available = (bool) $request->availability_status;
-        $shop->save();
+        
+        $shop->update([
+            'is_available' => (bool) $request->availability,
+        ]);
+
+        // $shop->is_available = (bool) $request->availability;
+        // $shop->save();
+
+        // dd($request->toArray());
+        if (request()->expectsJson()) {
+            return response([
+                'code' => 200,
+                'status' => 'Shop Availability Updated Successfully']);
+        }
     
-        return redirect()->route('retailer.shops.accounts.index', ['shop' => $shop])->with('success', 'Shop Availability Status Updated Successfully');
+        return back()->with('success', 'Shop Availability Status Updated Successfully');
     }
 }

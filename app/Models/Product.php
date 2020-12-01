@@ -16,7 +16,7 @@ class Product extends Model
 
     const PRODUCT_DEFAULT_IMAGE = 'product_default.jpg';
 
-    protected $appends = ['status', 'image_path', 'short_description', 'modified_base_price'];
+    protected $appends = ['status', 'image_path', 'short_description', 'modified_base_price', 'modified_amount'];
 
     public function shop()
     {
@@ -57,6 +57,11 @@ class Product extends Model
     public function getModifiedBasePriceAttribute()
     {
         return $this->attributes['base_price'] / 100;
+    }
+
+    public function getModifiedAmountAttribute($value)
+    {
+        return $this->pivot->amount / 100;
     }
 
     /**
