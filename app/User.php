@@ -96,6 +96,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\UserLocation');
     }
 
+    public function eWalletAccount()
+    {
+        return $this->hasOne('App\Models\EWalletAccount');
+    }
+
     public function getHomeAttribute(){
         $permissions = Auth::user()->getAllPermissions()->pluck('name');
 

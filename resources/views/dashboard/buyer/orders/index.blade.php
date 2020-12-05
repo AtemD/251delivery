@@ -88,7 +88,7 @@
                                     <div class="alert alert-info alert-dismissible">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                         <h5><i class="icon fas fa-info"></i> You haven't yet place any Order!</h5>
-                                        <small>Please (click here) to make your first order</small>
+                                        <small>Please <a href="/">(click here)</a> to make your first order</small>
                                     </div>
                                     </div>
                                 </div>

@@ -31,6 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\ShopLocation' => 'App\Policies\ShopLocationPolicy',
         'App\Models\Section' => 'App\Policies\SectionPolicy',
         'App\Models\Permission' => 'App\Policies\PermissionPolicy',
+        'App\Models\EWalletAccount' => 'App\Policies\EWalletAccountPolicy',
         'App\User' => 'App\Policies\UserPolicy',
     ];
 

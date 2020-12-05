@@ -40,6 +40,14 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{ route('company.e-wallet-accounts.index') }}" class="nav-link {{ (request()->routeIs('company.e-wallet-accounts.*')) ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-wallet"></i>
+                  <p>
+                    E-Wallets
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ route('company.orders.index') }}" class="nav-link {{ (request()->routeIs('company.orders.*')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
@@ -179,6 +187,17 @@
                     </ul>
                   </li>
                 </ul>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                  <i class="nav-icon fas fa-sign-out-alt"></i>
+                  <p>
+                    {{ __('Logout') }}
+                  </p>
+                </a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
               </li>
 
             </ul>

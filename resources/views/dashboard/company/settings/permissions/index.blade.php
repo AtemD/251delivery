@@ -38,10 +38,7 @@
                         </div>
                     
                         <div class="card-tools">
-                            <button href="#add-permission" class="btn btn-primary" data-toggle="modal" data-target="#add-permission">
-                                <i class="fas fa-plus xs"></i>
-                                Add Permission
-                            </button>
+                            <company-permission-add></company-permission-add>
                         </div>
                     </div>
                     <!-- /.card-header -->

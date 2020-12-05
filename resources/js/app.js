@@ -88,6 +88,8 @@ Vue.component('company-payment-method-add', require('./components/CompanyPayment
 Vue.component('company-shop-type-add', require('./components/CompanyShopTypeAdd.vue').default);
 // company roles
 Vue.component('company-role-add', require('./components/CompanyRoleAdd.vue').default);
+// company permissions
+Vue.component('company-permission-add', require('./components/CompanyPermissionAdd.vue').default);
 // company countries
 Vue.component('company-country-add', require('./components/CompanyCountryAdd.vue').default);
 // company regions

@@ -81,6 +81,27 @@
                 </ul>
               </li>
 
+              <li class="nav-item">
+                <a href="{{ route('buyers.e-wallet-accounts.index') }}" class="nav-link {{ (request()->routeIs('buyers.e-wallet-accounts.*')) ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-wallet"></i>
+                  <p>
+                    E-Wallet
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                  <i class="nav-icon fas fa-sign-out-alt"></i>
+                  <p>
+                    {{ __('Logout') }}
+                  </p>
+                </a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
+              </li>
+
             </ul>
           </nav>
           <!-- /.sidebar-menu -->

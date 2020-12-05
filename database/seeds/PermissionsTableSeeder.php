@@ -14,9 +14,7 @@ class PermissionsTableSeeder extends Seeder
     {
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
-
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-
         DB::table('permissions')->truncate();
 
         // Access dashboard permissions
@@ -25,6 +23,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => Permission::ACCESS_RIDER_DASHBOARD]);
         
         // CRUD Permissions
+
         Permission::create(['name' => Permission::CREATE_PRODUCTS]);
         Permission::create(['name' => Permission::UPDATE_PRODUCTS]);
         Permission::create(['name' => Permission::DELETE_PRODUCTS]);
@@ -124,6 +123,11 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => Permission::UPDATE_SHOP_LOCATIONS]);
         Permission::create(['name' => Permission::DELETE_SHOP_LOCATIONS]);
         Permission::create(['name' => Permission::VIEW_SHOP_LOCATIONS]);
+        
+        Permission::create(['name' => Permission::CREATE_E_WALLET_ACCOUNTS]);
+        Permission::create(['name' => Permission::UPDATE_E_WALLET_ACCOUNTS]);
+        Permission::create(['name' => Permission::DELETE_E_WALLET_ACCOUNTS]);
+        Permission::create(['name' => Permission::VIEW_E_WALLET_ACCOUNTS]);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

@@ -42,7 +42,7 @@ class EWalletAccountsTableSeeder extends Seeder
             factory(\App\Models\EWalletAccount::class)->create([
                 'number' => \Carbon\Carbon::now()->timestamp . $normal_user->id,
                 'user_id' => $normal_user->id,
-                'balance' => $faker->randomElement([mt_rand(1, 100), mt_rand(200, 1000), mt_rand(60, 1000)]),
+                'balance' => $faker->randomElement([mt_rand(0, 100), mt_rand(200, 1000), mt_rand(60, 1000)]), // in cents
                 'is_active' => rand(0,1) == 1, 
                 'e_wallet_account_status_id' => $random_e_wallet_account_status->id,
                 'status_by' => $random_admin_user->id,

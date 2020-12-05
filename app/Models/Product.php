@@ -61,7 +61,11 @@ class Product extends Model
 
     public function getModifiedAmountAttribute($value)
     {
-        return $this->pivot->amount / 100;
+        if(!empty($this->pivot->amount)){
+            return $this->pivot->amount / 100;
+        }
+
+        return $this->amount / 100;
     }
 
     /**

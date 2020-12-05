@@ -20,8 +20,9 @@ class RolesTableSeeder extends Seeder
 
         DB::table('roles')->truncate();
 
-        $retailer_role = Role::create(['name' => Role::RETAILER]);
+        $super_admin_role = Role::create(['name' => Role::SUPER_ADMINISTRATOR]);
         $admin_role = Role::create(['name' => Role::ADMINISTRATOR]);
+        $retailer_role = Role::create(['name' => Role::RETAILER]);
         $rider_role = Role::create(['name' => Role::RIDER]);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

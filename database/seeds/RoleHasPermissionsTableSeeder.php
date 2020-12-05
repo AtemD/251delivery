@@ -20,10 +20,23 @@ class RoleHasPermissionsTableSeeder extends Seeder
 
         DB::table('role_has_permissions')->truncate();
 
-        $retailer_role = Role::where('name', Role::RETAILER)->first();
+        $super_admin_role = Role::where('name', Role::SUPER_ADMINISTRATOR)->first();
         $admin_role = Role::where('name', Role::ADMINISTRATOR)->first();
+        $retailer_role = Role::where('name', Role::RETAILER)->first();
         $all_permissions = Permission::all();
 
+        // Give the super administrator all permissions
+        $super_admin_role->syncPermissions($all_permissions);
+
+        // Give the admin all or some of the permissions
+        $admin_role->syncPermissions($all_permissions);
+        // But revoke some permissions for this admin user
+        $admin_role->revokePermissionTo(Permission::CREATE_E_WALLET_ACCOUNTS);
+        $admin_role->revokePermissionTo(Permission::UPDATE_E_WALLET_ACCOUNTS);
+        $admin_role->revokePermissionTo(Permission::VIEW_E_WALLET_ACCOUNTS);
+        $admin_role->revokePermissionTo(Permission::DELETE_E_WALLET_ACCOUNTS);
+
+        // Give the retailer role some permissions
         $retailer_role->syncPermissions([
             Permission::ACCESS_RETAILER_DASHBOARD,
 
@@ -127,8 +140,6 @@ class RoleHasPermissionsTableSeeder extends Seeder
         //    Permission::DELETE_ROLES,
            Permission::VIEW_ROLES,
         ]);
-        
-        $admin_role->syncPermissions($all_permissions);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

@@ -23,16 +23,16 @@ class CreateEWalletAccountsTable extends Migration
                     ->on('users')
                     ->onDelete('cascade');
 
-            $table->bigInteger('balance')->unsigned(); // based on deposits and withdrawals
+            $table->bigInteger('balance')->unsigned()->default(0); // based on deposits and withdrawals
             $table->boolean('is_active')->default(0);
 
-            $table->tinyInteger('e_wallet_account_status_id')->unsigned();
+            $table->tinyInteger('e_wallet_account_status_id')->unsigned()->nullable();;
                 $table->foreign('e_wallet_account_status_id')
                     ->references('id')
                     ->on('e_wallet_account_statuses')
                     ->onDelete('cascade');
 
-            $table->bigInteger('status_by')->unsigned();
+            $table->bigInteger('status_by')->unsigned()->nullable();;
                 $table->foreign('status_by')
                     ->references('id')
                     ->on('users')

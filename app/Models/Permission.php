@@ -14,6 +14,12 @@ class Permission extends SpatiePermission
     const DELETE_ROLES = 'delete roles';
     const VIEW_ROLES = 'view roles';
 
+    // E-Wallet Permissions
+    const CREATE_E_WALLET_ACCOUNTS = 'create e-wallet accounts';
+    const UPDATE_E_WALLET_ACCOUNTS = 'update e-wallet accounts';
+    const DELETE_E_WALLET_ACCOUNTS = 'delete e-wallet accounts';
+    const VIEW_E_WALLET_ACCOUNTS = 'view e-wallet accounts';
+
     // Permissions Permissions
     const CREATE_PERMISSIONS = 'create permissions';
     const UPDATE_PERMISSIONS = 'update permissions';

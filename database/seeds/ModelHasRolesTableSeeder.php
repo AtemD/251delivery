@@ -14,6 +14,14 @@ class ModelHasRolesTableSeeder extends Seeder
      */
     public function run()
     {
+        // Reset cached roles and permissions
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('model_has_roles')->truncate();
+
+        // $super_admin = User::findOrFail(1);
+        // $super_admin->assignRole(Role::SUPER_ADMINISTRATOR);
+
         $retailers = User::limit(45)->get();
 
         $verified_status = UserAccountStatus::where('name', 'verified')->first();
@@ -33,5 +41,17 @@ class ModelHasRolesTableSeeder extends Seeder
             ]);
             $admin->assignRole(Role::ADMINISTRATOR);
         });
+
+        // Create one user to be give super admin role
+        factory(User::class)->create([
+            'first_name' => 'Daniel',
+            'last_name' => 'Monday'
+        ]);
+
+        // Give one user super admin role.
+        $user = User::where('last_name', 'Monday')->firstOrFail();
+        $user->assignRole(Role::SUPER_ADMINISTRATOR);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

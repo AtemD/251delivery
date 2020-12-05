@@ -52,6 +52,11 @@ Route::get('dashboard/buyer/settings/account/edit', 'Buyer\AccountsController@ed
 Route::put('dashboard/buyer/settings/account', 'Buyer\AccountsController@update')
 ->name('buyers.accounts.update');
 
+// Buyer E-Wallet
+Route::get('dashboard/buyer/e-wallet-account', 'Buyer\EWalletAccountsController@index')
+->name('buyers.e-wallet-accounts.index');
+
+
 // Buyer Orders
 Route::get('dashboard/buyer/orders', 'Buyer\OrdersController@index')
 ->name('buyers.orders.index');
@@ -76,6 +81,31 @@ Route::put('/dashboard/company/users/{user}', 'Company\UsersController@update')
 ->name('company.users.update');
 Route::delete('/dashboard/company/users/{user}', 'Company\UsersController@destroy')
 ->name('company.users.destroy');
+
+
+// Company user E-Wallet accounts
+Route::get('dashboard/compapny/e-wallet-accounts', 'Company\EWalletAccountsController@index')
+->name('company.e-wallet-accounts.index');
+Route::post('/dashboard/company/e-wallet-accounts', 'Company\EWalletAccountsController@store')
+->name('company.e-wallet-accounts.store');
+Route::get('/dashboard/company/e-wallet-accounts/{e_wallet_account}/edit', 'Company\EWalletAccountsController@edit')
+->name('company.e-wallet-accounts.edit');
+Route::put('/dashboard/company/e-wallet-accounts/{e_wallet_account}', 'Company\EWalletAccountsController@update')
+->name('company.e-wallet-accounts.update');
+Route::delete('/dashboard/company/e-wallet-accounts/{e_wallet_account}', 'Company\EWalletAccountsController@destroy')
+->name('company.e-wallet-accounts.destroy');
+
+// Company user E-Wallet deposits
+Route::put('/dashboard/company/e-wallet-accounts/{e_wallet_account}/deposits', 'Company\EWalletAccountDepositsController@update')
+->name('company.e-wallet-accounts.deposits.update');
+// Company user E-Wallet withdrawals
+Route::put('/dashboard/company/e-wallet-accounts/{e_wallet_account}/withdrawals', 'Company\EWalletAccountWithdrawalsController@update')
+->name('company.e-wallet-accounts.withdrawals.update');
+// Company E-wallet account status
+Route::put('/dashboard/company/e-wallet-accounts/{e_wallet_account}/status', 'Company\EWalletAccountStatusController@update')
+->name('company.e-wallet-account-statuses.update');
+
+
 // Company user account statuses
 Route::put('/dashboard/company/users/{user}/account-status', 'Company\UserAccountStatusController@update')
 ->name('company.users.account-statuses.update');
@@ -248,7 +278,7 @@ Route::get('/dashboard/company/settings/access-control-levels/permissions', 'Com
 ->name('company.permissions.index');
 Route::post('/dashboard/company/settings/access-control-levels/permissions', 'Company\PermissionsController@store')
 ->name('company.permissions.store');
-Route::get('/dashboard/company/settings/access-control-levels/permissions/{permission}/edit', 'Company\\PermissionsController@edit')
+Route::get('/dashboard/company/settings/access-control-levels/permissions/{permission}/edit', 'Company\PermissionsController@edit')
 ->name('company.permissions.edit');
 Route::put('/dashboard/company/settings/access-control-levels/permissions/{permission}', 'Company\PermissionsController@update')
 ->name('company.permissions.update');

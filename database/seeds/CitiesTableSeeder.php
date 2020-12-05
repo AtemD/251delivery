@@ -13,14 +13,20 @@ class CitiesTableSeeder extends Seeder
      */
     public function run()
     {
+        
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('cities')->truncate();
+
         // Retrieve all the regions
         $regions = Region::all();
 
         // Foreach region assign several regions
         $regions->each(function($region) {
-            $region->cities()->saveMany(factory(City::class, mt_rand(2, 6))->make([
+            $region->cities()->saveMany(factory(City::class, mt_rand(2, 3))->make([
                 'region_id' => $region->id,
             ]));
         });
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

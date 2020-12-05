@@ -90,55 +90,146 @@
                         <!-- /.card -->
                     </form>
                 </div>
+
                 <div class="col-md-4">
-                    <!-- form start -->
-                    <form role="form" method="POST" action="{{ route('company.users.account-statuses.update', ['user' => $user]) }}">
-                        @method('PUT')
-                        @csrf 
-                        <!-- general form elements -->
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h3 class="card-title">Edit User Account Status</h3>
-                            </div>
-                            <!-- /.card-header -->
-
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="user_account_status">Account Status</label>
-                                        <select name="user_account_status" class="form-control @error('user_account_status') is-invalid @enderror" id="user_account_status"
-                                            >
-                                            <option value="">...Select Account Status</option>
-                                            @forelse($user_account_statuses as $account_status)
-                                                <option value="{{$account_status->id}}" 
-                                                    @if(!empty($user->userAccountStatus->id)) 
-                                                    {{ $account_status->id == $user->userAccountStatus->id ? 'selected' : ''}}
-                                                    @endif
-                                                >
-                                                {{ $account_status->name }}
-                                                </option>
-                                            @empty 
-                                                <div class="alert alert-warning" role="alert">
-                                                    No user account status created, please create one first!
-                                                </div>
-                                            @endforelse
-                                        </select>
-
-                                        @error('user_account_status')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- form start -->
+                            <form role="form" method="POST" action="{{ route('company.users.account-statuses.update', ['user' => $user]) }}">
+                                @method('PUT')
+                                @csrf 
+                                <!-- general form elements -->
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Edit User Account Status</h3>
                                     </div>
+                                    <!-- /.card-header -->
+        
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="user_account_status">Account Status</label>
+                                                <select name="user_account_status" class="form-control @error('user_account_status') is-invalid @enderror" id="user_account_status"
+                                                    >
+                                                    <option value="">...Select Account Status</option>
+                                                    @forelse($user_account_statuses as $account_status)
+                                                        <option value="{{$account_status->id}}" 
+                                                            @if(!empty($user->userAccountStatus->id)) 
+                                                            {{ $account_status->id == $user->userAccountStatus->id ? 'selected' : ''}}
+                                                            @endif
+                                                        >
+                                                        {{ $account_status->name }}
+                                                        </option>
+                                                    @empty 
+                                                        <div class="alert alert-warning" role="alert">
+                                                            No user account status created, please create one first!
+                                                        </div>
+                                                    @endforelse
+                                                </select>
+        
+                                                @error('user_account_status')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Update User Account Status</button>
+                                        </div>
                                 </div>
-                                <!-- /.card-body -->
-                        
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update User Account Status</button>
-                                </div>
+                                <!-- /.card -->
+                            </form>
                         </div>
-                        <!-- /.card -->
-                    </form>
+                        <div class="col-md-12">
+                            <!-- form start -->
+                            <form role="form" method="POST" action="{{ route('company.e-wallet-accounts.store') }}">
+                                @csrf 
+                                <!-- general form elements -->
+                                <div class="card card-info card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Edit User E-Wallet Account</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+        
+                                        
+                                    @if(empty($user->EWalletAccount))
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <div class="alert alert-info alert-dismissible">
+                                                    <h5><i class="icon fas fa-info"></i> User has no E-wallet Account!</h5>
+                                                    Click on create button to create an account for this user.
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input type="hidden" value="{{ $user->slug }}" id="user" name="user" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-success">Create E-Wallet Account</button>
+                                        </div>
+                                    @else
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <div class="text-muted">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p class="text-sm">E-Wallet Account No.:
+                                                                <b class="d-block">{{$user->EWalletAccount->number}}</b>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p class="text-sm">Account Balance:
+                                                                <b class="d-block">{{$user->EWalletAccount->modified_balance}} ETB</b>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p class="text-sm">Account State:
+                                                                <b class="d-block">
+                                                                    <span class="badge badge-{{$user->EWalletAccount->is_active ? 'primary': 'secondary'}}">
+                                                                        {{$user->EWalletAccount->is_active ? 'active': 'inactive'}}
+                                                                    </span>
+                                                                </b>
+                                                            </p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-6">
+                                                            <p class="text-sm">Account Status:
+                                                                <b class="d-block">
+                                                                    @if(!empty($user->EWalletAccount->EWalletAccountStatus))
+                                                                        <span class="badge badge-{{$user->EWalletAccount->EWalletAccountStatus->color}}">
+                                                                            {{$user->EWalletAccount->EWalletAccountStatus->name}}
+                                                                        </span>
+                                                                    @else 
+                                                                        <span class="badge badge-warning">
+                                                                            NULL
+                                                                        </span>
+                                                                    @endif
+                                                                </b>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+                                            <a class="btn btn-info" href="{{ route('company.e-wallet-accounts.edit', ['e_wallet_account'=> $user->EWalletAccount->number]) }}">
+                                                View E-Wallet Account
+                                            </a>
+                                        </div>
+                                    @endif
+                                </div>
+                                <!-- /.card -->
+                            </form>
+                        </div>
+
+                    </div>
                 </div>
+
                 <div class="col-md-4">
                     <!-- form start -->
                     <form role="form" method="POST" action="{{ route('company.users.roles.update', ['user' => $user]) }}">

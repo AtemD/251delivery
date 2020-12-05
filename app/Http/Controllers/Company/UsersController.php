@@ -82,7 +82,8 @@ class UsersController extends Controller
     {
         $this->authorize('update', User::class);
 
-        $user = $user->load(['userAccountStatus', 'roles']);
+        $user = $user->load(['userAccountStatus', 'roles', 'EWalletAccount.EWalletAccountStatus']);
+        
         $roles = Role::all();
         $user_account_statuses = UserAccountStatus::all();
         
