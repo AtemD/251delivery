@@ -19,7 +19,7 @@ class ShopPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->can(Permission::VIEW_SHOPS);
     }
 
     /**
@@ -54,8 +54,16 @@ class ShopPolicy
      */
     public function update(User $user, Shop $shop)
     {
-        // dd($user->can('update shops'));
-        return $user->can(Permission::UPDATE_SHOPS) && $user->shops->contains($shop->id);
+        if(!$user->can(Permission::UPDATE_SHOPS)) return false;
+
+        // if the user has permission to access admin dashboard,
+        // they do not need to own the shop
+        if($user->can(Permission::ACCESS_ADMINISTRATOR_DASHBOARD)
+            || $user->shops->contains($shop->id)){
+                return true;
+        }
+
+        // return $user->can(Permission::UPDATE_SHOPS) && $user->shops->contains($shop->id);
     }
 
     /**

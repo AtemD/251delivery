@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Company;
 
 use App\Models\Shop;
 use App\Models\ShopType;
-use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Models\ShopAccountStatus;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class ShopsController extends Controller
 {
@@ -29,13 +27,13 @@ class ShopsController extends Controller
      */
     public function index()
     {
-        // if(!Auth::user()->hasPermissionTo(Permission::VIEW_SHOPS)) return view('errors.403');
+        $this->authorize('viewAny', Shop::class);
 
         $shops = Shop::with([
             'shopType',
             'shopAccountStatus',
         ])->paginate(45);
-        // dd($shops->toArray());
+
         return view('dashboard/company/shops/index', compact([
             'shops',
         ]));
@@ -65,44 +63,68 @@ class ShopsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Shop  $shop)
     {
-        //
+        // Here we show all the details of the shop
+        // Summary of all shop products, orders, statuses, sections, users, etc
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Shop $shop)
     {
-        //
+        $this->authorize('update', $shop);
+
+        $shop = $shop->load([
+            'shopType',
+            'shopAccountStatus'
+        ]);
+
+        $shop_account_statuses = ShopAccountStatus::all();
+
+        return view('dashboard/company/shops/edit', compact([
+            'shop',
+            'shop_account_statuses'
+        ]));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Shop  $shop)
     {
-        $this->authorize('update', Shop::class);
+        // here we update the account status of the shop
+        $this->authorize('update', $shop);
+        
+        $this->validate($request,[
+            'shop_account_status' => 'required|integer|exists:shop_account_statuses,id',
+        ]);
+
+        $shop->update([
+            'shop_account_status_id' => $request->shop_account_status,
+        ]);
+
+        return back()->with('success', 'Shop Account Status updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Shop  $shop)
     {
         $this->authorize('delete', Shop::class);
     }

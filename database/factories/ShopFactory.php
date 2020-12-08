@@ -33,7 +33,8 @@ $factory->define(Shop::class, function (Faker $faker) {
 			'banner_image_12.jpg',
 			'banner_image_13.jpg',
 		]),
-		'average_preparation_time' => $faker->randomElement(['15-20', '20-30', '30-40', '40-50']),
+		'min_product_preparation_time' => $faker->randomElement([15, 20, 30]),
+		'max_product_preparation_time' => $faker->randomElement([40, 50, 60, 80]),
 		'shop_account_status_id' => function() {
     		return factory('App\Models\ShopAccountStatus')->create()->id;
     	},

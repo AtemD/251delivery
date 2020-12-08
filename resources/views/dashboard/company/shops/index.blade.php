@@ -48,15 +48,15 @@
                     <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Contact</th>
-                            <th>Type</th>
-                            <th>Account Status</th>
-                            <th>Availablity</th>
-                            <th>Actions</th>
-                        </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Type</th>
+                                <th>Account Status</th>
+                                <th>Availablity</th>
+                                <th>Actions</th>
+                            </tr>
                         </thead>
                         <tbody>
                             @forelse($shops as $shop)
@@ -71,14 +71,15 @@
                                     <td><span class="badge badge-{{$shop->shopAccountStatus->color}}">{{$shop->shopAccountStatus->name}}</span></td>
                                     <td><span class="badge badge-{{$shop->is_available == 1 ? 'primary': 'secondary'}}">{{$shop->is_available == 1 ? 'Available': 'Unavailable'}}</span></td>
                                     <td class="project-actions">
-                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-shop-{{$shop->id}}">
+                                        <a class="btn btn-info btn-sm" href="{{ route('company.shops.edit', ['shop' => $shop->slug]) }}">
                                             <i class="fas fa-pencil-alt">
                                             </i>
-                                        </button>
+                                        </a>
                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-shop-{{$shop->id}}">
                                             <i class="fas fa-trash">
                                             </i>
                                         </button>
+
                                     </td>
                                 </tr>
 

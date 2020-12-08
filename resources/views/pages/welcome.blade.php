@@ -19,12 +19,12 @@
                                     <div class="col-md-6">
                                         <div class="form-group{{ $errors->has('city_name') ? ' has-error' : '' }}">
                                             <label class="sr-only" for="city">Select your city</label>
-                                            <select class="custom-select form-control mb-2 mr-sm-2" id="city" name="city_name" required>
+                                            <select class="custom-select form-control mb-2 mr-sm-2" id="city" name="city" required>
                                                 <option value="" selected>Select your city...</option>
                                                 @forelse($cities as $city)
-                                                    <option value="{{$city->name}}" 
-                                                        @if(session()->has('city_name'))
-                                                            {{ session()->get('city_name') == $city->name ? 'selected' : ''}}    
+                                                    <option value="{{$city->id}}" 
+                                                        @if(session()->has('city'))
+                                                            {{ session()->get('city') == $city->id ? 'selected' : ''}}    
                                                         @endif>
                                                         {{$city->name}}
                                                     </option>
@@ -47,9 +47,9 @@
                                             <select class="custom-select form-control mb-2 mr-sm-2" id="order_type" name="order_type" required>
                                                 <option value="" selected>Select order type...</option>
                                                 @forelse($order_types as $order_type)
-                                                    <option value="{{$order_type->name}}"
-                                                        @if(session()->has('order_type_name'))
-                                                            {{ session()->get('order_type_name') == $order_type->name ? 'selected' : ''}}    
+                                                    <option value="{{$order_type->id}}"
+                                                        @if(session()->has('order_type'))
+                                                            {{ session()->get('order_type') == $order_type->id ? 'selected' : ''}}    
                                                         @endif
                                                         >
                                                         {{$order_type->name}}

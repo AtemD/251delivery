@@ -3511,7 +3511,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       productQuantity: 1,
-      productTotalPrice: this.product.base_price,
+      productTotalPrice: this.product.modified_base_price,
       productStatus: this.product.status,
       addingToCart: false
     };
@@ -3543,10 +3543,10 @@ __webpack_require__.r(__webpack_exports__);
 
       if (matchingProductIndex > -1) {
         this.productQuantity = this.cart[matchingProductIndex].qty;
-        this.productTotalPrice = this.product.base_price * this.productQuantity;
+        this.productTotalPrice = this.product.modified_base_price * this.productQuantity;
       } else {
         this.productQuantity = 1;
-        this.productTotalPrice = this.product.base_price;
+        this.productTotalPrice = this.product.modified_base_price;
       }
     },
     findMatchingProductIndex: function findMatchingProductIndex() {

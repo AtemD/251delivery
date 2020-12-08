@@ -17,6 +17,6 @@ class Cuisine extends Model
 
     public function shops()
     {
-        return $this->belongsToMany('App\Models\Shop', 'shop_has_cuisine', 'cuisine_id', 'shop_id');
+        return $this->belongsToMany('App\Models\Shop', 'shop_has_cuisines', 'cuisine_id', 'shop_id');
     }
 }

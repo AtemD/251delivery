@@ -19,6 +19,11 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
+
+
+// Route::get('/shops/filter-results', 'ShopSearchController@filter')
+// ->name('shops.filters');
+
 // Shops Routes
 Route::get('/shops', 'ShopsController@index')
     ->name('shops.index');
@@ -38,6 +43,11 @@ Route::post('/place-order', 'PlaceOrderController@store')
 // Thank you
 Route::get('/thank-you', 'ThankYouController@index')
 ->name('thank-you.index');
+
+
+
+
+
 
 // BUYER ROUTES
 
@@ -69,6 +79,14 @@ Route::get('/dashboard/company/home', 'Company\HomeController@index')
 // Company Shops
 Route::get('/dashboard/company/shops', 'Company\ShopsController@index')
 ->name('company.shops.index');
+Route::post('/dashboard/company/shops', 'Company\ShopsController@store')
+->name('company.shops.store');
+Route::get('/dashboard/company/shops/{shop}/edit', 'Company\ShopsController@edit')
+->name('company.shops.edit');
+Route::put('/dashboard/company/shops/{shop}', 'Company\ShopsController@update')
+->name('company.shops.update');
+Route::delete('/dashboard/company/shops/{shop}', 'Company\ShopsController@destroy')
+->name('company.shops.destroy');
 
 // Company Users
 Route::get('/dashboard/company/users', 'Company\UsersController@index')

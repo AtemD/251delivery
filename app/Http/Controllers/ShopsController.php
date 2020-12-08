@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Shop;
 use App\Models\City;
+use App\Models\Shop;
+use App\Models\Cuisine;
+use App\Models\OrderType;
+use App\Search\ShopSearch;
 use Illuminate\Http\Request;
 
 class ShopsController extends Controller
@@ -15,33 +18,52 @@ class ShopsController extends Controller
      */
     public function index(Request $request)
     {
-		$this->validate($request, array(
-            'city_name' => 'required|exists:cities,name',
-            'order_type' => 'required|exists:order_types,name'
-        ));
+        if(empty($request->city) || empty($request->order_type)) {
+            return redirect()->route('pages.welcome');
+        }
+        // You can validate the request, to display any errors in the front end to the user.
+        // $reqeust->validate([
 
-        // Store order type and city in the session
-        session()->put('order_type_name', $request->order_type);
-        session()->put('city_name', $request->city_name);
-
-        // Retrive the city from the database
-		$city_name = $request->input('city_name');
-        $city_id = City::where('name', '=', $city_name)->pluck('id')->first();
+        // ]);
 
         // Get all shops for the specific city.
         // Shop account status should be verified and is_available should be true.
-        $shops = Shop::whereHas('shopLocation', function($query) use($city_id){
-                    $query->where('city_id', '=', $city_id);
-                })->with([
-                    'cuisines',
-                    'shopType'
-                ]);
+        // $shops = Shop::whereHas('shopLocation', function($query) use($city_id){
+        //             $query->where('city_id', '=', $city_id);
+        //         })->with([
+        //             'cuisines',
+        //             'shopType'
+        //         ]);
 
-        $shops = $shops->paginate(15)->appends([
-            'city_name' => $request->input('city_name'),
-        ]);
+        /**
+         * city_name, order_type, shop_type, shop_name, 
+         * DEFAULT FILTERS for this page: is_available=>true, shop_account_status=>verified
+         */
+        // if you hit this controller then you are a normal user,
+        // store default filters in the session,
+        // apply_normal_user_default_filters => true or false
+        // apply_retailer_user_default_filters
+        // apply_driver_user_filters
 
-		return view('shops.index', compact('shops'));
+        // Apply shop local scope (e.g retrieve verified shops based on the given filters) here or with the filters
+        $shops = ShopSearch::apply($request);
+        $shops = $shops->status(Shop::VERIFIED_SHOP)->with([
+            'cuisines',
+            'shopType'
+        ])->simplePaginate(35);
+
+        // dd($shops->toArray());
+
+        $cuisines = Cuisine::all();
+        $cities = City::all();
+        $order_types = OrderType::all();
+
+		return view('shops.index', compact([
+            'shops',
+            'cuisines',
+            'cities',
+            'order_types'
+        ]));
     }
 
     /**

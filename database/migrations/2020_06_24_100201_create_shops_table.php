@@ -29,8 +29,9 @@ class CreateShopsTable extends Migration
                     ->onDelete('cascade');
 
             $table->string('banner_image'); // can be nullable()
-            $table->string('logo_image'); // can be nullable()
-            $table->string('average_preparation_time');
+            $table->string('logo_image')->nullable(); // can be nullable()
+            $table->tinyInteger('min_product_preparation_time');
+            $table->tinyInteger('max_product_preparation_time');
             $table->boolean('is_available')->default(0);
 
             $table->tinyInteger('shop_account_status_id')->nullable()->unsigned();

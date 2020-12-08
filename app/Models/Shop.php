@@ -107,7 +107,7 @@ class Shop extends Model
 
     public function cuisines()
     {
-        return $this->belongsToMany('App\Models\Cuisine', 'shop_has_cuisine', 'shop_id', 'cuisine_id');
+        return $this->belongsToMany('App\Models\Cuisine', 'shop_has_cuisines', 'shop_id', 'cuisine_id');
     }
 
     public function products()
@@ -153,6 +153,22 @@ class Shop extends Model
     public function users()
     {
         return $this->belongsToMany('App\User', 'shop_has_users', 'shop_id', 'user_id');
+    }
+
+    /**
+     * Scope a query to only include shops of a given status.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $shopStatus
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeStatus($query, $shopStatus)
+    {
+        // dd('hit');
+        return $query->whereHas('shopAccountStatus', function($query) use($shopStatus) {
+                    $query->where('name', $shopStatus);
+                    // $query->where('id', 1);
+                });
     }
 
 }
