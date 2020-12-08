@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\Models\City;
 use App\Models\Shop;
 use App\Models\ShopType;
+use App\Search\ShopSearch;
 use Illuminate\Http\Request;
 use App\Models\ShopAccountStatus;
 use App\Http\Controllers\Controller;
@@ -25,17 +27,31 @@ class ShopsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->toArray());
+
         $this->authorize('viewAny', Shop::class);
 
-        $shops = Shop::with([
+        // Apply the request shop filters
+        $shops = ShopSearch::apply($request);
+
+        $shops = $shops->with([
             'shopType',
             'shopAccountStatus',
-        ])->paginate(45);
+        ])->simplePaginate();
+
+        // dd($shops->toArray());
+
+        $shop_account_statuses = ShopAccountStatus::all();
+        $shop_types = ShopType::all();
+        $cities = City::all();
 
         return view('dashboard/company/shops/index', compact([
             'shops',
+            'cities',
+            'shop_types',
+            'shop_account_statuses',
         ]));
     }
 
