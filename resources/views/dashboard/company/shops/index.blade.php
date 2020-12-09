@@ -194,7 +194,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="alert alert-warning">
-                                            <h5><i class="icon fas fa-exclamation-triangle"></i> No Shops To Show!</h5>
+                                            <h5><i class="icon fas fa-exclamation-triangle"></i> No Shop Results To Show!</h5>
                                             Try adjust your search filters.
                                         </div>
                                     </div>

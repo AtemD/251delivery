@@ -2,9 +2,7 @@
 
 namespace App\Search;
 
-use App\Models\City;
 use App\Models\Shop;
-use Illuminate\Http\Reqeust;
 
 class ShopSearch 
 {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Company;
 
 use App\User;
+use App\Models\City;
+use App\Search\UserSearch;
 use Illuminate\Http\Request;
 use App\Models\UserAccountStatus;
 use Spatie\Permission\Models\Role;
@@ -28,18 +30,30 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('view', User::class);
 
-        $users = User::with([
+        $users = UserSearch::apply($request);
+
+        $users = $users->with([
+            'eWalletAccount',
             'userAccountStatus',
             'roles',
-            'permissions'
-        ])->paginate(20);
+            'userLocation.city'
+        ])->latest()->simplePaginate();
+
+        // dd($users->toArray());
+
+        $user_account_statuses = UserAccountStatus::all();
+        $roles = Role::all();
+        $cities = City::all();
 
         return view('dashboard/company/users/index', compact([
             'users',
+            'roles',
+            'cities',
+            'user_account_statuses'
         ]));
     }
 

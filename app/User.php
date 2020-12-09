@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Permission;
+use App\Traits\Paginatable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, HasSlug;
+    use Notifiable, HasRoles, HasSlug, Paginatable;
 
     protected $guard_name = 'web';
     protected $table = 'users';

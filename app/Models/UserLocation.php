@@ -16,7 +16,7 @@ class UserLocation extends Model
         'delivery_addresses', 'user_id',
     ];
 
-    protected $appends = ['delivery_addresses'];
+    // protected $appends = ['delivery_addresses'];
 
     public function user()
     {

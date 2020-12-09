@@ -10,9 +10,6 @@
 				<button class="btn btn-sm btn-outline-secondary mr-4" type="button" data-toggle="modal" data-target="#exampleModalCenter">
 					<i class="fas fa-filter"></i> Filters
 				</button>
-{{-- 
-				<h5><span class="badge badge-secondary mr-1">{{ session()->get('city') }}</span></h5>
-				<h5><span class="badge badge-secondary mr-1"> {{ session()->get('order_type_id') }}</span></h5> --}}
 
 				<!-- search and filters-->
 				<ul class="navbar-nav mr-auto"></ul>
@@ -139,7 +136,7 @@
 
 					@endforelse --}}
 
-					<input class="form-control mr-sm-2" type="search" value="{{request()->input('global_shop_search')}}" name="global_shop_search" placeholder="Search restaurants, meals..." aria-label="Search" required>
+					<input class="form-control mr-sm-2" type="search" value="{{request()->input('global_shop_search')}}" name="global_shop_search" placeholder="shops, meals..." aria-label="Search" required>
 					<button class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 				</form>
 
@@ -204,7 +201,7 @@
 			<div class="col-md-12">
 				<div class="alert alert-info alert-dismissible">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-					<h5><i class="icon fas fa-info"></i> No Shops To Show!</h5>
+					<h5><i class="icon fas fa-info"></i> No Shop Results To Show!</h5>
 					Try adjusting filters to get desired results.
 				</div>
 			</div>
