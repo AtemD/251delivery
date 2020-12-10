@@ -37,10 +37,12 @@ class OrdersTableSeeder extends Seeder
             for($i=0; $i<$number_of_orders; $i++){
                 // $random_number = base_convert(mt_rand(12345,98765), 10, 16);
 
+                $curr_timestamp = \Carbon\Carbon::now()->timestamp + $i;
+                
                 factory('App\Models\Order')->create([
                     'user_id' => $user->id,
                     'shop_id' => $random_shop->id,
-                    'number' => Carbon\Carbon::now()->getPreciseTimestamp(),
+                    'number' => $user->id . $curr_timestamp,
                     'order_type_id' => $order_types->random()->id,
                     'payment_method_id' => $payment_methods->random()->id,
                     'order_status_id' => $order_statuses->random()->id,

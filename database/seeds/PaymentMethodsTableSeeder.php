@@ -12,19 +12,29 @@ class PaymentMethodsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('payment_methods')->truncate();
+
         factory(PaymentMethod::class)->create([
-            'name' => 'Hello Cash',
+            'name' => PaymentMethod::HELLO_CASH,
             'description' => 'Ethiopian mobile money company',
         ]);
 
         factory(PaymentMethod::class)->create([
-            'name' => 'M-Birr',
-            'description' => 'Ethiopian mobile money company',
+            'name' => PaymentMethod::E_WALLET,
+            'description' => 'this companies wallet payment system for its customers',
         ]);
 
-        factory(PaymentMethod::class)->create([
-            'name' => 'CBE-Birr',
-            'description' => 'Commercial Bank of Ethiopia mobile money',
-        ]);
+        // factory(PaymentMethod::class)->create([
+        //     'name' => PaymentMethod::M_BIRR,
+        //     'description' => 'Ethiopian mobile money company',
+        // ]);
+
+        // factory(PaymentMethod::class)->create([
+        //     'name' => PaymentMethod::CBE_BIRR,
+        //     'description' => 'Commercial Bank of Ethiopia mobile money',
+        // ]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
