@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Paginatable;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    use Paginatable;
+
     // protected $guarded = [];
 
     /**
