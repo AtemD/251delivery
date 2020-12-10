@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Retailer;
 
 use App\Models\Shop;
 use App\Models\Order;
+use App\Models\OrderType;
+use App\Models\OrderStatus;
+use App\Search\OrderSearch;
 use Illuminate\Http\Request;
+use App\Models\PaymentMethod;
 use App\Http\Controllers\Controller;
 
 class ShopOrdersController extends Controller
@@ -25,23 +29,32 @@ class ShopOrdersController extends Controller
      * @param \App\Models\Shop $shop
      * @return \Illuminate\Http\Response
      */
-    public function index(Shop $shop)
+    public function index(Request $request, Shop $shop)
     {
         $this->authorize('view', $shop);
-
         $this->authorize('view', Order::class);
 
-        $orders = $shop->orders()->with([
+        // Apply filters to ordes
+        $orders = OrderSearch::apply($request);
+
+        // Retrieve orders for the current shop
+        $orders = $orders->where('shop_id', $shop->id)->with([
             'orderType',
             'paymentMethod',
             'orderStatus',
             'user',
-            'products'
-        ])->paginate(10);
+        ])->simplePaginate();
+
+        $order_statuses = OrderStatus::all();
+        $order_types = OrderType::all();
+        $payment_methods = PaymentMethod::all();
 
         return view('dashboard/retailer/orders/index', compact(
             'shop',
             'orders',
+            'order_statuses',
+            'order_types',
+            'payment_methods'
         ));
     }
 
