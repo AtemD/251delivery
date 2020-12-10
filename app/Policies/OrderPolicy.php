@@ -19,7 +19,9 @@ class OrderPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        if(!$user->can(Permission::ACCESS_ADMINISTRATOR_DASHBOARD)) return false;
+
+        return $user->can(Permission::VIEW_ORDERS);
     }
 
     /**
