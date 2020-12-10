@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Company;
 
 use App\Models\Order;
+use App\Models\OrderType;
 use App\Models\OrderStatus;
-use App\Http\Controllers\Controller;
+use App\Search\OrderSearch;
 use Illuminate\Http\Request;
+use App\Models\PaymentMethod;
+use App\Http\Controllers\Controller;
 
 class OrdersController extends Controller
 {
@@ -24,22 +27,31 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $order_statuses = OrderStatus::all();
+        // Authorize if the user is allowed to view orders 
+        $this->authorize('viewAny', Order::class);
 
-        $orders = Order::with([
+        // Apply the request shop filters
+        $orders = OrderSearch::apply($request);
+
+        $orders = $orders->with([
             'user',
             'orderType',
             'paymentMethod',
             'orderStatus',
-        ])->paginate(10);
+        ])->simplePaginate();
 
-        // dd($orders->toArray());
+        
+        $order_statuses = OrderStatus::all();
+        $order_types = OrderType::all();
+        $payment_methods = PaymentMethod::all();
 
         return view('dashboard/company/orders/index', compact([
             'orders',
-            'order_statuses'
+            'order_statuses',
+            'order_types',
+            'payment_methods'
         ]));
     }
 
