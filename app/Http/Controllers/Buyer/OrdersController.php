@@ -30,9 +30,13 @@ class OrdersController extends Controller
             'orderStatus',
             'paymentMethod',
             'orderType'
-        ])->paginate(30);
+        ])->simplePaginate(30);
 
-        // dd($orders->toArray());
+        $taxes = json_decode($orders->first()->products->first()->pivot->taxes);
+
+        // dd($taxes[0]);
+
+        // dd(($orders->first()->products->first()->pivot->taxes)->json_decode());
         return view('dashboard/buyer/orders/index', compact(
             'orders'
         ));

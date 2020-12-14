@@ -2,6 +2,7 @@
 
 namespace App\Search;
 
+use Carbon\Carbon;
 use App\Models\Shop;
 
 class ShopSearch 
@@ -25,8 +26,8 @@ class ShopSearch
         if($filters->has('global_shop_search')  && !empty($filters->input('global_shop_search'))){
             $global_shop_search = $filters->input('global_shop_search');
 
-            $shop = $shop->where('name', 'like',  "%$global_shop_search%")->orWhereHas('products', function($query) use($global_shop_search){
-                $query->where('name', 'like', "%$global_shop_search%");
+            $shop = $shop->where('name', 'like',  '%'.$global_shop_search.'%')->orWhereHas('products', function($query) use($global_shop_search){
+                $query->where('name', 'like', '%'.$global_shop_search.'%');
             });
         }
 
@@ -64,6 +65,17 @@ class ShopSearch
             $shop = $shop->whereHas('shopAccountStatus', function($query) use($filters) {
                 $query->where('shop_account_statuses.id', $filters->input('shop_account_status'));
             });
+        }
+
+        // Date from - Date to
+        if(!empty($filters->input('from_date')) && !empty($filters->input('to_date'))){
+            $from_date = $filters->input('from_date'); // start date
+            $to_date = $filters->input('to_date'); // end date
+
+            $from_date = Carbon::parse($from_date);
+            $to_date = Carbon::parse($to_date);
+
+            $shop = $shop->whereBetween('created_at', [$from_date, $to_date]);
         }
         
         return $shop;

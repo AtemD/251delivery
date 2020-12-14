@@ -22,16 +22,16 @@ class UserSearch
 
             if($user_name_count>1){
 
-                $user = $user->where('first_name', 'like',  "% $user_full_name_in_array[0]%")
-                        ->orWhere('last_name', 'like', "%$user_full_name_in_array[1]%")
-                        ->orWhere('phone_number', 'like', "%$global_user_search%")
-                        ->orWhere('email', 'like', "%$global_user_search%");
+                $user = $user->where('first_name', 'like',  '%'.$user_full_name_in_array[0].'%')
+                        ->orWhere('last_name', 'like', '%'.$user_full_name_in_array[1].'%')
+                        ->orWhere('phone_number', 'like', '%'.$global_user_search.'%')
+                        ->orWhere('email', 'like', '%'.$global_user_search.'%');
             } else {
 
-                $user = $user->where('first_name', 'like',  "%$global_user_search%")
-                        ->orWhere('last_name', 'like', "%$global_user_search%")
-                        ->orWhere('phone_number', 'like', "%$global_user_search%")
-                        ->orWhere('email', 'like', "%$global_user_search%");
+                $user = $user->where('first_name', 'like',  '%'.$global_user_search.'%')
+                        ->orWhere('last_name', 'like', '%'.$global_user_search.'%')
+                        ->orWhere('phone_number', 'like', '%'.$global_user_search.'%')
+                        ->orWhere('email', 'like', '%'.$global_user_search.'%');
             }
 
         }
@@ -55,6 +55,17 @@ class UserSearch
             $user = $user->whereHas('userLocation', function($query) use($city_id){
                 $query->where('city_id', $city_id);
             });
+        }
+
+        // Date from - Date to
+        if(!empty($filters->input('from_date')) && !empty($filters->input('to_date'))){
+            $from_date = $filters->input('from_date'); // start date
+            $to_date = $filters->input('to_date'); // end date
+
+            $from_date = Carbon::parse($from_date);
+            $to_date = Carbon::parse($to_date);
+
+            $user = $user->whereBetween('created_at', [$from_date, $to_date]);
         }
 
         return $user;

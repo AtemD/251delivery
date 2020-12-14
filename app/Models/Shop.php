@@ -165,7 +165,6 @@ class Shop extends Model
      */
     public function scopeStatus($query, $shopStatus)
     {
-        // dd('hit');
         return $query->whereHas('shopAccountStatus', function($query) use($shopStatus) {
                     $query->where('name', $shopStatus);
                     // $query->where('id', 1);

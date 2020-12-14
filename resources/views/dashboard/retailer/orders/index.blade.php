@@ -36,6 +36,11 @@
                                                 <div class="input-group-append">
                                                     <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                                                 </div>
+                                                @error('global_order_search')
+                                                    <span class="text-danger">
+                                                        <strong>*{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </form>

@@ -41,8 +41,6 @@ class ShopsController extends Controller
             'shopAccountStatus',
         ])->simplePaginate();
 
-        // dd($shops->toArray());
-
         $shop_account_statuses = ShopAccountStatus::all();
         $shop_types = ShopType::all();
         $cities = City::all();

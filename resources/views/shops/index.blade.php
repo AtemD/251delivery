@@ -158,6 +158,21 @@
 		</div>
 	@endif
 
+	{{-- @if(!empty($request_cuisines)) --}}
+		<div class="row">
+			<div class="col-md-12">
+				{{-- @forelse( $cuisines as $cuisine)
+					@if( $request_cuisines->contains($cuisine->id))
+						<span class="badge badge-secondary mr-1 mt-1">{{$cuisine->name}}</span>
+					@endif
+				@empty 
+
+				@endforelse --}}
+				<small class="text-muted">({{ $shops->count()}}) {{\Str::plural('result', $shops->count())}} for shops</small>
+			</div>
+		</div>
+	{{-- @endif --}}
+
 	<div class="row shop-list py-4">
 		@forelse($shops as $shop)
 			<div class="col-md-4 pb-4">
@@ -202,7 +217,7 @@
 				<div class="alert alert-info alert-dismissible">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 					<h5><i class="icon fas fa-info"></i> No Shop Results To Show!</h5>
-					Try adjusting filters to get desired results.
+					Try adjusting filters or search to get desired results.
 				</div>
 			</div>
 		@endforelse

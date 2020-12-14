@@ -16,7 +16,9 @@ class Product extends Model
 
     const PRODUCT_DEFAULT_IMAGE = 'product_default.jpg';
 
-    protected $appends = ['status', 'image_path', 'short_description', 'modified_base_price', 'modified_amount'];
+    protected $appends = [
+        'status', 'image_path', 'short_description', 'modified_base_price', // 'modified_amount'
+    ];
 
     public function shop()
     {
@@ -30,7 +32,7 @@ class Product extends Model
 
     public function taxes()
     {
-        return $this->belongsToMany('App\Models\Tax', 'product_has_tax', 'product_id', 'tax_id');
+        return $this->belongsToMany('App\Models\Tax', 'product_has_tax', 'product_id', 'tax_id')->withTimestamps();
     }
 
     public function discounts()
@@ -59,14 +61,14 @@ class Product extends Model
         return $this->attributes['base_price'] / 100;
     }
 
-    public function getModifiedAmountAttribute($value)
-    {
-        if(!empty($this->pivot->amount)){
-            return $this->pivot->amount / 100;
-        }
+    // public function getModifiedAmountAttribute($value)
+    // {
+    //     if(!empty($this->pivot->amount)){
+    //         return $this->pivot->amount / 100;
+    //     }
 
-        return $this->amount / 100;
-    }
+    //     return $this->amount / 100;
+    // }
 
     /**
      * Set the products base price.

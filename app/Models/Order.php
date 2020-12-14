@@ -17,7 +17,8 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-        'number', 'user_id', 'shop_id', 'order_type_id', 'delivery_address', 'special_requests', 'payment_method_id', 'order_status_id', 'status_by', 'status_date'
+        'number', 'user_id', 'shop_id', 'order_type_id', 'delivery_address', 
+        'special_requests', 'payment_method_id', 'order_status_id', 'status_by', 'status_date'
     ];
 
     /**
@@ -57,6 +58,6 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany('App\Models\Product', 'order_has_products', 'order_id', 'product_id')
-            ->withPivot('quantity', 'amount', 'special_request')->withTimestamps();
+            ->withPivot('quantity', 'amount', 'special_request', 'taxes', 'discounts')->withTimestamps();
     }
 }

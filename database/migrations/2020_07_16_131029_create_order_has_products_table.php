@@ -29,6 +29,10 @@ class CreateOrderHasProductsTable extends Migration
 
             $table->tinyInteger('quantity')->unsigned();
             $table->integer('amount')->unsigned();
+
+            $table->json('taxes')->nullable();
+            $table->json('discounts')->nullable();
+
             $table->string('special_request')->nullable(); // special instructions to the shop or restaurant
             $table->timestamps();
 

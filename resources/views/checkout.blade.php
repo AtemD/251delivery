@@ -17,12 +17,6 @@
                         <div class="card-body">
     
                             <div class="form-group">
-                                <div class="alert alert-danger" role="alert">
-                                    @foreach($errors->all() as $error)
-                                        <li class="text-danger">* {{$error}}</li>
-                                    @endforeach
-                                </div>
-                               
                                 <!--CITY SHOULD BE STORED IN SESSION BECAUSE AS THE USER REACHES HERE, HE/SHE HAS ALREADY CHOSEN A LOCATION -->
                                 <label for="city">City</label>
                                 <select name="city" class="form-control @error('city') is-invalid @enderror" id="city"
@@ -39,8 +33,8 @@
                                 </select>
     
                                 @error('city')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                    <span class="text-danger" role="alert">
+                                        <strong>*{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -64,8 +58,8 @@
                                 </select>
     
                                 @error('order_type')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                    <span class="text-danger" role="alert">
+                                        <strong>*{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -75,8 +69,8 @@
                                 <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ (old('phone_number')) ? old('phone_number') : Auth()->user()->phone_number }}" required autocomplete="phone_number" autofocus>
     
                                 @error('phone_number')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                    <span class="text-danger" role="alert">
+                                        <strong>*{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -87,8 +81,8 @@
                                 value="{{ old('address') }}" placeholder="Your Address" required></textarea>
     
                                 @error('address')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                    <span class="text-danger" role="alert">
+                                        <strong>*{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div> --}}
@@ -96,12 +90,12 @@
                             <div class="form-group">
                                 <label for="delivery_address">Delivery Address/Location</label>
                                     @forelse($user_delivery_addresses as $delivery_address)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="delivery_address" id="delivery-address-{{$loop->index}}" value="{{$delivery_address}}">
-                                            <label class="form-check-label" for="delivery-address-{{$loop->index}}">
-                                              {{$delivery_address}}
-                                            </label>
-                                        </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="delivery_address" id="delivery-address-{{$loop->index}}" value="{{$delivery_address}}">
+                                                <label class="form-check-label" for="delivery-address-{{$loop->index}}">
+                                                {{$delivery_address}}
+                                                </label>
+                                            </div>
                                     @empty 
                                         <div class="form-group">
                                             <label for="new_delivery_address">Delivery Address/Location</label>
@@ -118,7 +112,7 @@
     
                                 @error('delivery_address')
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->delivery_address }}</strong>
+                                        <strong>*{{ $errors->delivery_address }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -140,7 +134,7 @@
     
                                 @error('payment_method')
                                     <span class="text-danger" role="alert">
-                                        <strong>*** {{ $message }}</strong>
+                                        <strong>*{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -148,7 +142,7 @@
                             <div class="form-group form-check">
                                 <input type="checkbox" class="form-check-input" name="agreed_to_terms_and_conditions" id="agreed_to_terms_and_conditions" {{ old('agreed_to_terms_and_conditions') ? 'checked' : '' }} required>
                                 <label class="form-check-label" for="agreed_to_terms_and_conditions">
-                                    I have read and agreed with this websites terms and conditions
+                                    I have read and agreed with this websites <a href="#">terms and conditions</a>
                                 </label>
                             </div>
     
@@ -167,28 +161,33 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <h5 class="card-title">Your Cart Summary</h5>
-                            <a href="{{$cart['shop']->path()}}" class="card-link text-primary">Edit</a>
+                            <a href="{{$cart['products'][0]['shop_path']}}" class="card-link text-primary">Edit</a>
                         </div>
                     </div>
                     <div class="card-body">
                         @foreach($cart['products'] as $product)
-                        <div class="row">
-                            <div class="col-md-6">
-                                {{ $product->name}}
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ $product['name']}}
+                                </div>
+                                <div class="col-md-3">
+                                    x{{$product['qty']}}
+                                </div>
+                                <div class="col-md-3">
+                                    {{$product['modified_base_price']*$product['qty']}} ETB
+                                </div>
                             </div>
-                            <div class="col-md-3">
-                                x{{$product->quantity}}
-                            </div>
-                            <div class="col-md-3">
-                                {{$product->base_price*$product->quantity}} ETB
-                            </div>
-                        </div>
                         @endforeach
 
                         <hr>
-                        <div class="cart-summary d-flex justify-content-center">
-                            <h5>Grand Total: {{ $cart['grand_total'] }}</h5>
-                            <small>( {{ $cart['total_items'] }} items)</small>
+                        <div class="cart-summary">
+                            <p><h5>SubTotal: {{ $cart['subtotal'] / 100 }}</h5> ETB</p>
+                            <p><h5>Discount: {{ $cart['discount'] / 100 }}</h5> ETB</p>
+                            <p><h5>Tax: {{ $cart['tax'] / 100 }}</h5> ETB</p>
+                            <hr>
+                            <h5>Total: {{ $cart['total'] / 100 }}</h5>ETB
+                            <small>( {{ $cart['total_products'] }} items)</small>
                         </div>
                     </div>
                 </div>

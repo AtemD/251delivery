@@ -71,13 +71,13 @@
                                                 </div>
                                             </div>     
                                         </td>
-                                        <td>{{$product->base_price}} ETB</td>
+                                        <td>{{$product->modified_base_price}} ETB</td>
                                         <td>
                                             @forelse($product->taxes as $tax)
                                                 <li>{{$tax->name}} ({{ $tax->modified_rate}}{{ $tax->rate_type == 'percentage' ? '%': '' }})</li>
                                             @empty
                                                 <div class="alert alert-info text-wrap" role="alert">
-                                                    No Taxes Assigned
+                                                    <small class="text-muted">*No Taxes Assigned</small>
                                                 </div>
                                             @endforelse
                                         </td>
@@ -86,7 +86,7 @@
                                                 <li>{{$discount->name}} ({{ $discount->modified_rate}}{{ $discount->rate_type == 'percentage' ? '%': ' ETB' }})</li>
                                             @empty
                                             <div class="alert alert-info text-wrap" role="alert">
-                                                No Discounts Assigned
+                                                <small class="text-muted">*No Discounts Assigned</small>
                                             </div>
                                             @endforelse
                                         </td>

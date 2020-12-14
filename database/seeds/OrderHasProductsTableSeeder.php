@@ -21,13 +21,37 @@ class OrderHasProductsTableSeeder extends Seeder
 
         $orders->each(function($order){
             // $shop = $shops->random();
+
+            // Get the shop linked to this order
             $shop = \App\Models\Shop::findOrFail($order->shop_id);
-            $products = $shop->products()->get();
+
+            // Get all the products of this shop, with their taxes and discounts
+            $products = $shop->products()->with([
+                'taxes',
+                'discounts'
+            ])->get();
+
+            // dd($products->first()->toArray());
+            
+            // Get a random number of products
             $random_products = $products->random(mt_rand(1, $products->count()));
 
+            // get the tax of each random product
             $order->products()->attach($random_products, [
                 'quantity' => mt_rand(1, 4),
                 'amount' => 30000,
+                'taxes' => json_encode([
+                    ['rate'=>15,
+                    'rate_type'=>'percentage'],
+                    ['rate'=>10,
+                    'rate_type'=>'percentage'],
+                ]),
+                'discounts' => json_encode([
+                    ['rate'=>8,
+                    'rate_type'=>'percentage'],
+                    ['rate'=>5,
+                    'rate_type'=>'amount'],
+                ]),
                 'special_request' => "this is my special request"
             ]);
         });

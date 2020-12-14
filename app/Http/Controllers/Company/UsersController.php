@@ -43,8 +43,6 @@ class UsersController extends Controller
             'userLocation.city'
         ])->latest()->simplePaginate();
 
-        // dd($users->toArray());
-
         $user_account_statuses = UserAccountStatus::all();
         $roles = Role::all();
         $cities = City::all();
@@ -96,14 +94,16 @@ class UsersController extends Controller
     {
         $this->authorize('update', User::class);
 
-        $user = $user->load(['userAccountStatus', 'roles', 'EWalletAccount.EWalletAccountStatus']);
+        $user = $user->load(['userAccountStatus', 'roles', 'permissions', 'EWalletAccount.EWalletAccountStatus']);
         
         $roles = Role::all();
+        $permissions = Permission::orderBy('name', 'asc')->get();
         $user_account_statuses = UserAccountStatus::all();
         
         return view('dashboard/company/users/edit', compact(
             'user',
             'roles',
+            'permissions',
             'user_account_statuses'
         ));
     }

@@ -115,6 +115,12 @@
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="{{ route('retailer.shops.accounts.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.shops.accounts.*')) ? 'active' : '' }}">
+                      <i class="fas fa-circle nav-icon"></i>
+                      <p>Business Hours</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                     <a href="{{ route('retailer.taxes.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.taxes.*')) ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
                       <p>Taxes</p>
@@ -145,6 +151,14 @@
                     </a>
                   </li>
                 </ul>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('retailer.users.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.users.*')) ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-money-check-alt"></i>
+                  <p>
+                    Earnings Report
+                  </p>
+                </a>
               </li>
 
               <li class="nav-item">

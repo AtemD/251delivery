@@ -10,7 +10,7 @@
 
             <p>
             We could not find the page you were looking for.
-            Meanwhile, you may <a href="#">return to dashboard</a> or try login again
+            Meanwhile, you may <a href="/login">return to dashboard</a> or try login again
             </p>
         </div>
         <!-- /.error-content -->

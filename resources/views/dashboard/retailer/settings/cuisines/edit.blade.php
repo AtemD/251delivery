@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Edit Cuisines</h1>
+                <h1 class="m-0 text-dark">Cuisines Editor</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -26,19 +26,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <!-- general form elements -->
-                    <div class="card card-primary">
-                        <div class="card-header">
-                        <h3 class="card-title">Update Cuisines</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <!-- form start -->
-                        <form role="form" method="POST" action="{{ route('retailer.cuisines.update', ['shop' => $shop]) }}">
-                            @method('PUT')
-                            @csrf 
-
+                    <!-- form start -->
+                    <form role="form" method="POST" action="{{ route('retailer.cuisines.update', ['shop' => $shop]) }}">
+                        @method('PUT')
+                        @csrf 
+                        <!-- general form elements -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title">Update Cuisines</h3>
+                            </div>
+                            <!-- /.card-header -->
                             <div class="card-body">
-
                                 <div class="form-group">
                                     <label for="cuisines">Select Cuisines</label>
                                     <div class="row">
@@ -65,13 +63,12 @@
                                 </div>
                             </div>
                             <!-- /.card-body -->
-                    
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
-                        </form>
-                    </div>
-                    <!-- /.card -->
+                        </div>
+                        <!-- /.card -->
+                    </form>
                 </div>
             </div>
         </div>

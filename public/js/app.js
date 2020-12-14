@@ -2030,12 +2030,14 @@ __webpack_require__.r(__webpack_exports__);
       window.location.href = cartItem.shop_path + "?#" + cartItem.name;
     },
     proceedToCheckout: function proceedToCheckout() {
+      // disable the button here. 
       if (!this.totalitems > 0) return bus.$emit('show-error-alert');
       this.form.user_cart = this.cart;
       this.form.post('/checkout').then(function () {
         $('#cartDetail').modal('hide');
         window.location.href = "/checkout";
       })["catch"](function (error) {
+        // Enable the buttton
         // If the error is due to user not logged in 
         if (error.response && error.response.status === 401) {
           // Redirect the user to the checkout page so that they are automatically redirected to login page
@@ -44527,13 +44529,16 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("td", [
-                            _vm._v(_vm._s(cartItem.base_price) + " ETB")
+                            _vm._v(
+                              _vm._s(cartItem.modified_base_price) + " ETB"
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(
-                              _vm._s(cartItem.base_price * cartItem.qty) +
-                                " ETB"
+                              _vm._s(
+                                cartItem.modified_base_price * cartItem.qty
+                              ) + " ETB"
                             )
                           ]),
                           _vm._v(" "),
@@ -64783,7 +64788,7 @@ if (document.querySelector('#app')) {
     computed: {
       cartTotal: function cartTotal() {
         return this.cart.reduce(function (total, product) {
-          return total + product.qty * product.base_price;
+          return total + product.qty * product.modified_base_price;
         }, 0);
       },
       totalItems: function totalItems() {

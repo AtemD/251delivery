@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\EWalletAccount;
 use App\Http\Controllers\Controller;
 use App\Models\EWalletAccountStatus;
+use App\Search\EWalletAccountSearch;
 use Illuminate\Support\Facades\Validator;
 
 class EWalletAccountsController extends Controller
@@ -27,14 +28,24 @@ class EWalletAccountsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('view', EWalletAccount::class);
 
-        $e_wallet_accounts = EWalletAccount::with(['eWalletAccountStatus', 'currency', 'user'])->paginate(10);
+        // Apply the request e-wallet account filters
+        $e_wallet_accounts = EWalletAccountSearch::apply($request);
+        
+        $e_wallet_accounts = $e_wallet_accounts->with([
+            'eWalletAccountStatus', 
+            'currency', 
+            'user'
+        ])->simplePaginate();
+
+        $e_wallet_account_statuses = EWalletAccountStatus::all();
 
         return view('dashboard/company/e-wallet-accounts/index', compact(
-            'e_wallet_accounts'
+            'e_wallet_accounts',
+            'e_wallet_account_statuses'
         ));
     }
 

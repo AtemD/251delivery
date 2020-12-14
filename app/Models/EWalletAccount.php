@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Paginatable;
 use Illuminate\Database\Eloquent\Model;
 
 class EWalletAccount extends Model
 {
+    use Paginatable;
+
     /**
      * We store the account balance in cents in the database,
      * This constants are also in cents,

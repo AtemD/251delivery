@@ -102,7 +102,7 @@ Route::delete('/dashboard/company/users/{user}', 'Company\UsersController@destro
 
 
 // Company user E-Wallet accounts
-Route::get('dashboard/compapny/e-wallet-accounts', 'Company\EWalletAccountsController@index')
+Route::get('dashboard/company/e-wallet-accounts', 'Company\EWalletAccountsController@index')
 ->name('company.e-wallet-accounts.index');
 Route::post('/dashboard/company/e-wallet-accounts', 'Company\EWalletAccountsController@store')
 ->name('company.e-wallet-accounts.store');
@@ -130,6 +130,9 @@ Route::put('/dashboard/company/users/{user}/account-status', 'Company\UserAccoun
 // Company user roles
 Route::put('/dashboard/company/users/{user}/roles', 'Company\UserRolesController@update')
 ->name('company.users.roles.update');
+// Company user permissions
+Route::put('/dashboard/company/users/{user}/permissions', 'Company\UserPermissionsController@update')
+->name('company.users.permissions.update');
 
 // Company Retailers
 Route::get('/dashboard/company/retailers', 'Company\RetailersController@index')

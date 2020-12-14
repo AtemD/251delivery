@@ -44,7 +44,8 @@ class EWalletAccountDepositsController extends Controller
         }
 
         // get the current wallet amount and add the new deposit amount
-        $balance = $e_wallet_account->modified_balance + $validatedData['deposit_amount'];
+        // ***It's vital you cast the balanace to an int
+        $balance = (int) ($e_wallet_account->modified_balance + $validatedData['deposit_amount']);
 
         if(!$this->EWalletAccountBalanceIsWithinRange($balance)){
             return back()->with('error', 'Resulting amount out of range!');

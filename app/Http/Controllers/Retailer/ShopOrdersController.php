@@ -34,6 +34,10 @@ class ShopOrdersController extends Controller
         $this->authorize('view', $shop);
         $this->authorize('view', Order::class);
 
+        $request->validate([
+            'global_order_search' => 'min:3',
+        ]);
+
         // Apply filters to ordes
         $orders = OrderSearch::apply($request);
 
@@ -43,7 +47,7 @@ class ShopOrdersController extends Controller
             'paymentMethod',
             'orderStatus',
             'user',
-        ])->simplePaginate();
+        ])->orderBy('created_at', 'desc')->simplePaginate();
 
         $order_statuses = OrderStatus::all();
         $order_types = OrderType::all();

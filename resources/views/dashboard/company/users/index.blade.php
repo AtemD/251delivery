@@ -103,7 +103,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <label for="role">Roles</label>
                                             <select name="role" class="form-control @error('role') is-invalid @enderror" id="role">
                                                 <option value="">Choose...</option>
@@ -124,14 +124,61 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="col-md-2 mt-4">
-                                            <button type="submit" class="btn btn-primary btn-block mt-2">Search</button>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>From Date:</label>
+                              
+                                                <div class="input-group">
+                                                  <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                      <i class="fas fa-calendar-alt"></i>
+                                                    </span>
+                                                  </div>
+                                                  <input type="date" name="from_date" value="{{request()->input('from_date')}}" class="form-control" id="from_date">
+                                                </div>
+                                                <!-- /.input group -->
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>To Date:</label>
+                              
+                                                <div class="input-group">
+                                                  <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                      <i class="fas fa-calendar-alt"></i>
+                                                    </span>
+                                                  </div>
+                                                  <input type="date" name="to_date" value="{{request()->input('to_date')}}" class="form-control" id="to_date">
+                                                </div>
+                                                <!-- /.input group -->
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="col-md-2 d-flex justify-content-end mt-4">
+                                            <div class="form-group">
+                                                <a class="btn btn-outline-secondary mt-2" href="{{route('company.users.index')}}">Reset Filters</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 mt-4">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block mt-2">Search</button>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </form>
                             </div>
                         </div>
-                    
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
@@ -145,6 +192,7 @@
                             <th>Account Status</th>
                             <th>Roles</th>
                             <th>E-Wallet</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -155,9 +203,9 @@
                                     <td>{{$user->full_name}}</td>
                                     <td>
                                         {{$user->phone_number}}<br>
-                                        {{$user->email}}
+                                        <small class="text-muted">{{$user->email}}</small>
                                     </td>
-                                    <td>
+                                    <td class="text-wrap">
                                         @if(!empty($user->userLocation->city->name))
                                             {{$user->userLocation->city->name}}
                                         @else 
@@ -173,7 +221,7 @@
 
                                     <td class="text-wrap">
                                         @forelse($user->roles as $role)
-                                            <span class="badge badge-primary">{{$role->name}}</span>
+                                            <span class="badge badge-primary mb-1">{{$role->name}}</span>
                                         @empty 
                                             <span class="badge badge-warning">No Role Assigned</span>
                                         @endforelse
@@ -184,6 +232,11 @@
                                     @else 
                                         <td><span class="badge badge-warning">No E-Wallet Account</span></td>
                                     @endif
+
+                                    <td>
+                                        <small class="text-muted">created:</small> {{$user->created_at->diffForHumans()}}<br>
+                                        <small class="text-muted">updated:</small> {{$user->updated_at->diffForHumans() }}
+                                    </td>
 
                                     <td class="project-actions">
                                         <a class="btn btn-info btn-sm" href="{{ route('company.users.edit', ['user' => $user->slug]) }}" role="button">

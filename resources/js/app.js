@@ -163,7 +163,7 @@ if(document.querySelector('#app')) {
         computed: {
             cartTotal(){
                 return this.cart.reduce((total, product) => {
-                    return total + product.qty * product.base_price;
+                    return total + product.qty * product.modified_base_price;
                 }, 0);
             },
             totalItems(){

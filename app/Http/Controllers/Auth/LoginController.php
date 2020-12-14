@@ -62,6 +62,14 @@ class LoginController extends Controller
 
         } else {
             // User is normal buyer
+
+            // Determine if the session has a shop stored in session
+            //...if so the user was trying to checkout but had to login first,
+            //...instead of redirecting the home page, redirect to the shop the user was on.
+            if($request->session()->has('shop_slug')){
+                return redirect()->route('shops.show', ['shop'=>session()->get('shop_slug')]);
+            }
+
             return redirect()->intended(route('buyers.home'));
         }
     }

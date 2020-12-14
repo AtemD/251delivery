@@ -40,7 +40,7 @@ class OrdersController extends Controller
             'orderType',
             'paymentMethod',
             'orderStatus',
-        ])->simplePaginate();
+        ])->latest()->simplePaginate();
 
         
         $order_statuses = OrderStatus::all();

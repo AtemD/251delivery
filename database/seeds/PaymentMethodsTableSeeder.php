@@ -25,6 +25,11 @@ class PaymentMethodsTableSeeder extends Seeder
             'description' => 'this companies wallet payment system for its customers',
         ]);
 
+        factory(PaymentMethod::class)->create([
+            'name' => PaymentMethod::CASH_ON_DELIVERY,
+            'description' => 'Customer pays cash when the order arrives',
+        ]);
+
         // factory(PaymentMethod::class)->create([
         //     'name' => PaymentMethod::M_BIRR,
         //     'description' => 'Ethiopian mobile money company',

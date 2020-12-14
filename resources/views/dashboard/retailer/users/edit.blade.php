@@ -25,16 +25,16 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4">
-                    <!-- general form elements -->
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Edit ({{$user->full_name}}) Details</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <!-- form start -->
-                        <form role="form" method="POST" action="{{ route('retailer.users.update', ['shop' => $shop, 'user' => $user]) }}">
-                            @method('PUT')
-                            @csrf 
+                    <!-- form start -->
+                    <form role="form" method="POST" action="{{ route('retailer.users.update', ['shop' => $shop, 'user' => $user]) }}">
+                        @method('PUT')
+                        @csrf
+                        <!-- general form elements -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title">Edit ({{$user->full_name}}) Details</h3>
+                            </div>
+                            <!-- /.card-header --> 
 
                             <div class="card-body">
                                 <div class="form-group">
@@ -86,9 +86,9 @@
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
-                        </form>
-                    </div>
-                    <!-- /.card -->
+                        </div>
+                        <!-- /.card -->
+                    </form>
                 </div>
 
                 <!-- 
@@ -98,6 +98,7 @@
                     This means no user can edit their own permissions,
                     just show them a list of their permissions
                 -->
+                
                 @if(Auth::user()->id == $user->id)
                     <div class="col-md-8">
                         <div class="card card-default">

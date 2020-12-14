@@ -22,8 +22,8 @@
                             <tbody>
                                 <tr v-for="cartItem in cart" :key="cartItem.id">
                                     <th scope="row" @click="goToProductLocation(cartItem)" class="text-primary">{{cartItem.name}}</th>
-                                    <td>{{cartItem.base_price}} ETB</td>
-                                    <td>{{cartItem.base_price*cartItem.qty}} ETB</td>
+                                    <td>{{cartItem.modified_base_price}} ETB</td>
+                                    <td>{{cartItem.modified_base_price*cartItem.qty}} ETB</td>
                                     <td class="d-flex justify-content-end">
                                         <button @click="removeFromCart(cartItem)" type="button" class="btn btn-danger btn-sm">-</button>
                                             <strong class="mx-1"> {{cartItem.qty}} </strong> 
@@ -85,6 +85,8 @@
                 window.location.href = cartItem.shop_path +"?#"+ cartItem.name ;
             },
             proceedToCheckout(){
+                // disable the button here. 
+
                 if(!this.totalitems>0) return bus.$emit('show-error-alert');
 
                 this.form.user_cart = this.cart;
@@ -98,6 +100,7 @@
                 })
                 .catch(
                     (error)=>{
+                        // Enable the buttton
 
                         // If the error is due to user not logged in 
                         if(error.response && error.response.status === 401) {

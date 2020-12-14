@@ -55,22 +55,13 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item has-treeview {{ (request()->routeIs('company.users.*')) ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link">
+              <li class="nav-item">
+                <a href="{{ route('company.users.index') }}" class="nav-link {{ (request()->routeIs('company.users.*')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-users"></i>
                   <p>
                     Users
-                    <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{ route('company.users.index') }}" class="nav-link {{ (request()->routeIs('company.users.*')) ? 'active' : '' }}">
-                      <i class="fas fa-circle nav-icon"></i>
-                      <p>All Users</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
               <li class="nav-item has-treeview {{ (request()->segment(3) == 'settings') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">

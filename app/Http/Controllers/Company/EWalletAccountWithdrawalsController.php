@@ -46,7 +46,8 @@ class EWalletAccountWithdrawalsController extends Controller
         }
 
         // get the current wallet amount and add the new deposit amount
-        $balance = $e_wallet_account->modified_balance - $validatedData['withdraw_amount'];
+        // ***It's vital you cast the balance to an int
+        $balance = (int) ($e_wallet_account->modified_balance - $validatedData['withdraw_amount']);
 
         // Before updating the new amount should not be less than 0 or greater than 1000
         if(!$this->EWalletAccountBalanceIsWithinRange($balance)){

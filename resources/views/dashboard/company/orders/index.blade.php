@@ -64,7 +64,7 @@
                                                     <option value="100" {{collect(request()->input('page_size'))->contains('100') ? 'selected' : ''}}>100</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <label for="order_status">Order Status</label>
                                                 <select name="order_status" class="form-control @error('order_status') is-invalid @enderror" id="order_status">
                                                     <option value="">Select...</option>
@@ -85,7 +85,7 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <label for="order_type">Order Type</label>
                                                 <select name="order_type" class="form-control @error('order_type') is-invalid @enderror" id="order_type">
                                                     <option value="">Select...</option>
@@ -127,11 +127,56 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <div class="col-md-2 mt-4">
-                                                <button type="submit" class="btn btn-primary btn-block mt-2">Search</button>
-                                            </div>
-                                        
                                         </div> 
+                                        <div class="form-row">
+                                            <div class="col-md-1">
+
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>From Date:</label>
+                                  
+                                                    <div class="input-group">
+                                                      <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                          <i class="fas fa-calendar-alt"></i>
+                                                        </span>
+                                                      </div>
+                                                      <input type="date" name="from_date" value="{{request()->input('from_date')}}" class="form-control" id="from_date">
+                                                    </div>
+                                                    <!-- /.input group -->
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>To Date:</label>
+                                  
+                                                    <div class="input-group">
+                                                      <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                          <i class="fas fa-calendar-alt"></i>
+                                                        </span>
+                                                      </div>
+                                                      <input type="date" name="to_date" value="{{request()->input('to_date')}}" class="form-control" id="to_date">
+                                                    </div>
+                                                    <!-- /.input group -->
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div class="col-md-2 d-flex justify-content-end mt-4">
+                                                <div class="form-group">
+                                                    <a class="btn btn-outline-secondary mt-2" href="{{route('company.orders.index')}}">Reset Filters</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3 mt-4">
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary btn-block mt-2">Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -156,7 +201,7 @@
                                         <tr>
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->number}}</td>
-                                            <td>
+                                            <td class="text-wrap">
                                                 {{$order->user->full_name}}<br>
                                                 <small class="text-muted">{{$order->user->phone_number}}</small><br>
                                                 <small class="text-muted">{{$order->delivery_address}}</small>
@@ -284,7 +329,7 @@
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
                             <ul class="pagination pagination-sm m-0 float-right">
-                                {{$orders->links()}}
+                                {{$orders->appends(request()->input())->links()}}
                             </ul>
                         </div>
                         <!-- /.card-footer -->

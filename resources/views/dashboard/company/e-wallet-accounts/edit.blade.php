@@ -44,7 +44,7 @@
                             <hr>
 
                             <strong><i class="fas fa-dot-circle mr-1"></i> Account Balance</strong>
-                            <p class="text-muted">{{$e_wallet_account->modified_balance}}</p>
+                            <p class="text-muted">{{$e_wallet_account->modified_balance}} ETB</p>
                             <hr>
 
                             <strong><i class="fas fa-dot-circle mr-1"></i> Account Status</strong>

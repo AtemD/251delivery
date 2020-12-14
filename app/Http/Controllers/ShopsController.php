@@ -95,6 +95,10 @@ class ShopsController extends Controller
      */
     public function show(Shop $shop)
     {
+        // put in session so that we can use to redirect to the shops page 
+        // ...if the user is to login, they don't have to go to their dashboard.
+        session()->put('shop_slug', $shop->slug);
+
         $shop = $shop->load([
             'shopLocation',
             'shopType',

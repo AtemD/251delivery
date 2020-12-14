@@ -30,7 +30,7 @@
                             <div class="col-md-12 d-flex justify-content-between">
                                 <form role="form" method="GET" action="{{route('company.shops.index')}}">
                                     <div class="card-tools float-left">
-                                        <div class="input-group input-group-sm" style="width: 150px;">
+                                        <div class="input-group input-group-md">
                                             <input type="text" name="global_shop_search" class="form-control float-right" placeholder="Search name">
                         
                                             <div class="input-group-append">
@@ -55,8 +55,8 @@
                                     <form role="form" method="GET" action="{{route('company.shops.index')}}">
                                         {{-- @method('PUT')
                                         @csrf --}}
-                                        <div class="form-row">
-                                            <div class="col-md-2">
+                                        <div class="form-row mb-1">
+                                            <div class="col-md-1">
                                                 <label for="page_size">Page Size</label>
                                                 <select name="page_size" class="form-control @error('page_size') is-invalid @enderror" id="page_size">
                                                     <option value="10" {{collect(request()->input('page_size'))->contains('10') ? 'selected' : ''}}>10</option>
@@ -65,7 +65,7 @@
                                                     <option value="100" {{collect(request()->input('page_size'))->contains('100') ? 'selected' : ''}}>100</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <label for="shop_account_status">Account Status</label>
                                                 <select name="shop_account_status" class="form-control @error('shop_account_status') is-invalid @enderror" id="shop_account_status">
                                                     <option value="">Choose...</option>
@@ -86,7 +86,7 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <label for="city">Cities</label>
                                                 <select name="city" class="form-control @error('city') is-invalid @enderror" id="city">
                                                     <option value="">Choose...</option>
@@ -128,7 +128,7 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <label for="is_available">Availability</label>
                                                 <select name="is_available" class="form-control @error('is_available') is-invalid @enderror" id="is_available">
                                                     <option value="">Choose...</option>
@@ -136,16 +136,57 @@
                                                     <option value="unavailable" {{collect(request()->input('is_available'))->contains('unavailable') ? 'selected' : ''}}>Unavailable</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-2 mt-4">
-                                                <button type="submit" class="btn btn-primary btn-block mt-2">Search</button>
-                                            </div>
-                                        
                                         </div>
-                                        {{-- <div class="form-row d-flex justify-content-end">
-                                            <div class="col-md-2 mt-1">
-                                                <button type="submit" class="btn btn-primary btn-block">Search</button>
+                                        
+                                        <div class="form-row">
+                                            <div class="col-md-1">
+
                                             </div>
-                                        </div> --}}
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>From Date:</label>
+                                  
+                                                    <div class="input-group">
+                                                      <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                          <i class="fas fa-calendar-alt"></i>
+                                                        </span>
+                                                      </div>
+                                                      <input type="date" name="from_date" value="{{request()->input('from_date')}}" class="form-control" id="from_date">
+                                                    </div>
+                                                    <!-- /.input group -->
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>To Date:</label>
+                                  
+                                                    <div class="input-group">
+                                                      <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                          <i class="fas fa-calendar-alt"></i>
+                                                        </span>
+                                                      </div>
+                                                      <input type="date" name="to_date" value="{{request()->input('to_date')}}" class="form-control" id="to_date">
+                                                    </div>
+                                                    <!-- /.input group -->
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div class="col-md-2 d-flex justify-content-end mt-4">
+                                                <div class="form-group">
+                                                    <a class="btn btn-outline-secondary mt-2" href="{{route('company.shops.index')}}">Reset Filters</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3 mt-4">
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary btn-block mt-2">Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                         
                                     </form>
                                 </div>
@@ -160,8 +201,9 @@
                                 <th>Name</th>
                                 <th>Contact</th>
                                 <th>Type</th>
-                                <th>Account Status</th>
+                                <th>Status</th>
                                 <th>Availablity</th>
+                                <th>Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -177,6 +219,10 @@
                                     <td>{{$shop->shopType->name}}</td>
                                     <td><span class="badge badge-{{$shop->shopAccountStatus->color}}">{{$shop->shopAccountStatus->name}}</span></td>
                                     <td><span class="badge badge-{{$shop->is_available == 1 ? 'primary': 'secondary'}}">{{$shop->is_available == 1 ? 'Available': 'Unavailable'}}</span></td>
+                                    <td>
+                                        <small class="text-muted">created:</small> {{$shop->created_at->diffForHumans()}}<br>
+                                        <small class="text-muted">updated:</small> {{$shop->updated_at->diffForHumans() }}
+                                    </td>
                                     <td class="project-actions">
                                         <a class="btn btn-info btn-sm" href="{{ route('company.shops.edit', ['shop' => $shop->slug]) }}">
                                             <i class="fas fa-pencil-alt">

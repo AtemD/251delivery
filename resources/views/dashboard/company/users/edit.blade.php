@@ -231,56 +231,121 @@
                 </div>
 
                 <div class="col-md-4">
-                    <!-- form start -->
-                    <form role="form" method="POST" action="{{ route('company.users.roles.update', ['user' => $user]) }}">
-                        @method('PUT')
-                        @csrf 
-                        <!-- general form elements -->
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h3 class="card-title">Edit User Roles</h3>
-                            </div>
-                            <!-- /.card-header -->
-
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="roles">Assign Roles</label>
-                                        <p><small class="text-muted">Assign Roles This User or first (<a href="#">create a role</a>) to assign to this user</small></p>
-                                        <div class="row">
-                                            @forelse($roles as $role)
-                                                <div class="col-md-4">
-                                                    <div class="form-group form-check">
-                                                        <input type="checkbox" name="roles[]" value="{{$role->id}}" class="form-check-input" id="add-role-{{$role->id}}" 
-                                                        
-                                                            @if(!empty($user->roles)) 
-                                                            {{ ($user->roles->contains($role->id)) ? ' checked' : '' }}
-                                                            @endif
-                                                        >
-                                                        <label class="form-check-label" for="add-role-{{$role->id}}">{{$role->name}}</label>
-                                                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- form start -->
+                            <form role="form" method="POST" action="{{ route('company.users.roles.update', ['user' => $user]) }}">
+                                @method('PUT')
+                                @csrf 
+                                <!-- general form elements -->
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Edit User Roles</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+        
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="roles">Assign Roles</label>
+                                                <p>
+                                                    <small class="text-muted">Assign Roles This User or first 
+                                                        (<a href="{{route('company.roles.index')}}">create a role</a>) to assign to this user
+                                                    </small>
+                                                </p>
+                                                <div class="row">
+                                                    @forelse($roles as $role)
+                                                        <div class="col-md-4">
+                                                            <div class="form-group form-check">
+                                                                <input type="checkbox" name="roles[]" value="{{$role->id}}" class="form-check-input" id="add-role-{{$role->id}}" 
+                                                                
+                                                                    @if(!empty($user->roles)) 
+                                                                    {{ ($user->roles->contains($role->id)) ? ' checked' : '' }}
+                                                                    @endif
+                                                                >
+                                                                <label class="form-check-label" for="add-role-{{$role->id}}">{{$role->name}}</label>
+                                                            </div>
+                                                        </div>
+                                                    @empty 
+                                                        <div class="alert alert-warning" role="alert">
+                                                            No Roles Created Yet, <small>Go to roles to create one</small>
+                                                        </div>
+                                                    @endforelse
                                                 </div>
-                                            @empty 
-                                                <div class="alert alert-warning" role="alert">
-                                                    No Roles Created Yet, <small>Go to roles to create one</small>
-                                                </div>
-                                            @endforelse
+            
+                                                @error('roles')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-    
-                                        @error('roles')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <!-- /.card-body -->
+                                
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Update User Roles</button>
+                                        </div>
+                                </div>
+                                <!-- /.card -->
+                            </form>
+                        </div>
+                        <div class="col-md-12">
+                            <!-- form start -->
+                            <form role="form" method="POST" action="{{ route('company.users.permissions.update', ['user' => $user]) }}">
+                                @method('PUT')
+                                @csrf 
+                                <!-- general form elements -->
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Edit User Direct Permissions</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+        
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="permissions">Assign Direct Permissions to User</label>
+                                            <p>
+                                                <small class="text-muted">
+                                                    Assign direct permissions to this user or first 
+                                                    (<a href="{{route('company.permissions.index')}}">create a permission</a>) to assign to this user
+                                                </small>
+                                            </p>
+                                            <div class="row">
+                                                @forelse($permissions as $permission)
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-check">
+                                                            <input type="checkbox" name="permissions[]" value="{{$permission->id}}" class="form-check-input" id="add-permission-{{$permission->id}}" 
+                                                            
+                                                                @if(!empty($user->permissions)) 
+                                                                {{ ($user->permissions->contains($permission->id)) ? ' checked' : '' }}
+                                                                @endif
+                                                            >
+                                                            <label class="form-check-label" for="add-permission-{{$permission->id}}">{{$permission->name}}</label>
+                                                        </div>
+                                                    </div>
+                                                @empty 
+                                                    <div class="alert alert-warning" role="alert">
+                                                        No Permissions Created Yet, <small>Go to permissions to create one</small>
+                                                    </div>
+                                                @endforelse
+                                            </div>
+        
+                                            @error('permissions')
+                                                <span class="text-danger" role="alert">
+                                                    <strong>*{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update User Direct Permisssions</button>
                                     </div>
                                 </div>
-                                <!-- /.card-body -->
-                        
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update User Roles</button>
-                                </div>
+                                <!-- /.card -->
+                            </form>
                         </div>
-                        <!-- /.card -->
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
