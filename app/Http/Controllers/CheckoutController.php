@@ -28,15 +28,12 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        // dd(session()->get('cart'));
         // if there's no cart or the cart in the session is empty, return back with error.
         if (!session()->has('cart')) 
         return back()->with('error', 'Your cart is empty, please go back to shopping and create a new shopping cart.');
         
         // retrieve the items from the cart.
         $cart = session()->get('cart'); 
-        // dd($cart);
-        // dd('hit index');
 
         // Delete the shop slug that was used to redirect the user here before login.
         if(session()->has('shop_slug')){
@@ -101,13 +98,13 @@ class CheckoutController extends Controller
 
         // Set the cart variables
         // All this in_the_cart values will be stored in cents
-        $tax_in_the_cart = 0; 
-        $discount_in_the_cart = 0;
-        $tax_rate_in_the_cart = 0;
-        $subtotal_in_the_cart = 0;
-        $total_in_the_cart = 0;
-        $total_products_in_the_cart = 0;
-        $all_session_products_in_the_cart = [];
+        $tax_to_put_in_the_cart = 0; 
+        $discount_to_put_in_the_cart = 0;
+        $tax_rate_to_put_in_the_cart = 0; // this value is a decimal, to 2 decimal places 
+        $subtotal_to_put_in_the_cart = 0;
+        $total_to_put_in_the_cart = 0;
+        $total_products_to_put_in_the_cart = 0;
+        $all_session_products_to_put_in_the_cart = [];
 
         $found_user_cart_product = [];
         $session_cart_product = collect();
@@ -147,51 +144,58 @@ class CheckoutController extends Controller
                 }
                 $session_cart_product->put('discounts', $product_discounts);
 
-                // convert the product to array and push it into all_session_products_in_the_cart variable above
-                array_push($all_session_products_in_the_cart, $session_cart_product->toArray());
+                // convert the product to array and push it into all_session_products_to_put_in_the_cart variable above
+                array_push($all_session_products_to_put_in_the_cart, $session_cart_product->toArray());
 
                 // First obtain the products quantity to get its total amount
                 $total_product_amount = $session_cart_product['qty'] * $session_cart_product['base_price'];
 
                 // update the variable of total products in the cart
-                $total_products_in_the_cart = $total_products_in_the_cart + $session_cart_product['qty'];
+                $total_products_to_put_in_the_cart = $total_products_to_put_in_the_cart + $session_cart_product['qty'];
 
                 // update subtotal in cart
-                $subtotal_in_the_cart = $subtotal_in_the_cart + $total_product_amount;
-
-                // calculate the tax, it they are set for this product
-                if(!empty($session_cart_product['taxes'])){
-                    $tax_in_percentage = 0;
-
-                    foreach($session_cart_product['taxes'] as $tax) {
-                        if($tax['rate_type'] == 'percentage'){
-                            $tax_in_percentage = $tax['rate']/100;// divide by 100 since the rate is stored in cents
-                        }
-                    }
-
-                    // store all the taxes that should be applied to the product
-                    $tax_in_the_cart = $tax_in_the_cart + (($tax_in_percentage / 100) * $total_product_amount);
-                }
+                $subtotal_to_put_in_the_cart = $subtotal_to_put_in_the_cart + $total_product_amount;
 
                 // calculate the discounts
+                // *Discount should be calculated before the tax, so that we can get the sum of discount we will use to subtract to get the actual tax of each product
+                $sum_of_discounts_in_currency = 0;
                 if(!empty($session_cart_product['discounts'])){
+                    
                     $discount_in_percentage = 0;
                     $discount_in_currency = 0;
 
                     foreach($session_cart_product['discounts'] as $discount) {
                         // determine the discount rate and rate_type
                         if($discount['rate_type'] == 'percentage'){
-                            $discount_in_percentage = $discount['rate']/100; // divide by 100 since the rate is stored in cents
+                            $discount_in_percentage = $discount_in_percentage + $discount['rate']/100; // divide by 100 since the rate is stored in cents.
                         } else if($discount['rate_type'] == 'currency') {
-                            $discount_in_currency = $discount['rate']/100;
+                            $discount_in_currency = $discount_in_currency + $discount['rate']; // if it is in currency, do not divide it by 100.
                         }
                     }
-
+                    
                     // Apply all the current given discounts to the product
-                    $discount_in_the_cart = $discount_in_the_cart + $discount_in_currency;
-                    $discount_in_the_cart = $discount_in_the_cart + (($discount_in_percentage / 100) * $total_product_amount);
-
+                    $sum_of_discounts_in_currency = ($discount_in_currency * $session_cart_product['qty']) 
+                        + (($discount_in_percentage / 100) * $total_product_amount);
+                    // update the discounts to put in the cart
+                    $discount_to_put_in_the_cart = $sum_of_discounts_in_currency;
                 }
+
+
+                // calculate the tax, it they are set for this product
+                $tax_in_percentage = 0;
+                if(!empty($session_cart_product['taxes'])){
+
+                    foreach($session_cart_product['taxes'] as $tax) {
+                        if($tax['rate_type'] == 'percentage'){
+                            $tax_in_percentage = $tax_in_percentage + $tax['rate']/100;// divide by 100 since the rate is stored in cents
+                        }
+                    }
+                }
+                // store all the taxes that should be applied to the product
+                // ...found by multiplying the  tax percentage with total product amount
+                // remove the discount from the total product amount to get its correct tax
+                $total_product_amount = $total_product_amount - $sum_of_discounts_in_currency; // discount remove first before getting tax
+                $tax_to_put_in_the_cart = $tax_to_put_in_the_cart + (($tax_in_percentage / 100) * $total_product_amount);
 
                 // Reset the session_cart_product
                 $session_cart_product = collect();
@@ -204,28 +208,31 @@ class CheckoutController extends Controller
         // Obtain the tax_rate
         // first deduct the discount from the subtotal to get the total after discount is removed
         // then caculate the tax rate applied
-        $total_after_discount = $subtotal_in_the_cart - $discount_in_the_cart;
-        $tax_rate_in_the_cart = ($tax_in_the_cart * 100) / $total_after_discount; // obtain rate to display in the customers receipt
+        $total_after_discount = $subtotal_to_put_in_the_cart - $discount_to_put_in_the_cart;
+        $tax_rate_to_put_in_the_cart = ($tax_to_put_in_the_cart * 100) / $total_after_discount; // obtain rate to display in the customers receipt
 
         // update total in cart
         // ...done after subtracting the total tax and total discounts from the subtotal
         // should not be a value less than 0, make sure to do that check.
-        $total_in_the_cart = $subtotal_in_the_cart - ($tax_in_the_cart + $discount_in_the_cart);
+        // to get total, first remove the discount, then add the tax
+        $total_to_put_in_the_cart = ($subtotal_to_put_in_the_cart - $discount_to_put_in_the_cart) + $tax_to_put_in_the_cart;
 
-        if($total_in_the_cart < 0) {
+        if($total_to_put_in_the_cart < 0) {
             return back()->with('error', 'There was a problem with the total amount in cart');
         }
 
         // Put all the necessary values in the cart
-        session()->put('cart.products', $all_session_products_in_the_cart);
-        session()->put('cart.tax', $tax_in_the_cart);
-        session()->put('cart.discount', $discount_in_the_cart);
-        session()->put('cart.total_products', $total_products_in_the_cart);
-        session()->put('cart.subtotal', $subtotal_in_the_cart);
-        session()->put('cart.total', $total_in_the_cart);
-        session()->put('cart.tax_rate', $tax_rate_in_the_cart);
+        // Make sure to cast all the money, percentage or currency values to int
+        session()->put('cart.products', $all_session_products_to_put_in_the_cart);
+        session()->put('cart.tax', (int)$tax_to_put_in_the_cart);
+        session()->put('cart.discount', (int)$discount_to_put_in_the_cart);
+        session()->put('cart.total_products', (int)$total_products_to_put_in_the_cart);
+        session()->put('cart.subtotal', (int)$subtotal_to_put_in_the_cart);
+        session()->put('cart.total', (int)$total_to_put_in_the_cart);
 
-        // dd(session()->get('cart'));
+        // tax rate is a decimal, round it to 2 decimal places before inserting it into the cart.
+        $tax_rate_to_put_in_the_cart = round($tax_rate_to_put_in_the_cart, 2);
+        session()->put('cart.tax_rate', $tax_rate_to_put_in_the_cart); 
 
         if (request()->expectsJson()) {
             return response([

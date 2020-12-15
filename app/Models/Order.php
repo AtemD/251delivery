@@ -52,12 +52,17 @@ class Order extends Model
         return $this->belongsTo('App\Models\OrderStatus');
     }
 
+    public function orderPaymentStatus()
+    {
+        return $this->belongsTo('App\Models\OrderPaymentStatus');
+    }
+
     /**
      * The products that belong to an order.
      */
     public function products()
     {
         return $this->belongsToMany('App\Models\Product', 'order_has_products', 'order_id', 'product_id')
-            ->withPivot('quantity', 'amount', 'special_request', 'taxes', 'discounts')->withTimestamps();
+            ->withPivot('quantity', 'amount', 'special_request', 'taxes', 'discounts'); //->withTimestamps();
     }
 }

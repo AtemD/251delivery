@@ -29,6 +29,8 @@ class CreateOrdersTable extends Migration
                 ->references('id')
                 ->on('shops')
                 ->onDelete('cascade');
+
+            $table->json('cart');
             
             $table->tinyInteger('order_type_id')->unsigned();
             $table->foreign('order_type_id')

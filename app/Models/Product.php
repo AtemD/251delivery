@@ -32,7 +32,7 @@ class Product extends Model
 
     public function taxes()
     {
-        return $this->belongsToMany('App\Models\Tax', 'product_has_tax', 'product_id', 'tax_id')->withTimestamps();
+        return $this->belongsToMany('App\Models\Tax', 'product_has_tax', 'product_id', 'tax_id');//->withTimestamps();
     }
 
     public function discounts()
