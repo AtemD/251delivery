@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CurrenciesTableSeeder::class);
         $this->call(ShopAccountStatusesTableSeeder::class);
         $this->call(OrderStatusesTableSeeder::class);
+        $this->call(PaymentStatusesTableSeeder::class);
         $this->call(UserAccountStatusesTableSeeder::class);
         $this->call(OrderTypesTableSeeder::class);
         $this->call(PaymentMethodsTableSeeder::class);
@@ -43,8 +44,8 @@ class DatabaseSeeder extends Seeder
         $this->call(DiscountsTableSeeder::class);
         
         $this->call(ProductsTableSeeder::class);
-        $this->call(ProductHasTaxTableSeeder::class);
-        $this->call(ProductHasDiscountTableSeeder::class);
+        $this->call(ProductHasTaxesTableSeeder::class);
+        $this->call(ProductHasDiscountsTableSeeder::class);
 
         $this->call(OrdersTableSeeder::class);
         $this->call(OrderHasProductsTableSeeder::class);

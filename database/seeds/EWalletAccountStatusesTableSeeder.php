@@ -12,6 +12,8 @@ class EWalletAccountStatusesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('e_wallet_account_statuses')->truncate();
 
         factory(EWalletAccountStatus::class)->create([
             'name' => EWalletAccountStatus::VERIFIED_ACCOUNT,
@@ -30,5 +32,7 @@ class EWalletAccountStatusesTableSeeder extends Seeder
         ]);
 
         // Other statuses based on activity: dormant, active
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

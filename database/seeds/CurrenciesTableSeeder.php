@@ -12,6 +12,8 @@ class CurrenciesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('currencies')->truncate();
 
         factory(Currency::class)->create([
             'name' => Currency::ETHIOPIAN_BIRR,
@@ -22,5 +24,7 @@ class CurrenciesTableSeeder extends Seeder
         //     'name' => Currency::SOUTH_SUDANESE_POUND,
         //     'abbreviation' => 'SSP',
         // ]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

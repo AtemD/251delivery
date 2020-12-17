@@ -13,15 +13,18 @@ class OrderStatusesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('order_statuses')->truncate();
+
         // Name, description, color
         factory(OrderStatus::class)->create([
-            'name' => OrderStatus::PENDING_ORDER,
+            'name' => OrderStatus::NEW_ORDER,
             'description' => 'a new order',
             'color' => 'info'
         ]);
         factory(OrderStatus::class)->create([
-            'name' => OrderStatus::APPROVED_ORDER,
-            'description' => 'an accepted order',
+            'name' => OrderStatus::IN_PROGRESS_ORDER,
+            'description' => 'an order that is in progress',
             'color' => 'primary'
         ]);
         factory(OrderStatus::class)->create([
@@ -49,5 +52,12 @@ class OrderStatusesTableSeeder extends Seeder
             'description' => 'an order cancelled by the customer before it is approved',
             'color' => 'danger'
         ]);
+        factory(OrderStatus::class)->create([
+            'name' => OrderStatus::EXPIRED_ORDER,
+            'description' => 'an order is expired if it wasnt accepted withing a specific time frame',
+            'color' => 'danger'
+        ]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

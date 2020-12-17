@@ -13,6 +13,9 @@ class UserAccountStatusesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('user_account_statuses')->truncate();
+
         factory(UserAccountStatus::class)->create([
             'name' => User::VERIFIED_USER,
             'description' => 'user account is verified',
@@ -28,5 +31,7 @@ class UserAccountStatusesTableSeeder extends Seeder
             'description' => 'user account is deactivated',
             'color' => 'danger'
         ]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

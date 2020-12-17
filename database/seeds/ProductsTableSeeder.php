@@ -13,6 +13,9 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('products')->truncate();
+
         $shops = Shop::all();
         $cuisines = Cuisine::all();
 
@@ -30,5 +33,6 @@ class ProductsTableSeeder extends Seeder
             
         });
         
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

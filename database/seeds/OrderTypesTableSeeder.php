@@ -12,6 +12,9 @@ class OrderTypesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('order_types')->truncate();
+
         factory(OrderType::class)->create([
             'name' => 'delivery',
             'description' => 'users order is delivered to their location',
@@ -21,5 +24,7 @@ class OrderTypesTableSeeder extends Seeder
             'name' => 'pickup',
             'description' => 'user picks up their order at the shop',
         ]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

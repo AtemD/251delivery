@@ -15,6 +15,9 @@ class UserLocationsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('user_locations')->truncate();
+
         $faker = Faker::create();
 
         $location = UserLocation::class;
@@ -32,5 +35,7 @@ class UserLocationsTableSeeder extends Seeder
                 'user_id' =>$user->id,
             ]);
         });
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

@@ -12,6 +12,9 @@ class TaxesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('taxes')->truncate();
+
         $shops = Shop::all();
 
         $shops->each(function($shop) {
@@ -23,5 +26,7 @@ class TaxesTableSeeder extends Seeder
                 ]);
             }
         });
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

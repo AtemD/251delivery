@@ -15,6 +15,9 @@ class ShopLocationsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('shop_locations')->truncate();
+
         $faker = Faker::create();
 
         $location = ShopLocation::class;
@@ -32,5 +35,7 @@ class ShopLocationsTableSeeder extends Seeder
                 'shop_id' =>$shop->id,
             ]);
         });
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

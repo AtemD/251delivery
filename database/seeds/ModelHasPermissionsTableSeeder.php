@@ -14,6 +14,9 @@ class ModelHasPermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('model_has_permissions')->truncate();
+
         $users = User::doesntHave('roles')->get();
 
         $random_user = $users->random();
@@ -24,5 +27,6 @@ class ModelHasPermissionsTableSeeder extends Seeder
         $shop = Shop::first();
         $random_user->shops()->sync($shop);
         
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

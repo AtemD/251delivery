@@ -1,7 +1,9 @@
 <?php
 
-use App\Models\Order;
+use Carbon\Carbon;
 use App\Models\Shop;
+use App\Models\Order;
+use App\Models\PaymentStatus;
 use Illuminate\Database\Seeder;
 
 class OrderHasProductsTableSeeder extends Seeder
@@ -20,8 +22,6 @@ class OrderHasProductsTableSeeder extends Seeder
         // $shops = Shop::all();
 
         $orders->each(function($order){
-            
-
             // Get the shop linked to this order
             $shop = \App\Models\Shop::findOrFail($order->shop_id);
 
@@ -112,11 +112,31 @@ class OrderHasProductsTableSeeder extends Seeder
 
             // update the cart total, by removing the discount, then adding the tax
             $order_cart['total'] = ($order_cart['subtotal'] - $order_cart['discount']) + $order_cart['tax'];
+
+            // Update this orders table
+            // update some essential columns to realistic values.
+            $payment_statuses = PaymentStatus::all()->pluck('id');
+
+            // Set a random time the order was placed
+            // e.g time within the last hour
+            $year = 2020; // this year
+            $month = 12; // this month
+            $date = 17; // this day
+            $hours = mt_rand(0, 23); // between 00hrs and 23hrs
+            $mins = mt_rand(0, 59); // between 0 and 59
+            $secs = mt_rand(0, 59);
+            $random_date_and_time = Carbon::create($year, $month, $date, $hours, $mins, $secs);
+
+            $order->update([
+                'cart' => $order_cart,
+                'payment_status_id' => $payment_statuses->random(),
+                'created_at' => $random_date_and_time,
+            ]);
+
+            // ***try seeding today, within the last 3 or 5 mins, to see if the scheduler will change the status to expired
+            // columns: payment_status, created_at, updated_at
         });
 
-        // Update this orders table
-
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
     }
 }

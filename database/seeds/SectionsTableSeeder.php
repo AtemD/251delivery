@@ -12,6 +12,9 @@ class SectionsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('sections')->truncate();
+
         $shops = Shop::all();
 
         $shops->each(function($shop) {
@@ -19,5 +22,7 @@ class SectionsTableSeeder extends Seeder
                 'shop_id' => $shop->id,
             ]);
         });
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

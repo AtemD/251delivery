@@ -13,6 +13,8 @@ class ShopAccountStatusesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('shop_account_statuses')->truncate();
 
         factory(ShopAccountStatus::class)->create([
             'name' => Shop::VERIFIED_SHOP,
@@ -29,5 +31,7 @@ class ShopAccountStatusesTableSeeder extends Seeder
             'description' => 'shop account is deactivated',
             'color' => 'danger'
         ]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

@@ -12,6 +12,9 @@ class CuisinesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('cuisines')->truncate();
+
         factory(Cuisine::class)->create([
             'name' => 'Ethiopian',
             'description' => 'Ethiopian style meals',
@@ -46,5 +49,7 @@ class CuisinesTableSeeder extends Seeder
             'name' => 'Indian',
             'description' => 'Indian style meals',
         ]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
