@@ -59,7 +59,7 @@ class PlaceOrderController extends Controller
         $cart = session()->get('cart');
         $shop_id = $products[0]['shop_id']; 
 
-        $order_status = OrderStatus::where('name', OrderStatus::PENDING_ORDER)->firstOrFail();
+        $order_status = OrderStatus::where('name', OrderStatus::NEW_ORDER)->firstOrFail();
 
         // Determine which payment method has been chosen.
         switch ($chosen_payment_method->name) {
@@ -136,11 +136,11 @@ class PlaceOrderController extends Controller
 
                 // Check the Ewallet account state is 'active'
                 if(!$this->EWalletAccountIsActive($authenticated_user->EWalletAccount)) 
-                return back()->with('error', 'Your e-wallet account is currently not active, please contact us for help.');
+                return back()->with('error', 'Your e-wallet account is currently not active, please contact us for help on activation.');
 
                 // Check the Ewallet account status is 'verified'
                 if(!$this->EWalletAccountIsVerified($authenticated_user->EWalletAccount)) 
-                return back()->with('error', 'Your e-wallet account is currently not verified, please contact us for help.');
+                return back()->with('error', 'Your e-wallet account is currently not verified, please contact us for help on verification.');
 
                 // Ensure that the e-wallet account is within acceptable range
                 // send the modified account balance since this function converts it to cents for comparison with the ranges.

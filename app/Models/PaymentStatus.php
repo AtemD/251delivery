@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OrderPaymentStatus extends Model
+class PaymentStatus extends Model
 {
-    const PAID_ORDER = 'paid';
-    const REQUEST_REFUND_ORDER = 'request refund';
-    const REFUNDED_ORDER = 'refunded';
+    const PENDING_PAYMENT = 'pending';
+    const PAID_PAYMENT = 'paid';
+    const REFUNDED_PAYMENT = 'refunded';
+    const REQUEST_REFUND_PAYMENT = 'request refund';
     
     /**
      * The attributes that are mass assignable.
@@ -22,5 +23,10 @@ class OrderPaymentStatus extends Model
     public function orders()
     {
         $this->hasMany('App\Models\Order');
+    }
+
+    public function earningsReport()
+    {
+        $this->hasMany('App\Models\EarningReport');
     }
 }

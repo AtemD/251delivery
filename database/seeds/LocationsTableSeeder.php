@@ -16,6 +16,9 @@ class LocationsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('locations')->truncate();
+
         $faker = Faker::create();
 
         $location = Location::class;
@@ -46,5 +49,7 @@ class LocationsTableSeeder extends Seeder
                 'locationable_type' =>'users',
             ]);
         });
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

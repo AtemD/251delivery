@@ -156,6 +156,11 @@ class Shop extends Model
         return $this->belongsToMany('App\User', 'shop_has_users', 'shop_id', 'user_id');
     }
 
+    public function earningsReport()
+    {
+        return $this->hasMany('App\Models\EarningReport');
+    }
+
     /**
      * Scope a query to only include shops of a given status.
      *

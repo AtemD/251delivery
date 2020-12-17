@@ -16,6 +16,7 @@ class OrderStatus extends Model
     const COMPLETED_ORDER = 'completed';
     const REJECTED_ORDER = 'rejected'; // rejected by the restaurant/shop
     const CANCELLED_ORDER = 'cancelled'; // cancelled by the user who placed the order
+    const EXPIRED_ORDER = 'expired'; // expired since it wasn't accepted withing time limit
     
     /**
      * The attributes that are mass assignable.

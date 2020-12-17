@@ -30,7 +30,7 @@ class CreateOrdersTable extends Migration
                 ->on('shops')
                 ->onDelete('cascade');
 
-            $table->json('cart');
+            $table->json('cart')->nullable();
             
             $table->tinyInteger('order_type_id')->unsigned();
             $table->foreign('order_type_id')
@@ -54,6 +54,12 @@ class CreateOrdersTable extends Migration
                     ->references('id')
                     ->on('order_statuses')
                     ->onDelete('cascade');
+
+            $table->tinyInteger('payment_status_id')->nullable()->unsigned();
+            $table->foreign('payment_status_id')
+                ->references('id')
+                ->on('payment_statuses')
+                ->onDelete('cascade');
     
             $table->bigInteger('status_by')->nullable()->unsigned();
                 $table->foreign('status_by')
