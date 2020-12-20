@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'PagesController@welcome')->name('pages.welcome');
 
 Auth::routes();
+// Auth::routes(['verify' => true]);
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
