@@ -115,9 +115,9 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('retailer.shops.accounts.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.shops.accounts.*')) ? 'active' : '' }}">
+                    <a href="{{ route('retailer.opening-hours.index', ['shop' => $shop]) }}" class="nav-link {{ (request()->routeIs('retailer.opening-hours.*')) ? 'active' : '' }}">
                       <i class="fas fa-circle nav-icon"></i>
-                      <p>Business Hours</p>
+                      <p>Opening Hours</p>
                     </a>
                   </li>
                   <li class="nav-item">

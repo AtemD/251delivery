@@ -29,6 +29,11 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => Permission::DELETE_PRODUCTS]);
         Permission::create(['name' => Permission::VIEW_PRODUCTS]);
 
+        Permission::create(['name' => Permission::CREATE_OPENING_HOURS]);
+        Permission::create(['name' => Permission::UPDATE_OPENING_HOURS]);
+        Permission::create(['name' => Permission::DELETE_OPENING_HOURS]);
+        Permission::create(['name' => Permission::VIEW_OPENING_HOURS]);
+
         Permission::create(['name' => Permission::CREATE_SHOPS]);
         Permission::create(['name' => Permission::UPDATE_SHOPS]);
         Permission::create(['name' => Permission::DELETE_SHOPS]);

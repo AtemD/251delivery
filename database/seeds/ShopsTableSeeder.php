@@ -28,12 +28,36 @@ class ShopsTableSeeder extends Seeder
           factory('App\Models\Shop')->create([
             'shop_type_id' => $shop_type->id,
             'shop_account_status_id' => $shop_account_statuses->random()->id,
+            'opening_hours' => [
+              'monday' => ['09:00-18:00'],
+              'tuesday' => ['09:00-18:00'],
+              'wednesday' => ['09:00-12:00'],
+              'thursday' => ['09:00-18:00'],
+              'friday' => ['09:00-18:00'],
+              'saturday' => ['09:00-18:00'],
+              'sunday' => [],
+            ],
           ]);
         }
 
       });
 
       DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+      // Here we change the new orders to expired
+      // foreach(Shop::all() as $shop){
+      //   $shop->update([
+      //     'opening_hours' => [
+      //         'monday' => ['09:00-18:00'],
+      //         'tuesday' => ['09:00-18:00'],
+      //         'wednesday' => ['09:00-12:00'],
+      //         'thursday' => ['09:00-18:00'],
+      //         'friday' => ['09:00-18:00'],
+      //         'saturday' => ['09:00-18:00'],
+      //         'sunday' => [],
+      //       ],
+      //   ]);
+      // }
 
     }
 }

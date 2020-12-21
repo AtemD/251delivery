@@ -16,14 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'PagesController@welcome')->name('pages.welcome');
 
 Auth::routes();
-// Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);// for users to verify their emails before they login
 
 // Route::get('/home', 'HomeController@index')->name('home');
-
-
-
-// Route::get('/shops/filter-results', 'ShopSearchController@filter')
-// ->name('shops.filters');
 
 // Shops Routes
 Route::get('/shops', 'ShopsController@index')
@@ -44,10 +39,6 @@ Route::post('/place-order', 'PlaceOrderController@store')
 // Thank you
 Route::get('/thank-you', 'ThankYouController@index')
 ->name('thank-you.index');
-
-
-
-
 
 
 // BUYER ROUTES
@@ -365,6 +356,18 @@ Route::put('/dashboard/retailer/shops/{shop}/settings/taxes/{tax}', 'Retailer\Sh
 ->name('retailer.taxes.update');
 Route::delete('/dashboard/retailer/shops/{shop}/settings/taxes/{tax}', 'Retailer\ShopTaxesController@destroy')
 ->name('retailer.taxes.destroy');
+
+// Retailer opening hours opening-hours
+Route::get('/dashboard/retailer/shops/{shop}/settings/opening-hours', 'Retailer\ShopOpeningHoursController@index')
+->name('retailer.opening-hours.index');
+// Route::post('/dashboard/retailer/shops/{shop}/settings/opening-hours', 'Retailer\ShopOpeningHoursController@store')
+// ->name('retailer.opening-hours.store');
+Route::get('/dashboard/retailer/shops/{shop}/settings/opening-hours/edit', 'Retailer\ShopOpeningHoursController@edit')
+->name('retailer.opening-hours.edit');
+Route::put('/dashboard/retailer/shops/{shop}/settings/opening-hours', 'Retailer\ShopOpeningHoursController@update')
+->name('retailer.opening-hours.update');
+// Route::delete('/dashboard/retailer/shops/{shop}/settings/opening-hours', 'Retailer\ShopOpeningHoursController@destroy')
+// ->name('retailer.opening-hours.destroy');
 
 // Retailer discounts
 Route::get('/dashboard/retailer/shops/{shop}/settings/discounts', 'Retailer\ShopDiscountsController@index')

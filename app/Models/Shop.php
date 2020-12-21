@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Spatie\Sluggable\HasSlug;
 use App\Traits\Paginatable;
+use Spatie\Sluggable\HasSlug;
 use App\Scopes\NoficationScope;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\OpeningHours\OpeningHours;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -21,7 +22,11 @@ class Shop extends Model
     protected $fillable = [
         'name', 'slug', 'description', 'email', 'phone_number', 
         'shop_type_id', 'banner_image', 'logo_image', 'average_preparation_time',
-        'shop_account_status_id', 'is_available', 'status_by', 'status_date'
+        'shop_account_status_id', 'is_available', 'status_by', 'status_date', 'opening_hours'
+    ];
+
+    protected $casts = [
+        'opening_hours' => 'array',
     ];
 
     // protected $guarded = [];
@@ -89,6 +94,23 @@ class Shop extends Model
     public function getMaxFoodPreparationTimeAttribute()
     {
         return collect(explode('-', $this->average_preparation_time))->last();
+    }
+
+    /**
+     * with this method, you will be able to use it like
+     *
+     * $model->openingHours()->isOpenAt(new DateTime('2016-12-25'))
+     * 
+     * to update opening hours use: 
+     * 
+     * $model->update([
+     *  'opening_hours' => $openingHoursArray,
+     * ]);
+     * 
+     */ 
+    public function getModifiedOpeningHoursAttribute()
+    {
+        return OpeningHours::create($this->opening_hours ?: []);
     }
 
     public function isVerified()

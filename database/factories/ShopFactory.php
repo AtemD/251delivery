@@ -38,6 +38,15 @@ $factory->define(Shop::class, function (Faker $faker) {
 		'shop_account_status_id' => function() {
     		return factory('App\Models\ShopAccountStatus')->create()->id;
     	},
-        'is_available' => rand(0,1) == 1
+		'is_available' => rand(0,1) == 1,
+		'opening_hours' => [
+			'monday' => ['09:00-12:00', '13:00-18:00'],
+			'tuesday' => ['09:00-12:00', '13:00-18:00'],
+			'wednesday' => ['09:00-12:00'],
+			'thursday' => ['09:00-12:00', '13:00-18:00'],
+			'friday' => ['09:00-12:00', '13:00-18:00'],
+			'saturday' => ['09:00-12:00', '13:00-18:00'],
+			'sunday' => [],
+        ],
     ];
 });

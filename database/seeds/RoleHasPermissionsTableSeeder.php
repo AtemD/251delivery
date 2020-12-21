@@ -45,6 +45,11 @@ class RoleHasPermissionsTableSeeder extends Seeder
             Permission::DELETE_PRODUCTS,
             Permission::VIEW_PRODUCTS,
 
+            // Permission::CREATE_OPENING_HOURS,
+            Permission::UPDATE_OPENING_HOURS,
+            // Permission::DELETE_OPENING_HOURS,
+            Permission::VIEW_OPENING_HOURS,
+
             Permission::CREATE_SHOPS,
             Permission::UPDATE_SHOPS,
             Permission::DELETE_SHOPS,

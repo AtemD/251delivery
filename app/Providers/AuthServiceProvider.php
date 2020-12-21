@@ -32,6 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Section' => 'App\Policies\SectionPolicy',
         'App\Models\Permission' => 'App\Policies\PermissionPolicy',
         'App\Models\EWalletAccount' => 'App\Policies\EWalletAccountPolicy',
+        'Spatie\OpeningHours\OpeningHours' => 'App\Policies\OpeningHourPolicy',
         'App\User' => 'App\Policies\UserPolicy',
     ];
 

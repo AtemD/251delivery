@@ -34,6 +34,8 @@ class CreateShopsTable extends Migration
             $table->tinyInteger('max_product_preparation_time');
             $table->boolean('is_available')->default(0);
 
+            $table->json('opening_hours')->nullable();
+
             $table->tinyInteger('shop_account_status_id')->nullable()->unsigned();
                 $table->foreign('shop_account_status_id')
                     ->references('id')

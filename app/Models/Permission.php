@@ -31,6 +31,12 @@ class Permission extends SpatiePermission
     const ACCESS_RETAILER_DASHBOARD = 'access retailer dashboard';
     const ACCESS_RIDER_DASHBOARD = 'access rider dashboard';
 
+    // Permissions Permissions
+    const CREATE_OPENING_HOURS = 'create opening hours';
+    const UPDATE_OPENING_HOURS = 'update opening hours';
+    const DELETE_OPENING_HOURS = 'delete opening hours';
+    const VIEW_OPENING_HOURS = 'view opening hours';
+
     // Shop Permissions
     const CREATE_SHOPS = 'create shops';
     const UPDATE_SHOPS = 'update shops';
